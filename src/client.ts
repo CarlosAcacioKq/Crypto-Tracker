@@ -1280,8 +1280,8 @@ class CryptoApp {
         const adjustment = currentPrice / lastGenerated;
         
         for (let i = Math.max(0, history.length - smoothingPoints); i < history.length; i++) {
-            const weight = (i - (history.length - smoothingPoints)) / smoothingPoints; // 0 to 1
-            const adjustmentFactor = 1 + (adjustment - 1) * weight * 0.7; // 70% adjustment
+            const weight: number = (i - (history.length - smoothingPoints)) / smoothingPoints; // 0 to 1
+            const adjustmentFactor: number = 1 + (adjustment - 1) * weight * 0.7; // 70% adjustment
             history[i] = history[i] * adjustmentFactor;
         }
         
@@ -1312,8 +1312,8 @@ class CryptoApp {
         
         // Smooth transition to current volume
         for (let i = Math.max(0, history.length - 3); i < history.length; i++) {
-            const weight = (i - (history.length - 3)) / 2; // 0 to 1
-            const currentVal = history[i];
+            const weight: number = (i - (history.length - 3)) / 2; // 0 to 1
+            const currentVal: number = history[i];
             history[i] = currentVal + (currentVolume - currentVal) * weight * 0.6;
         }
         

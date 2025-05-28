@@ -1,184 +1,151 @@
 // TODO: Implement PriceChart component
 export class PriceChart {
-    private canvas: HTMLCanvasElement;
-    private ctx: CanvasRenderingContext2D;
-    private data: number[];
-    private labels: string[];
-    private chartType: 'line' | 'candlestick' | 'volume';
-
-    constructor(canvas: HTMLCanvasElement, chartType: 'line' | 'candlestick' | 'volume' = 'line') {
-        this.canvas = canvas;
-        this.ctx = canvas.getContext('2d')!;
-        this.data = [];
-        this.labels = [];
-        this.chartType = chartType;
-        this.setupCanvas();
-    }
-
-    private setupCanvas() {
-        const rect = this.canvas.getBoundingClientRect();
-        this.canvas.width = rect.width * 2;
-        this.canvas.height = rect.height * 2;
-        this.ctx.scale(2, 2);
-        this.canvas.style.width = `${rect.width}px`;
-        this.canvas.style.height = `${rect.height}px`;
-    }
-
-    updateData(data: number[], labels?: string[]) {
-        this.data = data;
-        this.labels = labels || data.map((_, i) => `${i + 1}`);
-        this.render();
-    }
-
-    private render() {
-        this.ctx.clearRect(0, 0, this.canvas.width / 2, this.canvas.height / 2);
-        
-        if (this.data.length === 0) return;
-
-        switch (this.chartType) {
-            case 'line':
-                this.renderLineChart();
-                break;
-            case 'candlestick':
-                this.renderCandlestickChart();
-                break;
-            case 'volume':
-                this.renderVolumeChart();
-                break;
+    constructor(
+        private priceData: number[],
+        private timeLabels: string[],
+        private options?: {
+            width?: number;
+            height?: number;
+            color?: string;
         }
-    }
+    ) {}
 
-    private renderLineChart() {
-        const padding = 40;
-        const width = this.canvas.width / 2 - padding * 2;
-        const height = this.canvas.height / 2 - padding * 2;
-        
-        const minValue = Math.min(...this.data);
-        const maxValue = Math.max(...this.data);
-        const range = maxValue - minValue || 1;
+    render(containerId: string): string {
+        const width = this.options?.width || 400;
+        const height = this.options?.height || 200;
+        const color = this.options?.color || '#00d4ff';
 
-        // Draw grid
-        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-        this.ctx.lineWidth = 1;
-        for (let i = 0; i <= 5; i++) {
-            const y = padding + (height / 5) * i;
-            this.ctx.beginPath();
-            this.ctx.moveTo(padding, y);
-            this.ctx.lineTo(padding + width, y);
-            this.ctx.stroke();
+        if (this.priceData.length === 0) {
+            return `
+                <div id="${containerId}" class="price-chart-container">
+                    <div class="chart-placeholder">No data available</div>
+                </div>
+            `;
         }
 
-        // Draw price line
-        this.ctx.strokeStyle = '#00d4ff';
-        this.ctx.lineWidth = 2;
-        this.ctx.beginPath();
+        const min = Math.min(...this.priceData);
+        const max = Math.max(...this.priceData);
+        const range = max - min;
 
-        this.data.forEach((value, index) => {
-            const x = padding + (width / (this.data.length - 1)) * index;
-            const y = padding + height - ((value - minValue) / range) * height;
-            
-            if (index === 0) {
-                this.ctx.moveTo(x, y);
-            } else {
-                this.ctx.lineTo(x, y);
-            }
-        });
-
-        this.ctx.stroke();
-
-        // Add gradient fill
-        this.ctx.lineTo(padding + width, padding + height);
-        this.ctx.lineTo(padding, padding + height);
-        this.ctx.closePath();
-        
-        const gradient = this.ctx.createLinearGradient(0, padding, 0, padding + height);
-        gradient.addColorStop(0, 'rgba(0, 212, 255, 0.3)');
-        gradient.addColorStop(1, 'rgba(0, 212, 255, 0.05)');
-        this.ctx.fillStyle = gradient;
-        this.ctx.fill();
-
-        // Draw price labels
-        this.ctx.fillStyle = '#b8c6db';
-        this.ctx.font = '10px -apple-system, BlinkMacSystemFont, sans-serif';
-        this.ctx.textAlign = 'right';
-        
-        for (let i = 0; i <= 5; i++) {
-            const value = maxValue - (range / 5) * i;
-            const y = padding + (height / 5) * i + 3;
-            this.ctx.fillText(`$${value.toFixed(2)}`, padding - 5, y);
+        if (range === 0) {
+            return `
+                <div id="${containerId}" class="price-chart-container">
+                    <div class="chart-placeholder">Price stable at $${this.priceData[0].toFixed(2)}</div>
+                </div>
+            `;
         }
+
+        const points = this.priceData.map((price, index) => {
+            const x = (index / (this.priceData.length - 1)) * width;
+            const y = height - ((price - min) / range) * height;
+            return `${x},${y}`;
+        }).join(' ');
+
+        const gradientId = `gradient-${containerId}`;
+
+        return `
+            <div id="${containerId}" class="price-chart-container" style="width: ${width}px; height: ${height}px;">
+                <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+                    <defs>
+                        <linearGradient id="${gradientId}" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:${color};stop-opacity:0.4" />
+                            <stop offset="100%" style="stop-color:${color};stop-opacity:0" />
+                        </linearGradient>
+                    </defs>
+                    <polyline
+                        fill="url(#${gradientId})"
+                        stroke="${color}"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        points="${points}"
+                    />
+                    <polyline
+                        fill="none"
+                        stroke="${color}"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        points="${points}"
+                    />
+                </svg>
+                <div class="chart-info">
+                    <span class="chart-min">$${min.toFixed(2)}</span>
+                    <span class="chart-max">$${max.toFixed(2)}</span>
+                </div>
+            </div>
+        `;
     }
 
-    private renderCandlestickChart() {
-        const padding = 40;
-        const width = this.canvas.width / 2 - padding * 2;
-        const height = this.canvas.height / 2 - padding * 2;
-        
-        // Generate mock OHLC data from price data
-        const candleData = this.generateCandlestickData();
-        const minValue = Math.min(...candleData.map(c => c.low));
-        const maxValue = Math.max(...candleData.map(c => c.high));
-        const range = maxValue - minValue || 1;
+    static renderMiniChart(prices: number[], color: string = '#00d4ff'): string {
+        if (prices.length === 0) return '<div class="mini-chart-placeholder">--</div>';
 
-        const candleWidth = Math.max(2, width / candleData.length * 0.6);
+        const min = Math.min(...prices);
+        const max = Math.max(...prices);
+        const range = max - min;
 
-        candleData.forEach((candle, index) => {
-            const x = padding + (width / candleData.length) * index + (width / candleData.length) / 2;
-            const openY = padding + height - ((candle.open - minValue) / range) * height;
-            const closeY = padding + height - ((candle.close - minValue) / range) * height;
-            const highY = padding + height - ((candle.high - minValue) / range) * height;
-            const lowY = padding + height - ((candle.low - minValue) / range) * height;
+        if (range === 0) return '<div class="mini-chart-placeholder">--</div>';
 
-            const isGreen = candle.close >= candle.open;
-            this.ctx.strokeStyle = isGreen ? '#10b981' : '#ef4444';
-            this.ctx.fillStyle = isGreen ? '#10b981' : '#ef4444';
+        const points = prices.map((price, index) => {
+            const x = (index / (prices.length - 1)) * 100;
+            const y = 100 - ((price - min) / range) * 100;
+            return `${x},${y}`;
+        }).join(' ');
 
-            // Draw wick
-            this.ctx.lineWidth = 1;
-            this.ctx.beginPath();
-            this.ctx.moveTo(x, highY);
-            this.ctx.lineTo(x, lowY);
-            this.ctx.stroke();
-
-            // Draw body
-            const bodyHeight = Math.abs(closeY - openY);
-            const bodyY = Math.min(openY, closeY);
-            this.ctx.fillRect(x - candleWidth / 2, bodyY, candleWidth, bodyHeight || 1);
-        });
+        return `
+            <div class="mini-chart">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <polyline
+                        fill="none"
+                        stroke="${color}"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        points="${points}"
+                    />
+                </svg>
+            </div>
+        `;
     }
+}
 
-    private renderVolumeChart() {
-        const padding = 40;
-        const width = this.canvas.width / 2 - padding * 2;
-        const height = this.canvas.height / 2 - padding * 2;
-        
-        const maxVolume = Math.max(...this.data);
-        const barWidth = width / this.data.length * 0.8;
+export interface PriceChartProps {
+    data: number[];
+    width?: number;
+    height?: number;
+    color?: string;
+}
 
-        this.data.forEach((volume, index) => {
-            const x = padding + (width / this.data.length) * index + (width / this.data.length) / 2;
-            const barHeight = (volume / maxVolume) * height;
-            const y = padding + height - barHeight;
-
-            this.ctx.fillStyle = index % 2 === 0 ? '#4facfe' : '#00f2fe';
-            this.ctx.fillRect(x - barWidth / 2, y, barWidth, barHeight);
-        });
+export function createPriceChart(props: PriceChartProps): HTMLElement {
+    const { data, width = 300, height = 150, color = '#00d4ff' } = props;
+    
+    const container = document.createElement('div');
+    container.style.cssText = `width:${width}px;height:${height}px;position:relative`;
+    
+    if (data.length < 2) {
+        container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#666">No data</div>';
+        return container;
     }
-
-    private generateCandlestickData() {
-        return this.data.map((price, index) => {
-            const volatility = price * 0.02; // 2% volatility
-            const open = index > 0 ? this.data[index - 1] : price;
-            const close = price;
-            const high = Math.max(open, close) + Math.random() * volatility;
-            const low = Math.min(open, close) - Math.random() * volatility;
-            
-            return { open, high, low, close };
-        });
-    }
-
-    setChartType(type: 'line' | 'candlestick' | 'volume') {
-        this.chartType = type;
-        this.render();
-    }
+    
+    const min = Math.min(...data);
+    const max = Math.max(...data);
+    const range = max - min || 1;
+    
+    const points = data.map((price, index) => {
+        const x = (index / (data.length - 1)) * width;
+        const y = height - ((price - min) / range) * height;
+        return `${x},${y}`;
+    }).join(' ');
+    
+    container.innerHTML = `
+        <svg width="${width}" height="${height}" style="position:absolute;top:0;left:0">
+            <polyline points="${points}" 
+                      fill="none" 
+                      stroke="${color}" 
+                      stroke-width="2" 
+                      stroke-linecap="round"/>
+        </svg>
+    `;
+    
+    return container;
 }

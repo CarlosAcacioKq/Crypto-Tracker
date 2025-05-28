@@ -1,10 +1,9 @@
 {
   "version": 2,
   "name": "crypto-tracker-pro",
-  "alias": ["caproject-cryptotracker.com", "www.caproject-cryptotracker.com"],
   "builds": [
     {
-      "src": "src/app.ts",
+      "src": "dist/app.js",
       "use": "@vercel/node"
     },
     {
@@ -15,7 +14,15 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/src/app.ts"
+      "dest": "/dist/app.js"
+    },
+    {
+      "src": "/styles/(.*)",
+      "dest": "/public/styles/$1"
+    },
+    {
+      "src": "/bundle.js",
+      "dest": "/public/bundle.js"
     },
     {
       "src": "/(.*)",
@@ -26,27 +33,8 @@
     "NODE_ENV": "production"
   },
   "functions": {
-    "src/app.ts": {
-      "memory": 1024
+    "dist/app.js": {
+      "maxDuration": 10
     }
-  },
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
-      ]
-    }
-  ]
+  }
 }
