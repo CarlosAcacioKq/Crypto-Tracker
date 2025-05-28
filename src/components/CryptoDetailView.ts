@@ -94,3 +94,5 @@ export function createCryptoDetailView(props: CryptoDetailViewProps): HTMLElemen
     
     return modal;
 }
+
+export default createCryptoDetailView;

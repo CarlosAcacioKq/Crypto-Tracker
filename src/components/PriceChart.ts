@@ -149,3 +149,5 @@ export function createPriceChart(props: PriceChartProps): HTMLElement {
     
     return container;
 }
+
+export default createPriceChart;

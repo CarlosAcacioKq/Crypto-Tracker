@@ -49,3 +49,5 @@ export function createMarketOverviewChart(props: MarketOverviewChartProps): HTML
     
     return container;
 }
+
+export default createMarketOverviewChart;
