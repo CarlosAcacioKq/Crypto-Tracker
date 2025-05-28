@@ -4,8 +4,8 @@
   "description": "Professional cryptocurrency tracking web application",
   "main": "dist/app.js",
   "scripts": {
-    "start": "npm run build && node dist/app.js",
-    "build": "npm run clean && npm run build-essential",
+    "start": "node dist/app.js",
+    "build": "npm run build-essential",
     "build-essential": "npm run build-client && npm run build-server && npm run copy-assets",
     "build-client": "npx webpack --mode production",
     "build-server": "npx tsc --project tsconfig.server.json",
@@ -15,7 +15,6 @@
     "watch-server": "npx tsc --project tsconfig.server.json --watch",
     "serve": "nodemon dist/app.js",
     "clean": "node -e \"const fs=require('fs'); ['dist','public'].forEach(d => { try { fs.rmSync(d, {recursive:true, force:true}); } catch(e) {} });\"",
-    "vercel-build": "npm run build-essential && npm run copy-assets",
     "test": "echo 'No tests specified'"
   },
   "homepage": "https://crypto-tracker-pro.vercel.app",
