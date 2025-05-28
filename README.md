@@ -1,5 +1,5 @@
 # 🚀 CryptoTracker Pro
-
+LINK TO VIEW THE LIVE WEBSITE - https://crypto-tracker-tl0v.onrender.com - 
 A modern, high-performance cryptocurrency tracking web application built with TypeScript, featuring real-time data updates, advanced analytics, and professional UI/UX.
 
 ![CryptoTracker Pro](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
@@ -23,6 +23,7 @@ A modern, high-performance cryptocurrency tracking web application built with Ty
 
 ## 🛠️ Tech Stack
 
+<<<<<<< HEAD
 - **Frontend**: TypeScript, Vanilla JavaScript, CSS3 with CSS Variables
 - **Backend**: Node.js, Express.js with TypeScript
 - **Build Tools**: Webpack 5, TypeScript Compiler
@@ -30,6 +31,14 @@ A modern, high-performance cryptocurrency tracking web application built with Ty
 - **Styling**: Modern CSS with Glass Morphism effects
 - **Data**: Mock cryptocurrency data with realistic market behavior simulation
 - **Deployment**: Render (Production), Vercel-ready
+=======
+- **Frontend**: TypeScript, Vanilla JavaScript, CSS3
+- **Backend**: Node.js, Express.js
+- **Build Tools**: Webpack, TypeScript Compiler
+- **Charts**: HTML5 Canvas (custom implementation)
+- **Styling**: Modern CSS with CSS Variables and Glass Morphism
+- **API**: https://coinmarketcap.com/api/documentation/v1/#section/Authentication
+>>>>>>> 3905398207d8e4b1a454f6339e8d94e1968b578e
 
 ## 🚀 Quick Start
 
@@ -171,6 +180,7 @@ NODE_ENV=production
 - **Mock Data**: Update cryptocurrency list in `src/app.ts`
 - **Chart Settings**: Customize chart appearance in component files
 
+<<<<<<< HEAD
 ## 🚀 Deployment
 
 ### Render (Current Production)
@@ -202,6 +212,9 @@ npm run build
 - **Supported Browsers**: Modern browsers with ES2020 support
 - **Mobile Responsive**: Optimized for devices 320px and up
 - **Performance**: Optimized for 60fps animations and smooth scrolling
+=======
+## 📄 License
+>>>>>>> 3905398207d8e4b1a454f6339e8d94e1968b578e
 
 ## 🔮 Future Enhancements
 
@@ -226,6 +239,7 @@ npm run build
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+<<<<<<< HEAD
 ## 🙏 Acknowledgments
 
 - Design inspiration from modern cryptocurrency platforms
@@ -237,3 +251,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Made with ❤️ by [CarlosAcacioKq](https://github.com/CarlosAcacioKq)**
 
 📈 **Live Demo**: [https://crypto-tracker-pro.onrender.com](https://crypto-tracker-pro.onrender.com)
+=======
+**Made with ❤️ by [Carlos Acacio](https://github.com/CarlosAcaciokq)**
+>>>>>>> 3905398207d8e4b1a454f6339e8d94e1968b578e
