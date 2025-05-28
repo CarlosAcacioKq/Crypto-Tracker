@@ -64,16 +64,6 @@ export function createCryptoDetailView(props: CryptoDetailViewProps): HTMLElemen
             <div style="color:${coin.percent_change_24h > 0 ? '#10b981' : '#ef4444'};margin-bottom:16px">
                 ${coin.percent_change_24h > 0 ? '+' : ''}${coin.percent_change_24h.toFixed(2)}% (24h)
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-                <div>
-                    <strong>Market Cap:</strong><br>
-                    $${(coin.market_cap / 1e9).toFixed(2)}B
-                </div>
-                <div>
-                    <strong>Volume (24h):</strong><br>
-                    $${(coin.volume_24h / 1e6).toFixed(0)}M
-                </div>
-            </div>
         </div>
     `;
     
@@ -84,13 +74,6 @@ export function createCryptoDetailView(props: CryptoDetailViewProps): HTMLElemen
             modal.remove();
         });
     }
-    
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            if (onClose) onClose();
-            modal.remove();
-        }
-    });
     
     return modal;
 }
