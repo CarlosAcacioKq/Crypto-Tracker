@@ -252,5 +252,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 📈 **Live Demo**: [https://crypto-tracker-pro.onrender.com](https://crypto-tracker-pro.onrender.com)
 =======
-**Made with ❤️ by [Carlos Acacio](https://github.com/CarlosAcaciokq)**
->>>>>>> 3905398207d8e4b1a454f6339e8d94e1968b578e
