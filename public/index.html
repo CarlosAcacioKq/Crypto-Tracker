@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoTracker Pro - Live Cryptocurrency Dashboard</title>
+    <meta name="description" content="Professional cryptocurrency tracking dashboard with real-time prices, advanced analytics, and market insights">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>₿</text></svg>">
+    <style>
+        /* Critical CSS for immediate rendering */
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:#0c0c0c;color:#fff;overflow-x:hidden}
+        .loading-initial{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0c0c0c}
+        .loading-spinner{width:50px;height:50px;border:4px solid rgba(0,212,255,.2);border-top:4px solid #00d4ff;border-radius:50%;animation:spin 1s linear infinite}
+        @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    </style>
+</head>
+<body>
+    <!-- Initial Loading Screen -->
+    <div id="initial-loading" class="loading-initial">
+        <div style="text-align:center">
+            <div class="loading-spinner"></div>
+            <p style="margin-top:16px;color:#b8c6db">Loading CryptoTracker Pro...</p>
+        </div>
+    </div>
+
+    <!-- Main Application Container -->
+    <div id="app" style="display:none">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1 class="app-title">
+                        <span class="crypto-icon">₿</span>
+                        CryptoTracker Pro
+                        <span class="version">v2.0</span>
+                    </h1>
+                    <p class="app-subtitle">Professional Cryptocurrency Analytics</p>
+                </div>
+                
+                <div class="header-actions">
+                    <button class="header-btn" onclick="refreshAnalysis()" title="Refresh Data">
+                        🔄 Refresh
+                    </button>
+                    <div class="update-timer">
+                        Next Update: <span id="countdown-display" class="countdown-display">60s</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Market Overview -->
+            <section class="market-overview">
+                <div class="overview-header">
+                    <h2 class="overview-title">Market Overview</h2>
+                    <div id="last-updated" class="last-updated">Updated: --:--:--</div>
+                </div>
+                
+                <div class="market-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Market Cap</span>
+                        <span id="total-market-cap" class="stat-value">$0.00T</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">24h Volume</span>
+                        <span id="total-volume" class="stat-value">$0.00B</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">BTC Dominance</span>
+                        <span id="btc-dominance" class="stat-value">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Market Sentiment</span>
+                        <span id="market-sentiment" class="stat-value">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Active Coins</span>
+                        <span id="active-coins" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Trending Up</span>
+                        <span id="trending-up" class="stat-value">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Market Analysis Controls -->
+            <section class="market-analysis-bar">
+                <div class="analysis-group">
+                    <div class="analysis-label">📊 Market Analysis</div>
+                    <div class="analysis-buttons">
+                        <button class="analysis-btn active" data-filter="all" onclick="filterByAnalysis('all')">All Coins</button>
+                        <button class="analysis-btn" data-filter="high_momentum" onclick="filterByAnalysis('high_momentum')">High Momentum</button>
+                        <button class="analysis-btn" data-filter="oversold" onclick="filterByAnalysis('oversold')">Oversold</button>
+                        <button class="analysis-btn" data-filter="overbought" onclick="filterByAnalysis('overbought')">Overbought</button>
+                        <button class="analysis-btn" data-filter="large_cap" onclick="filterByAnalysis('large_cap')">Large Cap</button>
+                        <button class="analysis-btn" data-filter="mid_cap" onclick="filterByAnalysis('mid_cap')">Mid Cap</button>
+                        <button class="analysis-btn" data-filter="small_cap" onclick="filterByAnalysis('small_cap')">Small Cap</button>
+                    </div>
+                </div>
+                
+                <div class="analysis-group">
+                    <div class="analysis-label">🔄 Sort By</div>
+                    <div class="section-controls">
+                        <select id="sort-select" class="sort-select" onchange="handleSortChange()">
+                            <option value="rank">Market Cap Rank</option>
+                            <option value="price">Price (High to Low)</option>
+                            <option value="change">24h Change</option>
+                            <option value="volume">24h Volume</option>
+                            <option value="market_cap">Market Cap</option>
+                            <option value="name">Name (A-Z)</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cryptocurrency List -->
+            <section class="coin-list-section">
+                <div id="status" class="loading-state" style="display:none">
+                    <!-- Loading content will be injected here -->
+                </div>
+                
+                <div id="coin-list-container">
+                    <!-- Cryptocurrency cards will be rendered here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Application Bundle -->
+    <script src="/bundle.js"></script>
+    
+    <!-- Application Initialization -->
+    <script>
+        // Hide loading screen when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingEl = document.getElementById('initial-loading');
+            const appEl = document.getElementById('app');
+            
+            if (loadingEl && appEl) {
+                // Show app after short delay for better UX
+                setTimeout(() => {
+                    loadingEl.style.display = 'none';
+                    appEl.style.display = 'block';
+                }, 500);
+            }
+        });
+
+        // Global error handling
+        window.addEventListener('error', (e) => {
+            console.error('Application Error:', e.error);
+            if (e.filename && e.filename.includes('bundle.js')) {
+                document.body.innerHTML = `
+                    <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0c0c0c;color:#fff;text-align:center;font-family:Inter,sans-serif">
+                        <div>
+                            <h1 style="color:#ef4444;margin-bottom:16px">⚠️ Application Error</h1>
+                            <p style="color:#b8c6db;margin-bottom:24px">Failed to load application bundle</p>
+                            <button onclick="location.reload()" style="background:#00d4ff;color:#fff;border:none;padding:12px 24px;border-radius:8px;cursor:pointer;font-weight:600">
+                                🔄 Refresh Page
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
