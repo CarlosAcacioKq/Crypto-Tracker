@@ -329,27 +329,11 @@ body {
     backdrop-filter: blur(12px);
 }
 
-.coin-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
 .coin-card:hover {
     transform: translateY(-4px);
     border-color: rgba(0,212,255,0.4);
     box-shadow: 0 12px 40px rgba(0,0,0,0.4);
     background: rgba(255,255,255,0.08);
-}
-
-.coin-card:hover::before {
-    opacity: 1;
 }
 
 /* Loading Animations */
@@ -404,20 +388,6 @@ body {
     .header-actions {
         width: 100%;
         justify-content: center;
-    }
-}
-
-@media (max-width: 480px) {
-    .app-title {
-        font-size: 1.3rem;
-    }
-    
-    .market-stats {
-        grid-template-columns: 1fr;
-    }
-    
-    .app-main {
-        padding: 12px;
     }
 }
 

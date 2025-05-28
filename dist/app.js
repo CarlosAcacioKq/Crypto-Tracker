@@ -10,11 +10,9 @@ const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
 const publicPath = path_1.default.join(process.cwd(), 'public');
 console.log('🚀 Starting server...');
-// Basic middleware
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.static(publicPath));
-// Enhanced mock data with proper typing
 const MOCK_DATA = [
     {
         id: 1,
@@ -204,7 +202,6 @@ const MOCK_DATA = [
         circulating_supply: 9200000000,
         price_history: [0.95, 0.93, 0.96, 0.92, 0.90, 0.92, 0.89]
     },
-    // Adding 11 more cryptocurrencies
     {
         id: 74,
         name: "Dogecoin",
@@ -338,9 +335,7 @@ const MOCK_DATA = [
         price_history: [15.25, 15.40, 15.10, 15.68, 16.12, 15.68, 16.35]
     }
 ];
-// Store base data to prevent accumulation
 let BASE_DATA = [];
-// Initialize base data on first load
 function initializeBaseData() {
     if (BASE_DATA.length === 0) {
         BASE_DATA = MOCK_DATA.map(coin => ({
@@ -351,14 +346,11 @@ function initializeBaseData() {
         }));
     }
 }
-// API Routes with proper error handling
 app.get('/api/crypto-data', (req, res) => {
     const now = new Date();
     const timeString = now.toLocaleTimeString();
     const secondsInMinute = now.getSeconds();
-    // Initialize base data if needed
     initializeBaseData();
-    // Log if this is a clock-aligned request (within first 5 seconds of minute)
     if (secondsInMinute <= 5) {
         console.log(`📡 🕐 Clock-synced /api/crypto-data request at ${timeString} (${secondsInMinute}s past minute)`);
     }
@@ -366,58 +358,43 @@ app.get('/api/crypto-data', (req, res) => {
         console.log(`📡 /api/crypto-data called at ${timeString}`);
     }
     try {
-        // Add more realistic and controlled variations
         const liveData = MOCK_DATA.map((coin, index) => {
-            // Use time-based seed for consistent but changing data
-            const timeSeed = Math.floor(now.getTime() / 60000); // Changes every minute
-            const randomSeed = ((coin.id * timeSeed) % 1000) / 1000; // Pseudo-random but consistent per minute
-            // Get base values to prevent accumulation
+            const timeSeed = Math.floor(now.getTime() / 60000);
+            const randomSeed = ((coin.id * timeSeed) % 1000) / 1000;
             const baseCoin = BASE_DATA[index];
             const basePrice = baseCoin?.base_price || coin.price;
             const baseChange24h = baseCoin?.base_percent_change_24h || coin.percent_change_24h;
             const baseVolume = baseCoin?.base_volume_24h || coin.volume_24h;
-            // Create realistic variations from base values (not accumulated)
-            const priceVariation = (randomSeed - 0.5) * 0.04; // Max 4% variation from base
-            const changeVariation = (randomSeed - 0.5) * 2; // Max 2% variation from base change
-            const volumeVariation = (randomSeed - 0.5) * 0.3; // Max 30% variation from base volume
-            // Calculate new values from base, not from previous values
+            const priceVariation = (randomSeed - 0.5) * 0.04;
+            const changeVariation = (randomSeed - 0.5) * 2;
+            const volumeVariation = (randomSeed - 0.5) * 0.3;
             const newPrice = Math.max(0.01, basePrice * (1 + priceVariation));
             const newVolume = Math.max(1000000, baseVolume * (1 + volumeVariation));
             const newMarketCap = newPrice * coin.circulating_supply;
-            // Calculate realistic 24h change (from base + small variation)
             const new24hChange = Math.max(-50, Math.min(50, baseChange24h + changeVariation));
-            // IMPROVED: Create more varied price history with realistic price movements
             let updatedPriceHistory;
             let updatedVolumeHistory;
             if (coin.price_history && coin.price_history.length >= 7) {
-                // For existing price history, create more realistic updates
                 const currentHistory = [...coin.price_history];
-                // Add some volatility to the historical data to prevent straight lines
-                const volatilityFactor = 0.02; // 2% max change per update
+                const volatilityFactor = 0.02;
                 const trendFactor = (randomSeed - 0.5) * volatilityFactor;
-                // Update the last few prices to create more movement
                 for (let i = Math.max(0, currentHistory.length - 3); i < currentHistory.length; i++) {
                     const localVariation = (Math.sin(timeSeed * 0.1 + i) * 0.5 + (Math.random() - 0.5)) * volatilityFactor;
                     currentHistory[i] = Math.max(0.01, currentHistory[i] * (1 + localVariation));
                 }
-                // Shift and add new price
                 updatedPriceHistory = [...currentHistory.slice(1), newPrice];
-                // Ensure the progression makes sense
                 const lastPrice = updatedPriceHistory[updatedPriceHistory.length - 2];
-                const maxChange = lastPrice * 0.05; // Max 5% change from previous
+                const maxChange = lastPrice * 0.05;
                 const adjustedNewPrice = Math.max(lastPrice - maxChange, Math.min(lastPrice + maxChange, newPrice));
                 updatedPriceHistory[updatedPriceHistory.length - 1] = adjustedNewPrice;
             }
             else {
-                // Generate fresh price history with proper variation
                 updatedPriceHistory = generateRealisticPriceHistory(newPrice, 30, timeSeed + index);
             }
-            // Similar approach for volume history
             if (coin.volume_history && coin.volume_history.length >= 7) {
                 const currentVolumeHistory = [...coin.volume_history];
-                // Add volume volatility
                 for (let i = Math.max(0, currentVolumeHistory.length - 3); i < currentVolumeHistory.length; i++) {
-                    const volumeVariation = (Math.random() - 0.5) * 0.3; // 30% max volume change
+                    const volumeVariation = (Math.random() - 0.5) * 0.3;
                     currentVolumeHistory[i] = Math.max(1000000, currentVolumeHistory[i] * (1 + volumeVariation));
                 }
                 updatedVolumeHistory = [...currentVolumeHistory.slice(1), newVolume];
@@ -428,16 +405,15 @@ app.get('/api/crypto-data', (req, res) => {
             const updatedMarketCapHistory = coin.market_cap_history ?
                 [...coin.market_cap_history.slice(1), newMarketCap] :
                 updatedPriceHistory.map((price, i) => price * coin.circulating_supply);
-            // Update technical indicators with controlled variations
             const baseRSI = baseCoin?.rsi || 50;
-            const newRSI = Math.max(10, Math.min(90, baseRSI + (randomSeed - 0.5) * 8)); // Max 8 point RSI change
+            const newRSI = Math.max(10, Math.min(90, baseRSI + (randomSeed - 0.5) * 8));
             const baseMA50 = baseCoin?.moving_avg_50 || basePrice;
             const baseMA200 = baseCoin?.moving_avg_200 || basePrice;
-            const newMA50 = baseMA50 * (1 + priceVariation * 0.2); // MA moves slower
-            const newMA200 = baseMA200 * (1 + priceVariation * 0.05); // MA200 moves even slower
+            const newMA50 = baseMA50 * (1 + priceVariation * 0.2);
+            const newMA200 = baseMA200 * (1 + priceVariation * 0.05);
             return {
                 ...coin,
-                price: updatedPriceHistory[updatedPriceHistory.length - 1], // Use price from history
+                price: updatedPriceHistory[updatedPriceHistory.length - 1],
                 percent_change_24h: new24hChange,
                 percent_change_7d: Math.max(-80, Math.min(80, (coin.percent_change_7d || 0) + (randomSeed - 0.5) * 1)),
                 volume_24h: newVolume,
@@ -456,10 +432,8 @@ app.get('/api/crypto-data', (req, res) => {
                 resistance_level: updatedPriceHistory[updatedPriceHistory.length - 1] * (1.05 + randomSeed * 0.03)
             };
         });
-        // Update the mock data for next request to maintain continuity
         MOCK_DATA.forEach((coin, index) => {
             if (liveData[index]) {
-                // Only update the current values, keep base values intact
                 Object.assign(coin, {
                     ...liveData[index],
                     base_price: BASE_DATA[index]?.base_price || coin.price,
@@ -468,7 +442,6 @@ app.get('/api/crypto-data', (req, res) => {
                 });
             }
         });
-        // Add market-wide indicators
         const marketTotalCap = liveData.reduce((sum, coin) => sum + coin.market_cap, 0);
         const avgChange = liveData.reduce((sum, coin) => sum + coin.percent_change_24h, 0) / liveData.length;
         res.json({
@@ -495,62 +468,53 @@ app.get('/api/crypto-data', (req, res) => {
         });
     }
 });
-// Helper function to generate realistic price history with proper variation
 function generateRealisticPriceHistory(currentPrice, periods, seed) {
     const history = [];
     let price = currentPrice;
-    // Create a deterministic but varied price history
     for (let i = periods; i >= 0; i--) {
-        const timeFactor = i / periods; // 1.0 to 0.0
-        const cycleFactor = Math.sin((seed + i) * 0.1) * 0.02; // 2% cycle
-        const noiseFactor = (Math.sin((seed * 7 + i * 3) * 0.3) * 0.5 + Math.sin((seed * 11 + i * 5) * 0.7) * 0.3) * 0.03; // 3% noise
-        const trendFactor = (timeFactor - 0.5) * 0.01; // 1% trend toward current
+        const timeFactor = i / periods;
+        const cycleFactor = Math.sin((seed + i) * 0.1) * 0.02;
+        const noiseFactor = (Math.sin((seed * 7 + i * 3) * 0.3) * 0.5 + Math.sin((seed * 11 + i * 5) * 0.7) * 0.3) * 0.03;
+        const trendFactor = (timeFactor - 0.5) * 0.01;
         const totalChange = cycleFactor + noiseFactor + trendFactor;
-        price = currentPrice * (1 + totalChange * (1 + timeFactor)); // Stronger variation in the past
-        price = Math.max(currentPrice * 0.5, Math.min(currentPrice * 1.8, price)); // Keep reasonable bounds
+        price = currentPrice * (1 + totalChange * (1 + timeFactor));
+        price = Math.max(currentPrice * 0.5, Math.min(currentPrice * 1.8, price));
         history.unshift(price);
     }
-    // Smooth the transition to current price over last 5 periods
     const targetPrice = currentPrice;
     for (let i = Math.max(0, history.length - 5); i < history.length; i++) {
-        const weight = (i - (history.length - 5)) / 4; // 0 to 1
+        const weight = (i - (history.length - 5)) / 4;
         const currentVal = history[i];
-        history[i] = currentVal + (targetPrice - currentVal) * weight * 0.8; // 80% adjustment
+        history[i] = currentVal + (targetPrice - currentVal) * weight * 0.8;
     }
-    // Ensure last price is exactly the current price
     history[history.length - 1] = currentPrice;
     return history;
 }
-// Helper function to generate realistic volume history
 function generateRealisticVolumeHistory(currentVolume, periods, seed) {
     const history = [];
     for (let i = periods; i >= 0; i--) {
         const timeFactor = i / periods;
-        const cycleFactor = Math.sin((seed + i) * 0.15) * 0.3; // 30% cycle
-        const spikeFactor = Math.random() < 0.1 ? Math.random() * 0.5 : 0; // 10% chance of 50% spike
-        const noiseFactor = (Math.random() - 0.5) * 0.2; // 20% noise
+        const cycleFactor = Math.sin((seed + i) * 0.15) * 0.3;
+        const spikeFactor = Math.random() < 0.1 ? Math.random() * 0.5 : 0;
+        const noiseFactor = (Math.random() - 0.5) * 0.2;
         const totalChange = cycleFactor + spikeFactor + noiseFactor;
         let volume = currentVolume * (1 + totalChange);
         volume = Math.max(currentVolume * 0.2, Math.min(currentVolume * 3, volume));
         history.unshift(volume);
     }
-    // Smooth transition to current volume
     for (let i = Math.max(0, history.length - 3); i < history.length; i++) {
-        const weight = (i - (history.length - 3)) / 2; // 0 to 1
+        const weight = (i - (history.length - 3)) / 2;
         const currentVal = history[i];
         history[i] = currentVal + (currentVolume - currentVal) * weight * 0.6;
     }
     history[history.length - 1] = currentVolume;
     return history;
 }
-// API Routes with proper error handling
 app.get('/api/crypto-data', (req, res) => {
     const now = new Date();
     const timeString = now.toLocaleTimeString();
     const secondsInMinute = now.getSeconds();
-    // Initialize base data if needed
     initializeBaseData();
-    // Log if this is a clock-aligned request (within first 5 seconds of minute)
     if (secondsInMinute <= 5) {
         console.log(`📡 🕐 Clock-synced /api/crypto-data request at ${timeString} (${secondsInMinute}s past minute)`);
     }
@@ -558,58 +522,43 @@ app.get('/api/crypto-data', (req, res) => {
         console.log(`📡 /api/crypto-data called at ${timeString}`);
     }
     try {
-        // Add more realistic and controlled variations
         const liveData = MOCK_DATA.map((coin, index) => {
-            // Use time-based seed for consistent but changing data
-            const timeSeed = Math.floor(now.getTime() / 60000); // Changes every minute
-            const randomSeed = ((coin.id * timeSeed) % 1000) / 1000; // Pseudo-random but consistent per minute
-            // Get base values to prevent accumulation
+            const timeSeed = Math.floor(now.getTime() / 60000);
+            const randomSeed = ((coin.id * timeSeed) % 1000) / 1000;
             const baseCoin = BASE_DATA[index];
             const basePrice = baseCoin?.base_price || coin.price;
             const baseChange24h = baseCoin?.base_percent_change_24h || coin.percent_change_24h;
             const baseVolume = baseCoin?.base_volume_24h || coin.volume_24h;
-            // Create realistic variations from base values (not accumulated)
-            const priceVariation = (randomSeed - 0.5) * 0.04; // Max 4% variation from base
-            const changeVariation = (randomSeed - 0.5) * 2; // Max 2% variation from base change
-            const volumeVariation = (randomSeed - 0.5) * 0.3; // Max 30% variation from base volume
-            // Calculate new values from base, not from previous values
+            const priceVariation = (randomSeed - 0.5) * 0.04;
+            const changeVariation = (randomSeed - 0.5) * 2;
+            const volumeVariation = (randomSeed - 0.5) * 0.3;
             const newPrice = Math.max(0.01, basePrice * (1 + priceVariation));
             const newVolume = Math.max(1000000, baseVolume * (1 + volumeVariation));
             const newMarketCap = newPrice * coin.circulating_supply;
-            // Calculate realistic 24h change (from base + small variation)
             const new24hChange = Math.max(-50, Math.min(50, baseChange24h + changeVariation));
-            // IMPROVED: Create more varied price history with realistic price movements
             let updatedPriceHistory;
             let updatedVolumeHistory;
             if (coin.price_history && coin.price_history.length >= 7) {
-                // For existing price history, create more realistic updates
                 const currentHistory = [...coin.price_history];
-                // Add some volatility to the historical data to prevent straight lines
-                const volatilityFactor = 0.02; // 2% max change per update
+                const volatilityFactor = 0.02;
                 const trendFactor = (randomSeed - 0.5) * volatilityFactor;
-                // Update the last few prices to create more movement
                 for (let i = Math.max(0, currentHistory.length - 3); i < currentHistory.length; i++) {
                     const localVariation = (Math.sin(timeSeed * 0.1 + i) * 0.5 + (Math.random() - 0.5)) * volatilityFactor;
                     currentHistory[i] = Math.max(0.01, currentHistory[i] * (1 + localVariation));
                 }
-                // Shift and add new price
                 updatedPriceHistory = [...currentHistory.slice(1), newPrice];
-                // Ensure the progression makes sense
                 const lastPrice = updatedPriceHistory[updatedPriceHistory.length - 2];
-                const maxChange = lastPrice * 0.05; // Max 5% change from previous
+                const maxChange = lastPrice * 0.05;
                 const adjustedNewPrice = Math.max(lastPrice - maxChange, Math.min(lastPrice + maxChange, newPrice));
                 updatedPriceHistory[updatedPriceHistory.length - 1] = adjustedNewPrice;
             }
             else {
-                // Generate fresh price history with proper variation
                 updatedPriceHistory = generateRealisticPriceHistory(newPrice, 30, timeSeed + index);
             }
-            // Similar approach for volume history
             if (coin.volume_history && coin.volume_history.length >= 7) {
                 const currentVolumeHistory = [...coin.volume_history];
-                // Add volume volatility
                 for (let i = Math.max(0, currentVolumeHistory.length - 3); i < currentVolumeHistory.length; i++) {
-                    const volumeVariation = (Math.random() - 0.5) * 0.3; // 30% max volume change
+                    const volumeVariation = (Math.random() - 0.5) * 0.3;
                     currentVolumeHistory[i] = Math.max(1000000, currentVolumeHistory[i] * (1 + volumeVariation));
                 }
                 updatedVolumeHistory = [...currentVolumeHistory.slice(1), newVolume];
@@ -620,16 +569,15 @@ app.get('/api/crypto-data', (req, res) => {
             const updatedMarketCapHistory = coin.market_cap_history ?
                 [...coin.market_cap_history.slice(1), newMarketCap] :
                 updatedPriceHistory.map((price, i) => price * coin.circulating_supply);
-            // Update technical indicators with controlled variations
             const baseRSI = baseCoin?.rsi || 50;
-            const newRSI = Math.max(10, Math.min(90, baseRSI + (randomSeed - 0.5) * 8)); // Max 8 point RSI change
+            const newRSI = Math.max(10, Math.min(90, baseRSI + (randomSeed - 0.5) * 8));
             const baseMA50 = baseCoin?.moving_avg_50 || basePrice;
             const baseMA200 = baseCoin?.moving_avg_200 || basePrice;
-            const newMA50 = baseMA50 * (1 + priceVariation * 0.2); // MA moves slower
-            const newMA200 = baseMA200 * (1 + priceVariation * 0.05); // MA200 moves even slower
+            const newMA50 = baseMA50 * (1 + priceVariation * 0.2);
+            const newMA200 = baseMA200 * (1 + priceVariation * 0.05);
             return {
                 ...coin,
-                price: updatedPriceHistory[updatedPriceHistory.length - 1], // Use price from history
+                price: updatedPriceHistory[updatedPriceHistory.length - 1],
                 percent_change_24h: new24hChange,
                 percent_change_7d: Math.max(-80, Math.min(80, (coin.percent_change_7d || 0) + (randomSeed - 0.5) * 1)),
                 volume_24h: newVolume,
@@ -648,10 +596,8 @@ app.get('/api/crypto-data', (req, res) => {
                 resistance_level: updatedPriceHistory[updatedPriceHistory.length - 1] * (1.05 + randomSeed * 0.03)
             };
         });
-        // Update the mock data for next request to maintain continuity
         MOCK_DATA.forEach((coin, index) => {
             if (liveData[index]) {
-                // Only update the current values, keep base values intact
                 Object.assign(coin, {
                     ...liveData[index],
                     base_price: BASE_DATA[index]?.base_price || coin.price,
@@ -660,7 +606,6 @@ app.get('/api/crypto-data', (req, res) => {
                 });
             }
         });
-        // Add market-wide indicators
         const marketTotalCap = liveData.reduce((sum, coin) => sum + coin.market_cap, 0);
         const avgChange = liveData.reduce((sum, coin) => sum + coin.percent_change_24h, 0) / liveData.length;
         res.json({
@@ -700,7 +645,6 @@ app.get('/api/status', (req, res) => {
         res.status(500).json({ status: 'error', error: 'Internal server error' });
     }
 });
-// Add new analytics endpoints with proper error handling
 app.get('/api/market-overview', (req, res) => {
     console.log('📡 /api/market-overview called at', new Date().toLocaleTimeString());
     try {
@@ -708,7 +652,6 @@ app.get('/api/market-overview', (req, res) => {
         const totalVolume = MOCK_DATA.reduce((sum, coin) => sum + coin.volume_24h, 0);
         const avgVolatility = MOCK_DATA.reduce((sum, coin) => sum + (coin.volatility_score || 0), 0) / MOCK_DATA.length;
         const avgFearGreed = MOCK_DATA.reduce((sum, coin) => sum + (coin.fear_greed_index || 0), 0) / MOCK_DATA.length;
-        // Add slight variations to market overview data
         const marketCapVariation = (Math.random() - 0.5) * 0.02;
         const volumeVariation = (Math.random() - 0.5) * 0.1;
         res.json({
@@ -738,7 +681,7 @@ app.get('/api/correlation-matrix', (req, res) => {
             name: coin.name,
             btc_correlation: coin.correlation_btc || 0,
             volatility: coin.volatility_score || 0,
-            volume_correlation: Math.random() * 0.8 + 0.2 // Mock correlation
+            volume_correlation: Math.random() * 0.8 + 0.2
         }));
         res.json({
             success: true,
@@ -790,10 +733,8 @@ app.get('/api/technical-indicators/:symbol', (req, res) => {
         res.status(500).json({ success: false, error: 'Internal server error' });
     }
 });
-// Serve simple HTML for all routes with proper error handling
 app.get('*', (req, res) => {
     try {
-        // First try to serve the actual index.html file
         const indexPath = path_1.default.join(process.cwd(), 'src', 'index.html');
         const fs = require('fs');
         if (fs.existsSync(indexPath)) {
@@ -801,14 +742,12 @@ app.get('*', (req, res) => {
             res.send(htmlContent);
             return;
         }
-        // Fallback if index.html doesn't exist - serve from public
         const publicIndexPath = path_1.default.join(process.cwd(), 'public', 'index.html');
         if (fs.existsSync(publicIndexPath)) {
             const htmlContent = fs.readFileSync(publicIndexPath, 'utf8');
             res.send(htmlContent);
             return;
         }
-        // Last resort fallback
         res.status(404).send(`
             <!DOCTYPE html>
             <html>
@@ -833,7 +772,6 @@ app.get('*', (req, res) => {
         res.status(500).send('<h1>Internal Server Error</h1>');
     }
 });
-// Start server with proper error handling
 app.listen(PORT, () => {
     console.log(`✅ Server running on http://localhost:${PORT}`);
     console.log(`📊 Serving ${MOCK_DATA.length} cryptocurrencies`);
@@ -842,4 +780,3 @@ app.listen(PORT, () => {
     process.exit(1);
 });
 exports.default = app;
-//# sourceMappingURL=app.js.map
