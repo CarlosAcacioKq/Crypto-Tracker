@@ -407,20 +407,6 @@ body {
     }
 }
 
-@media (max-width: 480px) {
-    .app-title {
-        font-size: 1.3rem;
-    }
-    
-    .market-stats {
-        grid-template-columns: 1fr;
-    }
-    
-    .app-main {
-        padding: 12px;
-    }
-}
-
 /* Utility Classes */
 .text-positive {
     color: var(--success-color) !important;
