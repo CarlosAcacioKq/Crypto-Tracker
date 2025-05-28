@@ -135,23 +135,6 @@ MAX_COINS_DISPLAY=20
 - **Update Interval**: Modify `PERFORMANCE_CONFIG` in `src/client.ts`
 - **Mock Data**: Update `MOCK_DATA` in `src/app.ts`
 
-## 🚀 Deployment
-
-### Vercel (Recommended)
-```bash
-npm run deploy-vercel
-```
-
-### Netlify
-```bash
-npm run deploy-netlify
-```
-
-### GitHub Pages
-```bash
-npm run deploy-github-pages
-```
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
