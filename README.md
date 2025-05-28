@@ -167,4 +167,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 If you have any questions or need help with setup, please open an issue on GitHub.
 
-**Made with ❤️ by [Your Name](https://github.com/YOUR_USERNAME)**
+**Made with ❤️ by [Your Name](https://github.com/CarlosAcaciokq)**
