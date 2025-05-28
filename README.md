@@ -24,6 +24,7 @@ A modern, high-performance cryptocurrency tracking web application built with Ty
 - **Build Tools**: Webpack, TypeScript Compiler
 - **Charts**: HTML5 Canvas (custom implementation)
 - **Styling**: Modern CSS with CSS Variables and Glass Morphism
+- **API**: https://coinmarketcap.com/api/documentation/v1/#section/Authentication
 
 ## 🚀 Quick Start
 
