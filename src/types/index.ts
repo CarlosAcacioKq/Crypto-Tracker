@@ -61,3 +61,38 @@ export interface WatchlistItem {
     price: number;
     added_at: string;
 }
+
+export interface CryptocurrencyData {
+    id: string;
+    name: string;
+    symbol: string;
+    rank: number;
+    price: number;
+    percent_change_24h: number;
+    market_cap: number;
+    volume_24h: number;
+    circulating_supply: number;
+    rsi?: number;
+    // Add base tracking fields
+    base_price?: number;
+    base_percent_change_24h?: number;
+    base_volume_24h?: number;
+}
+
+export interface MarketData {
+    data: CryptocurrencyData[];
+    status: string;
+    total_market_cap: number;
+    total_volume: number;
+}
+
+export interface FilterConfig {
+    type: string;
+    label: string;
+    active: boolean;
+}
+
+export interface SortConfig {
+    field: string;
+    direction: 'asc' | 'desc';
+}

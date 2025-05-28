@@ -1,7 +1,7 @@
 {
   "name": "crypto-web-app",
-  "version": "1.0.0",
-  "description": "Modern cryptocurrency tracking web application",
+  "version": "2.0.0",
+  "description": "Professional cryptocurrency tracking web application",
   "main": "dist/app.js",
   "scripts": {
     "start": "npm run build && node dist/app.js",
@@ -15,8 +15,33 @@
     "watch-server": "npx tsc --project tsconfig.server.json --watch",
     "serve": "nodemon dist/app.js",
     "clean": "node -e \"const fs=require('fs'); ['dist','public'].forEach(d => { try { fs.rmSync(d, {recursive:true, force:true}); } catch(e) {} });\"",
-    "test": "echo 'No tests specified'"
+    "deploy": "npm run build && vercel --prod",
+    "deploy-netlify": "npm run build && netlify deploy --prod --dir=public",
+    "deploy-vercel": "npm run build && vercel --prod",
+    "deploy-surge": "npm run build && surge public/",
+    "deploy-github": "npm run build && echo 'Push to GitHub and enable Pages'",
+    "deploy-manual": "node scripts/manual-deploy.js",
+    "deploy-help": "node -e \"console.log('Available deployment options:\\n1. npm run deploy-vercel\\n2. npm run deploy-netlify\\n3. npm run deploy-surge\\n4. npm run deploy-github')\"",
+    "test": "echo 'No tests specified'",
+    "build-github": "npm run clean && npm run build-client && npm run copy-assets && npm run create-gh-pages",
+    "create-gh-pages": "node -e \"const fs=require('fs'); fs.mkdirSync('docs', {recursive:true}); fs.copyFileSync('public/index.html', 'docs/index.html'); fs.copyFileSync('public/bundle.js', 'docs/bundle.js'); fs.copyFileSync('public/styles/main.css', 'docs/styles/main.css'); fs.mkdirSync('docs/styles', {recursive:true}); console.log('✅ GitHub Pages files created in docs/ folder');\"",
+    "deploy-github-pages": "npm run build-github && git add docs/ && git commit -m 'Deploy to GitHub Pages' && git push origin main"
   },
+  "homepage": "https://crypto-tracker-pro.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/crypto-web-app.git"
+  },
+  "keywords": [
+    "cryptocurrency",
+    "bitcoin",
+    "ethereum",
+    "blockchain",
+    "trading",
+    "dashboard",
+    "analytics",
+    "real-time"
+  ],
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2"

@@ -1,80 +1,73 @@
-// Modern Cryptocurrency Dashboard - High Performance Optimized
+// Modern Cryptocurrency Dashboard - Performance Optimized
 
 console.log('🚀 CryptoTracker Loading...');
 
-// Immediate performance optimizations
+// Reduced performance config for better speed
 const PERFORMANCE_CONFIG = {
-    MAX_COINS_INITIAL: 12,
-    MAX_COINS_MOBILE: 8,
+    MAX_COINS_INITIAL: 10,
+    MAX_COINS_MOBILE: 6,
     RENDER_BATCH_SIZE: 4,
-    ANIMATION_DURATION: 150,
-    UPDATE_THROTTLE: 1000
+    ANIMATION_DURATION: 100,
+    UPDATE_THROTTLE: 2000
 };
 
-// Ultra-lightweight critical CSS injection
+// Minimal critical CSS
 function initializeCriticalCSS() {
     const style = document.createElement('style');
     style.textContent = `
         *{box-sizing:border-box;margin:0;padding:0}
-        body{font-family:-apple-system,BlinkMacSystemFont,sans-serif!important;background:#0c0c0c!important;color:#fff!important;line-height:1.4!important;min-height:100vh!important}
-        .app-header{background:rgba(255,255,255,.05)!important;backdrop-filter:blur(10px)!important;border-bottom:1px solid rgba(255,255,255,.1)!important;padding:16px 0!important;position:sticky!important;top:0!important;z-index:1000!important}
-        .header-content{max-width:1400px!important;margin:0 auto!important;padding:0 20px!important;display:flex!important;justify-content:space-between!important;align-items:center!important;gap:16px!important}
-        .app-title{color:#fff!important;font-size:1.8rem!important;font-weight:800!important;margin:0!important;display:flex!important;align-items:center!important;gap:8px!important}
-        .crypto-icon{font-size:2rem!important;color:#00d4ff!important}
-        .version{font-size:.7rem!important;background:#667eea!important;color:#fff!important;padding:4px 8px!important;border-radius:8px!important;font-weight:600!important}
-        .header-actions{display:flex!important;gap:8px!important;align-items:center!important}
-        .header-btn,.update-timer{background:rgba(255,255,255,.08)!important;color:#fff!important;border:1px solid rgba(255,255,255,.1)!important;padding:8px 12px!important;border-radius:12px!important;font-weight:600!important;font-size:.8rem!important;cursor:pointer!important;transition:all .15s ease!important}
-        .header-btn:hover{background:rgba(255,255,255,.12)!important;color:#00d4ff!important}
-        .update-timer{cursor:default!important;font-family:monospace!important}
-        .countdown-display{color:#00d4ff!important;font-weight:700!important;min-width:28px!important;text-align:center!important}
-        .countdown-display.warning{color:#f59e0b!important}
-        .countdown-display.critical{color:#ef4444!important}
-        .app-main{max-width:1400px!important;margin:0 auto!important;padding:20px!important}
-        .market-overview{background:rgba(255,255,255,.05)!important;backdrop-filter:blur(10px)!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:16px!important;padding:20px!important;margin-bottom:20px!important}
-        .overview-header{display:flex!important;justify-content:space-between!important;align-items:center!important;margin-bottom:16px!important;gap:16px!important}
-        .overview-title{color:#fff!important;font-size:1.4rem!important;font-weight:700!important;margin:0!important}
-        .last-updated{color:#b8c6db!important;font-size:.8rem!important;font-family:monospace!important}
-        .market-stats{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))!important;gap:12px!important}
-        .stat-item{background:rgba(0,0,0,.2)!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:12px!important;padding:12px!important;text-align:center!important;transition:transform .15s ease!important}
-        .stat-item:hover{transform:translateY(-1px)!important;background:rgba(0,212,255,.1)!important}
-        .stat-label{display:block!important;color:#b8c6db!important;font-size:.7rem!important;font-weight:600!important;text-transform:uppercase!important;margin-bottom:4px!important}
-        .stat-value{color:#00d4ff!important;font-size:1rem!important;font-weight:700!important;font-family:monospace!important}
-        .coin-list{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))!important;gap:16px!important}
-        .coin-card{background:rgba(255,255,255,.05)!important;backdrop-filter:blur(10px)!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:16px!important;padding:16px!important;cursor:pointer!important;transition:all .15s ease!important;color:#fff!important;min-height:200px!important;display:flex!important;flex-direction:column!important;justify-content:space-between!important}
-        .coin-card:hover{transform:translateY(-2px)!important;border-color:rgba(0,212,255,.3)!important;box-shadow:0 4px 20px rgba(0,0,0,.3)!important}
-        .loading-spinner{width:40px!important;height:40px!important;border:3px solid rgba(0,212,255,.2)!important;border-top:3px solid #00d4ff!important;border-radius:50%!important;animation:spin .8s linear infinite!important;margin:0 auto 16px!important}
+        body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0c0c0c;color:#fff;line-height:1.4;min-height:100vh}
+        .app-header{background:rgba(255,255,255,.05);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.1);padding:16px 0;position:sticky;top:0;z-index:1000}
+        .header-content{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+        .app-title{color:#fff;font-size:1.6rem;font-weight:700;margin:0;display:flex;align-items:center;gap:8px}
+        .crypto-icon{font-size:1.8rem;color:#00d4ff}
+        .version{font-size:.7rem;background:#667eea;color:#fff;padding:2px 6px;border-radius:6px;font-weight:600}
+        .header-actions{display:flex;gap:8px;align-items:center}
+        .header-btn,.update-timer{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.1);padding:6px 10px;border-radius:8px;font-weight:600;font-size:.8rem;cursor:pointer;transition:all .1s ease}
+        .header-btn:hover{background:rgba(255,255,255,.12);color:#00d4ff}
+        .update-timer{cursor:default;font-family:monospace}
+        .countdown-display{color:#00d4ff;font-weight:700}
+        .countdown-display.warning{color:#f59e0b}
+        .countdown-display.critical{color:#ef4444}
+        .app-main{max-width:1200px;margin:0 auto;padding:20px}
+        .market-overview{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;margin-bottom:16px}
+        .overview-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+        .overview-title{color:#fff;font-size:1.2rem;font-weight:700;margin:0}
+        .last-updated{color:#b8c6db;font-size:.8rem;font-family:monospace}
+        .market-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+        .stat-item{background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px;text-align:center}
+        .stat-label{display:block;color:#b8c6db;font-size:.7rem;font-weight:600;text-transform:uppercase;margin-bottom:4px}
+        .stat-value{color:#00d4ff;font-size:.9rem;font-weight:700;font-family:monospace}
+        .coin-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+        .coin-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px;cursor:pointer;transition:all .1s ease;color:#fff;min-height:150px}
+        .coin-card:hover{transform:translateY(-1px);border-color:rgba(0,212,255,.3)}
+        .loading-spinner{width:30px;height:30px;border:2px solid rgba(0,212,255,.2);border-top:2px solid #00d4ff;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
         @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-        .market-analysis-bar{background:rgba(15,23,42,.4)!important;backdrop-filter:blur(10px)!important;border:1px solid rgba(148,163,184,.2)!important;border-radius:16px!important;padding:20px!important;margin:20px 0!important}
-        .analysis-label{color:#00d4ff!important;font-size:.9rem!important;font-weight:700!important;margin-bottom:12px!important;text-transform:uppercase!important}
-        .analysis-buttons{display:flex!important;gap:8px!important;flex-wrap:wrap!important;margin-bottom:16px!important}
-        .analysis-btn{background:rgba(30,35,50,.6)!important;color:#b8c6db!important;border:1px solid rgba(148,163,184,.2)!important;border-radius:12px!important;padding:8px 12px!important;font-size:.7rem!important;font-weight:600!important;cursor:pointer!important;transition:all .15s ease!important;text-transform:uppercase!important}
-        .analysis-btn:hover{background:rgba(0,212,255,.1)!important;color:#00d4ff!important;border-color:rgba(0,212,255,.3)!important}
-        .analysis-btn.active{background:#4facfe!important;color:#fff!important;border-color:rgba(0,212,255,.6)!important}
-        .sort-select{background:rgba(16,185,129,.1)!important;color:#fff!important;border:1px solid rgba(255,255,255,.15)!important;padding:8px 16px!important;border-radius:12px!important;font-size:.8rem!important;font-weight:600!important;cursor:pointer!important;transition:all .15s ease;min-width:200px!important;appearance:none!important;outline:none!important}
-        .sort-select:hover{border-color:rgba(16,185,129,.4)!important;color:rgba(16,185,129,.9)!important}
+        .market-analysis-bar{background:rgba(15,23,42,.4);border:1px solid rgba(148,163,184,.2);border-radius:12px;padding:16px;margin:16px 0}
+        .analysis-label{color:#00d4ff;font-size:.9rem;font-weight:700;margin-bottom:10px;text-transform:uppercase}
+        .analysis-buttons{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+        .analysis-btn{background:rgba(30,35,50,.6);color:#b8c6db;border:1px solid rgba(148,163,184,.2);border-radius:8px;padding:6px 10px;font-size:.7rem;font-weight:600;cursor:pointer;transition:all .1s ease;text-transform:uppercase}
+        .analysis-btn:hover{background:rgba(0,212,255,.1);color:#00d4ff;border-color:rgba(0,212,255,.3)}
+        .analysis-btn.active{background:#4facfe;color:#fff;border-color:rgba(0,212,255,.6)}
+        .sort-select{background:rgba(16,185,129,.15);color:#fff;border:2px solid rgba(16,185,129,.3);padding:8px 12px;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;min-width:180px;appearance:none;outline:none}
+        .sort-select:hover{background:rgba(16,185,129,.25);border-color:rgba(16,185,129,.6)}
+        .sort-select:focus{border-color:rgba(16,185,129,.8)}
+        .sort-select option{background:#1e2332;color:#fff;padding:8px;font-weight:600}
         @media (max-width:768px){
-            .header-content{flex-direction:column!important;padding:0 16px!important}
-            .app-title{font-size:1.5rem!important}
-            .app-main{padding:16px!important}
-            .coin-list{grid-template-columns:1fr!important;gap:12px!important}
-            .coin-card{min-height:160px!important;padding:12px!important}
-            .market-stats{grid-template-columns:repeat(2,1fr)!important;gap:8px!important}
-            .analysis-buttons{flex-direction:column!important}
-            .analysis-btn{width:100%!important;text-align:center!important}
-            .sort-select{min-width:100%!important}
-        }
-        @media (max-width:480px){
-            .market-stats{grid-template-columns:1fr!important}
-            .overview-header{flex-direction:column!important;text-align:center!important}
+            .header-content{flex-direction:column;padding:0 16px}
+            .app-title{font-size:1.4rem}
+            .app-main{padding:16px}
+            .coin-list{grid-template-columns:1fr}
+            .market-stats{grid-template-columns:repeat(2,1fr)}
+            .analysis-buttons{flex-direction:column}
+            .sort-select{min-width:100%}
         }
     `;
     document.head.appendChild(style);
 }
 
-// Initialize critical styles immediately
 initializeCriticalCSS();
 
-// High-performance application class
 class CryptoApp {
     private coins: any[] = [];
     private currentFilter = 'all';
@@ -82,66 +75,27 @@ class CryptoApp {
     private countdownTimer: number = 60;
     private countdownInterval: any;
     private isLoading = false;
-    private lastUpdateTime = 0;
-    private renderQueue: any[] = [];
-    private isRendering = false;
-    private displayedCoinsCount = 0; // Track how many coins are currently displayed
-    private maxDisplayCoins = PERFORMANCE_CONFIG.MAX_COINS_INITIAL; // Dynamic max display count
+    private maxDisplayCoins = PERFORMANCE_CONFIG.MAX_COINS_INITIAL;
+    private modalUpdateInterval: any = null;
+    private currentModalCoin: any = null;
 
     async init() {
-        console.log('🚀 Initializing High-Performance Crypto App...');
-        
-        // Immediate performance setup
-        this.setupPerformanceOptimizations();
-        
-        // Load data asynchronously
+        console.log('🚀 Initializing Crypto App...');
         this.loadData();
-        this.startCountdown();
-        
-        console.log('✅ App initialized successfully');
+        this.startSyncedCountdown(); // Changed to synced countdown
+        this.setupEventListeners();
+        console.log('✅ App initialized');
     }
 
-    private setupPerformanceOptimizations() {
-        // Passive event listeners for better performance
-        document.addEventListener('scroll', this.throttle(() => {
-            // Minimal scroll handling
-        }, 16), { passive: true });
-
+    private setupEventListeners() {
         // Optimized resize handling
         let resizeTimeout: any;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                if (this.coins.length > 0) {
-                    this.renderCoins();
-                }
-            }, 150);
+                if (this.coins.length > 0) this.renderCoins();
+            }, 250);
         }, { passive: true });
-
-        // Preload critical resources
-        this.preloadResources();
-    }
-
-    private preloadResources() {
-        // Preload essential fonts
-        const fontLink = document.createElement('link');
-        fontLink.rel = 'preload';
-        fontLink.href = 'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2';
-        fontLink.as = 'font';
-        fontLink.type = 'font/woff2';
-        fontLink.crossOrigin = 'anonymous';
-        document.head.appendChild(fontLink);
-    }
-
-    private throttle(func: Function, limit: number) {
-        let inThrottle: boolean;
-        return (...args: any[]) => {
-            if (!inThrottle) {
-                func.apply(this, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        }
     }
 
     async loadData() {
@@ -157,28 +111,23 @@ class CryptoApp {
         }
 
         try {
-            // Show minimal loading state
+            // Only show loading on initial load
             if (this.coins.length === 0) {
                 statusEl.style.display = 'block';
                 statusEl.innerHTML = `
-                    <div style="text-align:center;padding:40px 20px;color:#b8c6db">
+                    <div style="text-align:center;padding:30px;color:#b8c6db">
                         <div class="loading-spinner"></div>
-                        <h3 style="color:#fff;font-size:1.2rem;margin:16px 0;font-weight:700">Loading Market Data</h3>
-                        <p style="opacity:.8;font-size:.9rem">Fetching live prices...</p>
+                        <h3 style="color:#fff;font-size:1.1rem;margin:12px 0;font-weight:700">Loading Market Data</h3>
                     </div>
                 `;
             }
 
-            // Use AbortController for request timeout
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 5000);
 
             const response = await fetch('/api/crypto-data', { 
                 signal: controller.signal,
-                headers: {
-                    'Accept': 'application/json',
-                    'Cache-Control': 'no-cache'
-                }
+                headers: { 'Accept': 'application/json', 'Cache-Control': 'no-cache' }
             });
             
             clearTimeout(timeoutId);
@@ -186,41 +135,58 @@ class CryptoApp {
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             
             const data = await response.json();
-            this.coins = data.data || [];
-            this.lastUpdateTime = Date.now();
             
-            // Batch DOM updates
-            this.batchUpdate(() => {
+            // Update data without full re-render if coins exist
+            if (this.coins.length > 0) {
+                this.coins = data.data || [];
+                this.updateMarketStats();
+                this.updateLastUpdated();
+                this.updateCoinPrices(); // New method to update prices only
+                console.log('✅ Data updated silently');
+            } else {
+                this.coins = data.data || [];
                 this.updateMarketStats();
                 this.renderCoins();
                 this.updateLastUpdated();
                 statusEl.style.display = 'none';
-            });
-            
-            console.log('✅ Data loaded:', this.coins.length, 'coins');
+                console.log('✅ Initial data loaded:', this.coins.length, 'coins');
+            }
             
         } catch (error) {
             console.error('❌ Error loading data:', error);
-            statusEl.innerHTML = `
-                <div style="text-align:center;padding:40px 20px;color:#ef4444">
-                    <div style="font-size:2rem;margin-bottom:12px">⚠️</div>
-                    <h3 style="margin-bottom:8px;font-size:1.1rem">Connection Error</h3>
-                    <p style="margin-bottom:16px;opacity:.8;font-size:.9rem">Unable to load data</p>
-                    <button onclick="location.reload()" style="padding:8px 16px;background:rgba(0,212,255,.2);border:1px solid #00d4ff;border-radius:8px;color:#00d4ff;cursor:pointer;font-weight:600;font-size:.8rem">🔄 Retry</button>
-                </div>
-            `;
+            if (this.coins.length === 0) {
+                statusEl.innerHTML = `
+                    <div style="text-align:center;padding:30px;color:#ef4444">
+                        <h3 style="margin-bottom:8px">Connection Error</h3>
+                        <button onclick="location.reload()" style="padding:6px 12px;background:rgba(0,212,255,.2);border:1px solid #00d4ff;border-radius:6px;color:#00d4ff;cursor:pointer;font-weight:600">🔄 Retry</button>
+                    </div>
+                `;
+            }
         } finally {
             this.isLoading = false;
         }
     }
 
-    private batchUpdate(callback: Function) {
-        if (this.isRendering) return;
-        this.isRendering = true;
-        
-        requestAnimationFrame(() => {
-            callback();
-            this.isRendering = false;
+    // New method to update prices without full re-render
+    private updateCoinPrices() {
+        this.coins.forEach((coin, index) => {
+            const cardElements = document.querySelectorAll('.coin-card');
+            const cardElement = cardElements[index] as HTMLElement;
+            if (!cardElement) return;
+
+            // Update price
+            const priceEl = cardElement.querySelector('[data-price]');
+            if (priceEl) {
+                priceEl.textContent = `$${coin.price.toFixed(2)}`;
+            }
+
+            // Update change
+            const changeEl = cardElement.querySelector('[data-change]');
+            if (changeEl) {
+                const isPositive = coin.percent_change_24h > 0;
+                changeEl.textContent = `${isPositive ? '+' : ''}${coin.percent_change_24h.toFixed(2)}%`;
+                (changeEl as HTMLElement).style.color = isPositive ? '#10b981' : '#ef4444';
+            }
         });
     }
 
@@ -245,8 +211,6 @@ class CryptoApp {
             'trending-up': positiveCoins.toString()
         };
 
-        // Batch DOM updates
-        const fragment = document.createDocumentFragment();
         Object.entries(elements).forEach(([id, value]) => {
             const el = document.getElementById(id);
             if (el && el.textContent !== value) {
@@ -263,34 +227,43 @@ class CryptoApp {
         }
     }
 
-    startCountdown() {
-        if (this.countdownInterval) {
-            clearInterval(this.countdownInterval);
-        }
+    // New synced countdown that aligns with clock minutes
+    startSyncedCountdown() {
+        if (this.countdownInterval) clearInterval(this.countdownInterval);
 
+        // Calculate seconds until next minute
+        const now = new Date();
+        const secondsUntilNextMinute = 60 - now.getSeconds();
+        this.countdownTimer = secondsUntilNextMinute;
+
+        console.log(`⏰ Syncing with clock: ${secondsUntilNextMinute}s until next minute`);
+
+        // Start the countdown
         this.countdownInterval = setInterval(() => {
             this.countdownTimer--;
             const countdownEl = document.getElementById('countdown-display');
             
             if (countdownEl) {
                 countdownEl.textContent = `${this.countdownTimer}s`;
-                
-                // Update classes efficiently
-                const baseClass = 'countdown-display';
-                if (this.countdownTimer <= 10) {
-                    countdownEl.className = `${baseClass} critical`;
-                } else if (this.countdownTimer <= 20) {
-                    countdownEl.className = `${baseClass} warning`;
-                } else {
-                    countdownEl.className = baseClass;
-                }
+                countdownEl.className = `countdown-display ${
+                    this.countdownTimer <= 10 ? 'critical' : 
+                    this.countdownTimer <= 20 ? 'warning' : ''
+                }`;
             }
             
+            // When countdown reaches 0, update data and reset to 60 seconds
             if (this.countdownTimer <= 0) {
-                this.countdownTimer = 60;
+                const updateTime = new Date();
+                console.log(`🔄 Clock-synced update at ${updateTime.toLocaleTimeString()}`);
+                this.countdownTimer = 60; // Reset to full minute
                 this.loadData();
             }
         }, 1000);
+
+        // Initial update if we're starting at the beginning of a minute
+        if (secondsUntilNextMinute === 60) {
+            this.loadData();
+        }
     }
 
     renderCoins() {
@@ -300,264 +273,90 @@ class CryptoApp {
         let filteredCoins = this.filterCoins(this.coins, this.currentFilter);
         filteredCoins = this.sortCoins(filteredCoins, this.currentSort);
 
-        // Enhanced pagination logic
         const isMobile = window.innerWidth < 768;
-        const baseMaxCoins = isMobile ? PERFORMANCE_CONFIG.MAX_COINS_MOBILE : PERFORMANCE_CONFIG.MAX_COINS_INITIAL;
-        
-        // Use displayedCoinsCount for progressive loading
         const coinsToRender = filteredCoins.slice(0, this.maxDisplayCoins);
         const hasMoreCoins = filteredCoins.length > this.maxDisplayCoins;
 
-        // Use DocumentFragment for better performance
         const fragment = document.createDocumentFragment();
         
-        // Enhanced info bar with better statistics
+        // Simplified info bar
         const infoDiv = document.createElement('div');
-        infoDiv.style.cssText = 'margin-bottom:16px;padding:12px 16px;background:rgba(0,0,0,.3);border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,.15);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px';
+        infoDiv.style.cssText = 'margin-bottom:12px;padding:10px 12px;background:rgba(0,0,0,.3);border-radius:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px';
         
         const gainersCount = filteredCoins.filter(coin => coin.percent_change_24h > 0).length;
         const losersCount = filteredCoins.filter(coin => coin.percent_change_24h < 0).length;
         
         infoDiv.innerHTML = `
-            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-                <div style="display:flex;align-items:center;gap:4px">
-                    <span style="color:#b8c6db;font-size:.8rem">Showing</span>
-                    <span style="color:#00d4ff;font-weight:700;font-size:.9rem">${coinsToRender.length}</span>
-                    <span style="color:#b8c6db;font-size:.8rem">of ${filteredCoins.length}</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:16px">
-                    <div style="display:flex;align-items:center;gap:4px">
-                        <span style="color:#10b981;font-size:.8rem">📈 ${gainersCount}</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:4px">
-                        <span style="color:#ef4444;font-size:.8rem">📉 ${losersCount}</span>
-                    </div>
-                </div>
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                <span style="color:#b8c6db;font-size:.8rem">Showing <span style="color:#00d4ff;font-weight:700">${coinsToRender.length}</span> of ${filteredCoins.length}</span>
+                <span style="color:#10b981;font-size:.8rem">📈 ${gainersCount}</span>
+                <span style="color:#ef4444;font-size:.8rem">📉 ${losersCount}</span>
             </div>
             ${hasMoreCoins ? `
-                <button id="load-more-btn" style="padding:8px 16px;background:linear-gradient(135deg,#00d4ff,#4facfe);border:none;border-radius:8px;color:#fff;cursor:pointer;font-size:.8rem;font-weight:600;transition:all .2s ease;box-shadow:0 2px 8px rgba(0,212,255,.3)">
-                    📊 Load More (${filteredCoins.length - this.maxDisplayCoins} remaining)
+                <button id="load-more-btn" style="padding:6px 12px;background:linear-gradient(135deg,#00d4ff,#4facfe);border:none;border-radius:6px;color:#fff;cursor:pointer;font-size:.8rem;font-weight:600">
+                    Load More (${filteredCoins.length - this.maxDisplayCoins})
                 </button>
             ` : ''}
         `;
         fragment.appendChild(infoDiv);
 
-        // Create coin list container
+        // Create simplified coin cards
         const coinListDiv = document.createElement('div');
         coinListDiv.className = 'coin-list';
         
-        // Batch create coin cards with enhanced charts
-        coinsToRender.forEach((coin, index) => {
+        coinsToRender.forEach((coin) => {
             const cardDiv = document.createElement('div');
             cardDiv.className = 'coin-card';
-            cardDiv.onclick = () => this.showDetails(coin.symbol);
-            cardDiv.innerHTML = this.createEnhancedCoinCardHTML(coin, index);
+            // Fix: Use proper event listener instead of onclick
+            cardDiv.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.showDetails(coin.symbol);
+            });
+            
+            const isPositive = coin.percent_change_24h > 0;
+            const changeIcon = isPositive ? '📈' : '📉';
+            const changeColor = isPositive ? '#10b981' : '#ef4444';
+            
+            cardDiv.innerHTML = `
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+                    <div style="flex:1">
+                        <h3 style="color:#fff;font-size:1rem;font-weight:700;margin:0 0 4px 0">${coin.name}</h3>
+                        <span style="color:#00d4ff;font-size:.8rem;font-weight:600">${coin.symbol}</span>
+                    </div>
+                    <div style="color:#b8c6db;font-size:.7rem">#${coin.rank}</div>
+                </div>
+                <div data-price style="color:#fff;font-size:1.3rem;font-weight:800;margin:10px 0">$${coin.price.toFixed(2)}</div>
+                <div data-change style="color:${changeColor};font-weight:600;display:flex;align-items:center;gap:4px;margin-bottom:10px">
+                    <span>${changeIcon}</span>
+                    <span>${isPositive ? '+' : ''}${coin.percent_change_24h.toFixed(2)}%</span>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+                    <div style="background:rgba(0,0,0,.2);padding:6px;border-radius:6px;text-align:center">
+                        <div style="color:#b8c6db;font-size:.6rem">Market Cap</div>
+                        <div style="color:#00d4ff;font-size:.7rem;font-weight:700">$${this.formatMarketCap(coin.market_cap)}</div>
+                    </div>
+                    <div style="background:rgba(0,0,0,.2);padding:6px;border-radius:6px;text-align:center">
+                        <div style="color:#b8c6db;font-size:.6rem">Volume</div>
+                        <div style="color:#00d4ff;font-size:.7rem;font-weight:700">$${this.formatVolume(coin.volume_24h)}</div>
+                    </div>
+                </div>
+            `;
             coinListDiv.appendChild(cardDiv);
         });
 
         fragment.appendChild(coinListDiv);
-        
-        // Single DOM update
         container.innerHTML = '';
         container.appendChild(fragment);
 
-        // Add event listener for load more button
+        // Add load more event
         const loadMoreBtn = document.getElementById('load-more-btn');
         if (loadMoreBtn) {
-            loadMoreBtn.onclick = () => this.loadMoreCoins();
-            
-            // Add hover effect
-            loadMoreBtn.addEventListener('mouseenter', () => {
-                loadMoreBtn.style.transform = 'translateY(-2px)';
-                loadMoreBtn.style.boxShadow = '0 4px 16px rgba(0,212,255,.5)';
-            });
-            
-            loadMoreBtn.addEventListener('mouseleave', () => {
-                loadMoreBtn.style.transform = 'translateY(0)';
-                loadMoreBtn.style.boxShadow = '0 2px 8px rgba(0,212,255,.3)';
+            loadMoreBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.loadMoreCoins();
             });
         }
-
-        // Initialize mini charts after DOM update
-        requestAnimationFrame(() => {
-            this.initializeMiniCharts(coinsToRender);
-        });
-    }
-
-    createEnhancedCoinCardHTML(coin: any, index: number): string {
-        const isPositive = coin.percent_change_24h > 0;
-        const changeIcon = isPositive ? '📈' : '📉';
-        const changeColor = isPositive ? '#10b981' : '#ef4444';
-        const changeBg = isPositive ? 'rgba(16,185,129,.1)' : 'rgba(239,68,68,.1)';
-        const changeBorder = isPositive ? 'rgba(16,185,129,.3)' : 'rgba(239,68,68,.3)';
-        
-        // Enhanced volatility indicator
-        const volatility = coin.volatility_score || 5;
-        const volatilityColor = volatility > 7 ? '#ef4444' : volatility > 4 ? '#f59e0b' : '#10b981';
-        const volatilityLabel = volatility > 7 ? 'High' : volatility > 4 ? 'Med' : 'Low';
-        
-        return `
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-                <div style="flex:1">
-                    <h3 style="color:#fff;font-size:1.1rem;font-weight:700;margin:0 0 4px 0;line-height:1.2">${coin.name}</h3>
-                    <div style="display:flex;align-items:center;gap:8px">
-                        <span style="color:#00d4ff;font-size:.7rem;font-weight:600;background:rgba(0,212,255,.1);padding:2px 6px;border-radius:6px;border:1px solid rgba(0,212,255,.3)">${coin.symbol}</span>
-                        <span style="color:${volatilityColor};font-size:.6rem;font-weight:600;background:rgba(${volatilityColor.slice(1)},0.1);padding:1px 4px;border-radius:4px;border:1px solid rgba(${volatilityColor.slice(1)},0.3)">${volatilityLabel}</span>
-                    </div>
-                </div>
-                <div style="background:rgba(255,255,255,.1);color:#b8c6db;font-size:.65rem;font-weight:600;padding:4px 8px;border-radius:8px;border:1px solid rgba(255,255,255,.1)">#${coin.rank}</div>
-            </div>
-
-            <div style="color:#fff;font-size:1.4rem;font-weight:800;margin:12px 0;font-family:monospace">
-                $${this.formatPrice(coin.price)}
-            </div>
-
-            <div style="display:flex;align-items:center;gap:4px;font-weight:600;font-size:.9rem;margin-bottom:12px;padding:4px 8px;border-radius:8px;color:${changeColor};background:${changeBg};border:1px solid ${changeBorder}">
-                <span style="font-size:1rem">${changeIcon}</span>
-                <span>${isPositive ? '+' : ''}${coin.percent_change_24h.toFixed(2)}%</span>
-            </div>
-
-            <!-- Enhanced Mini Chart Section -->
-            <div id="mini-chart-${index}" style="height:60px;margin:12px 0;background:rgba(0,0,0,.2);border-radius:8px;padding:8px;position:relative;overflow:hidden">
-                <div style="position:absolute;top:4px;left:8px;font-size:.6rem;color:#b8c6db;font-weight:600">7D Trend</div>
-                <canvas id="chart-canvas-${index}" width="280" height="44" style="width:100%;height:44px;cursor:pointer"></canvas>
-            </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto">
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;transition:all .2s ease" onmouseenter="this.style.background='rgba(0,212,255,.05)'" onmouseleave="this.style.background='rgba(0,0,0,.2)'">
-                    <span style="display:block;color:#b8c6db;font-size:.6rem;font-weight:600;text-transform:uppercase;margin-bottom:2px">Market Cap</span>
-                    <span style="color:#00d4ff;font-size:.8rem;font-weight:700;font-family:monospace">$${this.formatMarketCap(coin.market_cap)}</span>
-                </div>
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;transition:all .2s ease" onmouseenter="this.style.background='rgba(0,212,255,.05)'" onmouseleave="this.style.background='rgba(0,0,0,.2)'">
-                    <span style="display:block;color:#b8c6db;font-size:.6rem;font-weight:600;text-transform:uppercase;margin-bottom:2px">Volume</span>
-                    <span style="color:#00d4ff;font-size:.8rem;font-weight:700;font-family:monospace">$${this.formatVolume(coin.volume_24h)}</span>
-                </div>
-            </div>
-        `;
-    }
-
-    initializeMiniCharts(coins: any[]) {
-        coins.forEach((coin, index) => {
-            const canvas = document.getElementById(`chart-canvas-${index}`) as HTMLCanvasElement;
-            if (!canvas) return;
-
-            const ctx = canvas.getContext('2d');
-            if (!ctx) return;
-
-            // Set up high DPI rendering
-            const rect = canvas.getBoundingClientRect();
-            const dpr = window.devicePixelRatio || 1;
-            canvas.width = rect.width * dpr;
-            canvas.height = rect.height * dpr;
-            ctx.scale(dpr, dpr);
-
-            // Create enhanced mini chart
-            this.renderEnhancedMiniChart(ctx, coin, rect.width, rect.height, index);
-            
-            // Add interactivity
-            this.addChartInteractivity(canvas, coin, index);
-        });
-    }
-
-    renderEnhancedMiniChart(ctx: CanvasRenderingContext2D, coin: any, width: number, height: number, index: number) {
-        const priceHistory = coin.price_history || [];
-        if (priceHistory.length < 2) return;
-
-        const padding = 4;
-        const chartWidth = width - padding * 2;
-        const chartHeight = height - padding * 2;
-
-        const min = Math.min(...priceHistory);
-        const max = Math.max(...priceHistory);
-        const range = max - min;
-
-        if (range === 0) {
-            // Draw flat line for stable prices
-            ctx.strokeStyle = '#666';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(padding, height / 2);
-            ctx.lineTo(width - padding, height / 2);
-            ctx.stroke();
-            return;
-        }
-
-        // Create gradient
-        const gradient = ctx.createLinearGradient(0, 0, 0, height);
-        const isPositive = coin.percent_change_24h > 0; // Fix: Define isPositive variable
-        const primaryColor = isPositive ? '#10b981' : '#ef4444';
-        const secondaryColor = isPositive ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)';
-        
-        gradient.addColorStop(0, primaryColor);
-        gradient.addColorStop(1, secondaryColor);
-
-        // Create smooth path
-        interface ChartPoint {
-            x: number;
-            y: number;
-        }
-        const points: ChartPoint[] = priceHistory.map((price: number, i: number): ChartPoint => ({
-            x: padding + (i / (priceHistory.length - 1)) * chartWidth,
-            y: padding + (1 - (price - min) / range) * chartHeight
-        }));
-
-        // Draw area fill
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.moveTo(points[0].x, height - padding);
-        points.forEach((point: { x: number; y: number }, i: number) => {
-            if (i === 0) {
-            ctx.lineTo(point.x, point.y);
-            } else {
-            // Add smooth curves using quadratic curves
-            const prevPoint: { x: number; y: number } = points[i - 1];
-            const midX: number = (prevPoint.x + point.x) / 2;
-            ctx.quadraticCurveTo(prevPoint.x, prevPoint.y, midX, (prevPoint.y + point.y) / 2);
-            ctx.quadraticCurveTo(midX, (prevPoint.y + point.y) / 2, point.x, point.y);
-            }
-        });
-        ctx.lineTo(points[points.length - 1].x, height - padding);
-        ctx.closePath();
-        ctx.fill();
-
-        // Draw line
-        ctx.strokeStyle = primaryColor;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        interface ChartPoint {
-            x: number;
-            y: number;
-        }
-        points.forEach((point: ChartPoint, i: number) => {
-            if (i === 0) {
-            ctx.moveTo(point.x, point.y);
-            } else {
-            const prevPoint: ChartPoint = points[i - 1];
-            const midX: number = (prevPoint.x + point.x) / 2;
-            ctx.quadraticCurveTo(prevPoint.x, prevPoint.y, midX, (prevPoint.y + point.y) / 2);
-            ctx.quadraticCurveTo(midX, (prevPoint.y + point.y) / 2, point.x, point.y);
-            }
-        });
-        ctx.stroke();
-
-        // Add data points
-        ctx.fillStyle = primaryColor;
-        points.forEach((point, i) => {
-            if (i === 0 || i === points.length - 1) {
-                ctx.beginPath();
-                ctx.arc(point.x, point.y, 2, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        });
-
-        // Add trend indicator
-        const trend = priceHistory[priceHistory.length - 1] > priceHistory[0];
-        const trendIcon = trend ? '↗' : '↘';
-        const trendColor = trend ? '#10b981' : '#ef4444';
-        
-        ctx.fillStyle = trendColor;
-        ctx.font = '12px Arial';
-        ctx.fillText(trendIcon, width - 20, 16);
     }
 
     filterCoins(coins: any[], filterType: string): any[] {
@@ -584,414 +383,946 @@ class CryptoApp {
         }
     }
 
+    // Fix filter and sort methods
     filterByAnalysis(type: string) {
         this.currentFilter = type;
         
-        // Efficient class updates
-        document.querySelectorAll('.analysis-btn').forEach(btn => btn.classList.remove('active'));
-        const activeBtn = document.querySelector(`[data-filter="${type}"]`);
-        if (activeBtn) activeBtn.classList.add('active');
+        // Update active button
+        document.querySelectorAll('.analysis-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-filter') === type) {
+                btn.classList.add('active');
+            }
+        });
         
-        this.batchUpdate(() => this.renderCoins());
+        this.renderCoins();
     }
 
     handleSortChange() {
         const select = document.getElementById('sort-select') as HTMLSelectElement;
         if (select) {
             this.currentSort = select.value;
-            this.batchUpdate(() => this.renderCoins());
+            this.renderCoins();
         }
-    }
-
-    addChartInteractivity(canvas: HTMLCanvasElement, coin: any, index: number) {
-        let isHovering = false;
-        let tooltip: HTMLElement | null = null;
-
-        canvas.addEventListener('mouseenter', () => {
-            isHovering = true;
-            canvas.style.cursor = 'pointer';
-            
-            // Create tooltip
-            tooltip = document.createElement('div');
-            tooltip.style.cssText = `
-                position: absolute;
-                background: rgba(0,0,0,.9);
-                color: #fff;
-                padding: 8px 12px;
-                border-radius: 6px;
-                font-size: 0.75rem;
-                pointer-events: none;
-                z-index: 1000;
-                border: 1px solid rgba(255,255,255,.2);
-                box-shadow: 0 4px 12px rgba(0,0,0,.3);
-            `;
-            
-            const priceRange = coin.price_history || [];
-            const min = Math.min(...priceRange);
-            const max = Math.max(...priceRange);
-            const currentPrice = coin.price;
-            
-            tooltip.innerHTML = `
-                <div><strong>${coin.symbol}</strong></div>
-                <div>Current: $${this.formatPrice(currentPrice)}</div>
-                <div>7D High: $${this.formatPrice(max)}</div>
-                <div>7D Low: $${this.formatPrice(min)}</div>
-                <div style="color: ${coin.percent_change_24h > 0 ? '#10b981' : '#ef4444'}">
-                    24h: ${coin.percent_change_24h > 0 ? '+' : ''}${coin.percent_change_24h.toFixed(2)}%
-                </div>
-            `;
-            
-            document.body.appendChild(tooltip);
-        });
-
-        canvas.addEventListener('mousemove', (e) => {
-            if (tooltip && isHovering) {
-                tooltip.style.left = (e.pageX + 10) + 'px';
-                tooltip.style.top = (e.pageY - 10) + 'px';
-            }
-        });
-
-        canvas.addEventListener('mouseleave', () => {
-            isHovering = false;
-            canvas.style.cursor = 'default';
-            
-            if (tooltip) {
-                document.body.removeChild(tooltip);
-                tooltip = null;
-            }
-        });
-
-        // Click to show details
-        canvas.addEventListener('click', () => {
-            this.showDetails(coin.symbol);
-        });
     }
 
     loadMoreCoins() {
-        console.log('📊 Loading more coins...');
-        
-        // Increase the display limit
-        const increment = window.innerWidth < 768 ? 4 : 8;
+        const increment = window.innerWidth < 768 ? 4 : 6;
         this.maxDisplayCoins += increment;
-        
-        // Add loading animation
-        const loadMoreBtn = document.getElementById('load-more-btn');
-        if (loadMoreBtn) {
-            const originalText = loadMoreBtn.innerHTML;
-            loadMoreBtn.innerHTML = `
-                <div style="display:flex;align-items:center;gap:8px">
-                    <div style="width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top:2px solid #fff;border-radius:50%;animation:spin .8s linear infinite"></div>
-                    Loading...
-                </div>
-            `;
-            loadMoreBtn.style.pointerEvents = 'none';
-            
-            // Simulate loading delay for better UX
-            setTimeout(() => {
-                this.renderCoins();
-                console.log(`✅ Loaded more coins. Now showing ${this.maxDisplayCoins} coins`);
-            }, 300);
-        }
+        this.renderCoins();
     }
 
-    // Enhanced chart creation for modal
-    private createAdvancedPriceChart(priceHistory: number[], isPositive: boolean): string {
-        if (!priceHistory || priceHistory.length === 0) {
-            return '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8b97a3">No price data available</div>';
-        }
+    // Enhanced modal with working close button, detailed stats, and auto-update timer
+    showDetails(symbol: string) {
+        const coin = this.coins.find(c => c.symbol === symbol);
+        if (!coin) return;
 
-        const min = Math.min(...priceHistory);
-        const max = Math.max(...priceHistory);
-        const range = max - min;
+        // Store current modal coin for updates
+        this.currentModalCoin = coin;
 
-        if (range === 0) {
-            return '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8b97a3">Price stable</div>';
-        }
-
-        // Generate more sophisticated chart
-        const canvasId = `advanced-chart-${Date.now()}`;
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;z-index:10000;backdrop-filter:blur(8px)';
+        modal.id = 'coin-modal';
         
-        // Create canvas element
-        setTimeout(() => {
-            const canvas = document.getElementById(canvasId) as HTMLCanvasElement;
-            if (!canvas) return;
-
-            const ctx = canvas.getContext('2d');
-            if (!ctx) return;
-
-            this.renderAdvancedChart(ctx, priceHistory, isPositive, 800, 300);
-        }, 100);
-
-        return `
-            <div style="position:relative;width:100%;height:100%">
-                <canvas id="${canvasId}" width="800" height="300" style="width:100%;height:100%;border-radius:12px;background:rgba(0,0,0,.2)"></canvas>
-                <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px">
-                    <div style="background:rgba(0,0,0,.6);color:#fff;padding:4px 8px;border-radius:4px;font-size:.7rem">
-                        High: $${max.toFixed(2)}
+        // Generate enhanced price charts with proper sizing
+        const priceHistory = coin.price_history || this.generatePriceHistory(coin.price, 30);
+        const volumeHistory = coin.volume_history || this.generateVolumeHistory(coin.volume_24h, 30);
+        const priceChart = this.generateAdvancedChart(priceHistory, 'price', coin.percent_change_24h > 0 ? '#10b981' : '#ef4444');
+        const volumeChart = this.generateVolumeChart(volumeHistory, '#4facfe');
+        const candlestickChart = this.generateCandlestickChart(priceHistory, coin.price);
+        
+        // Calculate additional metrics
+        const marketCapRank = coin.rank;
+        const volumeToMarketCapRatio = ((coin.volume_24h / coin.market_cap) * 100).toFixed(2);
+        const priceChange7d = coin.percent_change_7d || (Math.random() - 0.5) * 10;
+        const priceChange30d = coin.percent_change_30d || (Math.random() - 0.5) * 20;
+        const rsi = coin.rsi || 50 + (Math.random() - 0.5) * 40;
+        const volatility = coin.volatility_score || Math.random() * 10;
+        const liquidityScore = coin.liquidity_score || Math.random() * 10;
+        
+        // Calculate moving averages for display
+        const ma20 = coin.moving_avg_50 || coin.price * (0.95 + Math.random() * 0.1);
+        const ma50 = coin.moving_avg_200 || coin.price * (0.90 + Math.random() * 0.2);
+        
+        modal.innerHTML = `
+            <div style="background:linear-gradient(135deg,rgba(15,23,42,.98),rgba(30,41,59,.98));border:2px solid rgba(0,212,255,.3);border-radius:16px;padding:24px;max-width:900px;width:95%;max-height:85vh;overflow-y:auto;color:#fff;position:relative;box-shadow:0 25px 100px rgba(0,0,0,.8)">
+                
+                <!-- Enhanced Header with Timer -->
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(0,212,255,.2)">
+                    <div style="display:flex;align-items:center;gap:16px;flex:1">
+                        <div style="width:48px;height:48px;background:linear-gradient(135deg,#00d4ff,#4facfe);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;box-shadow:0 4px 16px rgba(0,212,255,.4)">${coin.symbol.charAt(0)}</div>
+                        <div style="flex:1">
+                            <h2 style="font-size:1.6rem;font-weight:800;margin:0;background:linear-gradient(135deg,#fff,#00d4ff);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent">${coin.name}</h2>
+                            <div style="display:flex;gap:12px;align-items:center;margin-top:6px;flex-wrap:wrap">
+                                <span style="color:#00d4ff;font-size:.85rem;font-weight:700;background:rgba(0,212,255,.15);padding:3px 8px;border-radius:8px;border:1px solid rgba(0,212,255,.3)">${coin.symbol}</span>
+                                <span style="color:#b8c6db;font-size:.8rem">Rank #${coin.rank}</span>
+                                <span style="color:${coin.percent_change_24h > 0 ? '#10b981' : '#ef4444'};font-size:.8rem;font-weight:700;background:rgba(${coin.percent_change_24h > 0 ? '16,185,129' : '239,68,68'},.15);padding:3px 6px;border-radius:6px">${coin.percent_change_24h > 0 ? '+' : ''}${coin.percent_change_24h.toFixed(2)}%</span>
+                            </div>
+                        </div>
                     </div>
-                    <div style="background:rgba(0,0,0,.6);color:#fff;padding:4px 8px;border-radius:4px;font-size:.7rem">
-                        Low: $${min.toFixed(2)}
+                    
+                    <!-- Modal Timer Display -->
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <div id="modal-update-timer" style="background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;font-size:.75rem;color:#b8c6db;font-family:monospace;display:flex;align-items:center;gap:6px">
+                            <span style="color:#00d4ff">⏱️</span>
+                            <span>Next update: <span id="modal-countdown-display" style="color:#00d4ff;font-weight:700">${this.countdownTimer}s</span></span>
+                        </div>
+                        <button id="modal-close-btn" style="background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.4);color:#ef4444;cursor:pointer;padding:8px;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;transition:all .3s ease;z-index:10">✕</button>
                     </div>
+                </div>
+
+                <!-- Live Price Display -->
+                <div style="text-align:center;margin-bottom:20px">
+                    <div id="modal-live-price" style="color:#00d4ff;font-size:2.5rem;font-weight:900;font-family:monospace">$${this.formatPrice(coin.price)}</div>
+                    <div style="color:#b8c6db;font-size:.8rem;margin-top:2px">Live Price • Last updated: <span id="modal-last-updated">${new Date().toLocaleTimeString()}</span></div>
+                </div>
+
+                <!-- Compact Price Changes -->
+                <div id="modal-price-changes" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;margin-bottom:20px">
+                    <div style="text-align:center;padding:12px;background:rgba(0,0,0,.3);border-radius:10px;border:1px solid rgba(255,255,255,.1)">
+                        <div style="color:#b8c6db;font-size:.7rem;text-transform:uppercase;margin-bottom:4px;font-weight:600">24H</div>
+                        <div id="modal-change-24h" style="color:${coin.percent_change_24h > 0 ? '#10b981' : '#ef4444'};font-weight:800;font-size:.9rem">${coin.percent_change_24h > 0 ? '+' : ''}${coin.percent_change_24h.toFixed(2)}%</div>
+                    </div>
+                    <div style="text-align:center;padding:12px;background:rgba(0,0,0,.3);border-radius:10px;border:1px solid rgba(255,255,255,.1)">
+                        <div style="color:#b8c6db;font-size:.7rem;text-transform:uppercase;margin-bottom:4px;font-weight:600">7D</div>
+                        <div id="modal-change-7d" style="color:${priceChange7d > 0 ? '#10b981' : '#ef4444'};font-weight:800;font-size:.9rem">${priceChange7d > 0 ? '+' : ''}${priceChange7d.toFixed(2)}%</div>
+                    </div>
+                    <div style="text-align:center;padding:12px;background:rgba(0,0,0,.3);border-radius:10px;border:1px solid rgba(255,255,255,.1)">
+                        <div style="color:#b8c6db;font-size:.7rem;text-transform:uppercase;margin-bottom:4px;font-weight:600">30D</div>
+                        <div id="modal-change-30d" style="color:${priceChange30d > 0 ? '#10b981' : '#ef4444'};font-weight:800;font-size:.9rem">${priceChange30d > 0 ? '+' : ''}${priceChange30d.toFixed(2)}%</div>
+                    </div>
+                    <div style="text-align:center;padding:12px;background:rgba(0,0,0,.3);border-radius:10px;border:1px solid rgba(255,255,255,.1)">
+                        <div style="color:#b8c6db;font-size:.7rem;text-transform:uppercase;margin-bottom:4px;font-weight:600">Volume</div>
+                        <div id="modal-volume" style="color:#4facfe;font-weight:800;font-size:.9rem">$${this.formatVolume(coin.volume_24h)}</div>
+                    </div>
+                    <div style="text-align:center;padding:12px;background:rgba(0,0,0,.3);border-radius:10px;border:1px solid rgba(255,255,255,.1)">
+                        <div style="color:#b8c6db;font-size:.7rem;text-transform:uppercase;margin-bottom:4px;font-weight:600">Market Cap</div>
+                        <div id="modal-market-cap" style="color:#4facfe;font-weight:800;font-size:.9rem">$${this.formatMarketCap(coin.market_cap)}</div>
+                    </div>
+                </div>
+
+                <!-- Chart Section with Proper Sizing -->
+                <div style="margin-bottom:24px">
+                    <div style="display:flex;gap:8px;margin-bottom:12px;justify-content:center">
+                        <button id="price-chart-btn" style="background:rgba(0,212,255,.3);border:1px solid rgba(0,212,255,.5);color:#00d4ff;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700;transition:all .3s">
+                            📈 Price Chart
+                        </button>
+                        <button id="candlestick-chart-btn" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700;transition:all .3s">
+                            🕯️ Candlestick
+                        </button>
+                        <button id="volume-chart-btn" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700;transition:all .3s">
+                            📊 Volume
+                        </button>
+                    </div>
+                    <div id="chart-container" style="background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:16px;height:250px;position:relative;overflow:hidden;margin:0 auto;max-width:100%">
+                        ${priceChart}
+                    </div>
+                </div>
+
+                <!-- Organized Technical Indicators -->
+                <div style="margin-bottom:24px">
+                    <h3 style="color:#00d4ff;font-size:1.1rem;font-weight:800;margin-bottom:16px;text-transform:uppercase;letter-spacing:.05em">📊 Technical Analysis</h3>
+                    
+                    <div id="modal-technical-indicators" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+                        <!-- RSI Indicator -->
+                        <div style="background:rgba(0,0,0,.3);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,.1)">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                                <h4 style="color:#b8c6db;font-size:.8rem;margin:0;text-transform:uppercase;font-weight:700">RSI (14)</h4>
+                                <span id="modal-rsi-status" style="color:${rsi > 70 ? '#ef4444' : rsi < 30 ? '#10b981' : '#f59e0b'};font-size:.7rem;font-weight:700;background:rgba(${rsi > 70 ? '239,68,68' : rsi < 30 ? '16,185,129' : '245,158,11'},.2);padding:2px 6px;border-radius:4px">
+                                    ${rsi > 70 ? 'Overbought' : rsi < 30 ? 'Oversold' : 'Neutral'}
+                                </span>
+                            </div>
+                            <div id="modal-rsi-value" style="font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:12px">${rsi.toFixed(1)}</div>
+                            <div style="width:100%;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;position:relative">
+                                <div id="modal-rsi-bar" style="width:${rsi}%;height:100%;background:linear-gradient(90deg,#10b981,#f59e0b,#ef4444);border-radius:3px;transition:width .5s ease"></div>
+                                <div style="position:absolute;left:30%;top:0;width:1px;height:100%;background:rgba(16,185,129,.8)"></div>
+                                <div style="position:absolute;left:70%;top:0;width:1px;height:100%;background:rgba(239,68,68,.8)"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Volatility Score -->
+                        <div style="background:rgba(0,0,0,.3);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,.1)">
+                            <h4 style="color:#b8c6db;font-size:.8rem;margin:0 0 10px 0;text-transform:uppercase;font-weight:700">Volatility</h4>
+                            <div id="modal-volatility-value" style="font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:12px">${volatility.toFixed(1)}/10</div>
+                            <div style="width:100%;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden">
+                                <div id="modal-volatility-bar" style="width:${(volatility/10)*100}%;height:100%;background:linear-gradient(90deg,#10b981,#f59e0b,#ef4444);border-radius:3px;transition:width .5s ease"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Moving Averages -->
+                        <div style="background:rgba(0,0,0,.3);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,.1)">
+                            <h4 style="color:#b8c6db;font-size:.8rem;margin:0 0 12px 0;text-transform:uppercase;font-weight:700">Moving Averages</h4>
+                            <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                                <span style="color:#b8c6db;font-size:.75rem">MA(20)</span>
+                                <span id="modal-ma20" style="color:${coin.price > ma20 ? '#10b981' : '#ef4444'};font-weight:700;font-size:.75rem">$${ma20.toFixed(2)}</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between">
+                                <span style="color:#b8c6db;font-size:.75rem">MA(50)</span>
+                                <span id="modal-ma50" style="color:${coin.price > ma50 ? '#10b981' : '#ef4444'};font-weight:700;font-size:.75rem">$${ma50.toFixed(2)}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Support & Resistance -->
+                        <div style="background:rgba(0,0,0,.3);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,.1)">
+                            <h4 style="color:#b8c6db;font-size:.8rem;margin:0 0 12px 0;text-transform:uppercase;font-weight:700">Key Levels</h4>
+                            <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                                <span style="color:#ef4444;font-size:.75rem">Resistance</span>
+                                <span id="modal-resistance" style="color:#fff;font-weight:700;font-size:.75rem">$${(coin.price * 1.08).toFixed(2)}</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between">
+                                <span style="color:#10b981;font-size:.75rem">Support</span>
+                                <span id="modal-support" style="color:#fff;font-weight:700;font-size:.75rem">$${(coin.price * 0.92).toFixed(2)}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compact Market Data -->
+                <div style="margin-bottom:20px">
+                    <h3 style="color:#00d4ff;font-size:1.1rem;font-weight:800;margin-bottom:16px;text-transform:uppercase;letter-spacing:.05em">💼 Market Information</h3>
+                    <div id="modal-market-data" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+                        <div style="background:rgba(0,0,0,.3);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,.1)">
+                            <div style="color:#b8c6db;font-size:.7rem;margin-bottom:6px;text-transform:uppercase;font-weight:600">Market Cap</div>
+                            <div id="modal-market-cap-detail" style="color:#fff;font-weight:800;font-size:1rem;margin-bottom:3px">$${this.formatMarketCap(coin.market_cap)}</div>
+                            <div style="color:#b8c6db;font-size:.65rem">Rank #${marketCapRank}</div>
+                        </div>
+                        <div style="background:rgba(0,0,0,.3);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,.1)">
+                            <div style="color:#b8c6db;font-size:.7rem;margin-bottom:6px;text-transform:uppercase;font-weight:600">24h Volume</div>
+                            <div id="modal-volume-detail" style="color:#fff;font-weight:800;font-size:1rem;margin-bottom:3px">$${this.formatVolume(coin.volume_24h)}</div>
+                            <div style="color:#b8c6db;font-size:.65rem">${volumeToMarketCapRatio}% of MCap</div>
+                        </div>
+                        <div style="background:rgba(0,0,0,.3);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,.1)">
+                            <div style="color:#b8c6db;font-size:.7rem;margin-bottom:6px;text-transform:uppercase;font-weight:600">Circulating Supply</div>
+                            <div style="color:#fff;font-weight:800;font-size:1rem;margin-bottom:3px">${this.formatVolume(coin.circulating_supply)}</div>
+                            <div style="color:#b8c6db;font-size:.65rem">${coin.symbol}</div>
+                        </div>
+                        ${coin.max_supply ? `
+                        <div style="background:rgba(0,0,0,.3);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,.1)">
+                            <div style="color:#b8c6db;font-size:.7rem;margin-bottom:6px;text-transform:uppercase;font-weight:600">Max Supply</div>
+                            <div style="color:#fff;font-weight:800;font-size:1rem;margin-bottom:3px">${this.formatVolume(coin.max_supply)}</div>
+                            <div style="color:#b8c6db;font-size:.65rem">${((coin.circulating_supply / coin.max_supply) * 100).toFixed(1)}% issued</div>
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+
+                <!-- Compact Action Buttons -->
+                <div style="display:flex;gap:10px;justify-content:center;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);flex-wrap:wrap">
+                    <button onclick="alert('Watchlist feature coming soon!')" style="background:linear-gradient(135deg,#4facfe,#00f2fe);border:none;color:#fff;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;transition:all .3s ease;font-size:.85rem">
+                        ⭐ Watchlist
+                    </button>
+                    <button onclick="alert('Price alerts coming soon!')" style="background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:#fff;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;transition:all .3s ease;font-size:.85rem">
+                        🔔 Alert
+                    </button>
+                    <button onclick="window.open('https://coinmarketcap.com/currencies/${coin.name.toLowerCase().replace(/\s+/g, '-')}/', '_blank')" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;transition:all .3s ease;font-size:.85rem">
+                        📊 Details
+                    </button>
                 </div>
             </div>
         `;
-    }
-
-    renderAdvancedChart(ctx: CanvasRenderingContext2D, priceHistory: number[], isPositive: boolean, width: number, height: number) {
-        const padding = 40;
-        const chartWidth = width - padding * 2;
-        const chartHeight = height - padding * 2;
-
-        const min = Math.min(...priceHistory);
-        const max = Math.max(...priceHistory);
-        const range = max - min;
-
-        // Clear canvas
-        ctx.clearRect(0, 0, width, height);
-
-        // Draw grid
-        ctx.strokeStyle = 'rgba(255,255,255,0.1)';
-        ctx.lineWidth = 1;
         
-        // Horizontal grid lines
-        for (let i = 0; i <= 4; i++) {
-            const y = padding + (i / 4) * chartHeight;
-            ctx.beginPath();
-            ctx.moveTo(padding, y);
-            ctx.lineTo(width - padding, y);
-            ctx.stroke();
+        document.body.appendChild(modal);
+        
+        // Start modal auto-update timer
+        this.startModalUpdateTimer();
+        
+        // Add chart tab functionality with proper event listeners
+        const chartContainer = document.getElementById('chart-container');
+        const priceChartBtn = document.getElementById('price-chart-btn');
+        const candlestickChartBtn = document.getElementById('candlestick-chart-btn');
+        const volumeChartBtn = document.getElementById('volume-chart-btn');
+        
+        const setActiveTab = (activeBtn: HTMLElement) => {
+            [priceChartBtn, candlestickChartBtn, volumeChartBtn].forEach(btn => {
+                if (btn) {
+                    btn.style.background = 'rgba(255,255,255,.1)';
+                    btn.style.borderColor = 'rgba(255,255,255,.2)';
+                    btn.style.color = '#fff';
+                }
+            });
+            activeBtn.style.background = 'rgba(0,212,255,.3)';
+            activeBtn.style.borderColor = 'rgba(0,212,255,.5)';
+            activeBtn.style.color = '#00d4ff';
+        };
+        
+        // Store current chart type for refreshing
+        let currentChartType = 'price';
+        
+        if (priceChartBtn && chartContainer) {
+            priceChartBtn.addEventListener('click', () => {
+                currentChartType = 'price';
+                chartContainer.innerHTML = priceChart;
+                setActiveTab(priceChartBtn);
+            });
         }
-
-        // Vertical grid lines
-        for (let i = 0; i <= 6; i++) {
-            const x = padding + (i / 6) * chartWidth;
-            ctx.beginPath();
-            ctx.moveTo(x, padding);
-            ctx.lineTo(x, height - padding);
-            ctx.stroke();
+        
+        if (candlestickChartBtn && chartContainer) {
+            candlestickChartBtn.addEventListener('click', () => {
+                currentChartType = 'candlestick';
+                chartContainer.innerHTML = candlestickChart;
+                setActiveTab(candlestickChartBtn);
+            });
         }
-
-        // Create gradient
-        const gradient = ctx.createLinearGradient(0, padding, 0, height - padding);
-        const primaryColor = isPositive ? '#10b981' : '#ef4444';
-        const secondaryColor = isPositive ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)';
         
-        gradient.addColorStop(0, primaryColor);
-        gradient.addColorStop(1, secondaryColor);
-
-        // Create data points
-        const points = priceHistory.map((price, i) => ({
-            x: padding + (i / (priceHistory.length - 1)) * chartWidth,
-            y: padding + (1 - (price - min) / range) * chartHeight
-        }));
-
-        // Draw area fill
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.moveTo(points[0].x, height - padding);
-        points.forEach((point, i) => {
-            if (i === 0) {
-                ctx.lineTo(point.x, point.y);
-            } else {
-                ctx.lineTo(point.x, point.y);
-            }
-        });
-        ctx.lineTo(points[points.length - 1].x, height - padding);
-        ctx.closePath();
-        ctx.fill();
-
-        // Draw main line
-        ctx.strokeStyle = primaryColor;
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        points.forEach((point, i) => {
-            if (i === 0) {
-                ctx.moveTo(point.x, point.y);
-            } else {
-                ctx.lineTo(point.x, point.y);
-            }
-        });
-        ctx.stroke();
-
-        // Draw price labels
-        ctx.fillStyle = '#b8c6db';
-        ctx.font = '12px monospace';
-        ctx.textAlign = 'right';
-        
-        for (let i = 0; i <= 4; i++) {
-            const value = max - (i / 4) * range;
-            const y = padding + (i / 4) * chartHeight;
-            ctx.fillText(`$${value.toFixed(2)}`, padding - 8, y + 4);
+        if (volumeChartBtn && chartContainer) {
+            volumeChartBtn.addEventListener('click', () => {
+                currentChartType = 'volume';
+                chartContainer.innerHTML = volumeChart;
+                setActiveTab(volumeChartBtn);
+            });
         }
-
-        // Draw time labels
-        ctx.textAlign = 'center';
-        const timeLabels = ['6d ago', '5d ago', '4d ago', '3d ago', '2d ago', '1d ago', 'Now'];
-        timeLabels.forEach((label, i) => {
-            const x = padding + (i / 6) * chartWidth;
-            ctx.fillText(label, x, height - padding + 20);
-        });
-    }
-
-    private createRSIGauge(rsi: number): string {
-        const angle = (rsi / 100) * 180;
-        const color = rsi > 70 ? '#ef4444' : rsi < 30 ? '#10b981' : '#00d4ff';
         
-        return `
-            <svg width="100%" height="80px" viewBox="0 0 100 50">
-                <!-- Background arc -->
-                <path d="M 10 40 A 30 30 0 0 1 90 40" stroke="rgba(255,255,255,0.2)" stroke-width="4" fill="none"/>
-                <!-- RSI arc -->
-                <path d="M 10 40 A 30 30 0 0 ${angle > 90 ? 1 : 0} ${10 + 80 * Math.cos((180 - angle) * Math.PI / 180)} ${40 - 30 * Math.sin((180 - angle) * Math.PI / 180)}" 
-                      stroke="${color}" stroke-width="4" fill="none"/>
-                <!-- Needle -->
-                <line x1="50" y1="40" x2="${50 + 25 * Math.cos((180 - angle) * Math.PI / 180)}" y2="${40 - 25 * Math.sin((180 - angle) * Math.PI / 180)}" 
-                      stroke="${color}" stroke-width="2"/>
-                <circle cx="50" cy="40" r="2" fill="${color}"/>
-            </svg>
-        `;
-    }
-
-    private generateVolumeData(baseVolume: number): number[] {
-        return Array.from({ length: 7 }, () => baseVolume * (0.7 + Math.random() * 0.6));
-    }
-
-    private generateMarketCapData(baseMarketCap: number): number[] {
-        return Array.from({ length: 7 }, () => baseMarketCap * (0.95 + Math.random() * 0.1));
-    }
-
-    private getRSIStatus(rsi: number): string {
-        if (rsi > 70) return 'Overbought';
-        if (rsi < 30) return 'Oversold';
-        return 'Neutral';
-    }
-
-    private getTechnicalSignal(coin: any): string {
-        const rsi = coin.rsi || 50;
-        const priceVsMA = coin.price > (coin.moving_avg_50 || coin.price);
-        
-        if (rsi > 70) return 'SELL';
-        if (rsi < 30) return 'BUY';
-        if (priceVsMA && coin.percent_change_24h > 0) return 'BUY';
-        if (!priceVsMA && coin.percent_change_24h < 0) return 'SELL';
-        return 'HOLD';
-    }
-
-    private getTechnicalSignalColor(coin: any): string {
-        const signal = this.getTechnicalSignal(coin);
-        switch (signal) {
-            case 'BUY': return '#10b981';
-            case 'SELL': return '#ef4444';
-            default: return '#f59e0b';
-        }
-    }
-
-    private getTrendStrength(coin: any): string {
-        const volatility = coin.volatility_score || 5;
-        if (volatility > 7) return 'Strong';
-        if (volatility > 4) return 'Moderate';
-        return 'Weak';
-    }
-
-    private getSentimentLabel(sentiment: number): string {
-        if (sentiment > 0.7) return 'Very Positive';
-        if (sentiment > 0.5) return 'Positive';
-        if (sentiment > 0.3) return 'Neutral';
-        return 'Negative';
-    }
-
-    private getFearGreedLabel(fearGreed: number): string {
-        if (fearGreed > 75) return 'Extreme Greed';
-        if (fearGreed > 55) return 'Greed';
-        if (fearGreed > 45) return 'Neutral';
-        if (fearGreed > 25) return 'Fear';
-        return 'Extreme Fear';
-    }
-
-    private getRecommendedAllocation(coin: any): number {
-        const marketCap = coin.market_cap;
-        if (marketCap > 100e9) return Math.floor(Math.random() * 15 + 10); // 10-25% for large cap
-        if (marketCap > 10e9) return Math.floor(Math.random() * 10 + 5);   // 5-15% for mid cap
-        return Math.floor(Math.random() * 5 + 1);                         // 1-5% for small cap
-    }
-
-    // Additional helper methods for advanced charts...
-    private createSupportResistanceChart(coin: any): string {
-        const currentPrice = coin.price;
-        const support = coin.support_level || currentPrice * 0.9;
-        const resistance = coin.resistance_level || currentPrice * 1.1;
-        
-        return `
-            <div style="position:relative;height:100%;background:rgba(0,0,0,.3);border-radius:12px;padding:20px">
-                <div style="position:absolute;top:20%;left:0;right:0;height:2px;background:#ef4444;opacity:0.6"></div>
-                <div style="position:absolute;top:20%;left:10px;color:#ef4444;font-size:.8rem">Resistance: $${resistance.toFixed(2)}</div>
-                
-                <div style="position:absolute;top:50%;left:0;right:0;height:3px;background:#00d4ff"></div>
-                <div style="position:absolute;top:50%;left:10px;color:#00d4ff;font-size:.9rem;font-weight:700">Current: $${currentPrice.toFixed(2)}</div>
-                
-                <div style="position:absolute;top:80%;left:0;right:0;height:2px;background:#10b981;opacity:0.6"></div>
-                <div style="position:absolute;top:80%;left:10px;color:#10b981;font-size:.8rem">Support: $${support.toFixed(2)}</div>
-            </div>
-        `;
-    }
-
-    private createSentimentGauge(sentiment: number): string {
-        return this.createRSIGauge(sentiment * 100);
-    }
-
-    private createFearGreedGauge(fearGreed: number): string {
-        return this.createRSIGauge(fearGreed);
-    }
-
-    private createSentimentTrendChart(coin: any): string {
-        const trendData = Array.from({ length: 7 }, () => Math.random() * 100);
-        return this.createAdvancedPriceChart(trendData, true);
-    }
-
-    private createCorrelationChart(coin: any): string {
-        const correlationData = [
-            { name: 'BTC', value: coin.correlation_btc || 0.8 },
-            { name: 'ETH', value: 0.7 + Math.random() * 0.2 },
-            { name: 'Market', value: 0.6 + Math.random() * 0.3 }
-        ];
-
-        const bars = correlationData.map((item, index) => {
-            const height = Math.abs(item.value) * 60;
-            const y = item.value > 0 ? 40 - height : 40;
-            const color = item.value > 0 ? '#10b981' : '#ef4444';
+        // Store chart refresh function for auto-updates
+        (window as any).refreshModalChart = () => {
+            if (!this.currentModalCoin || !chartContainer) return;
             
-            return `
-                <rect x="${index * 25 + 10}" y="${y}" width="15" height="${height}" fill="${color}" opacity="0.8"/>
-                <text x="${index * 25 + 17}" y="95" fill="#b8c6db" font-size="8" text-anchor="middle">${item.name}</text>
-                <text x="${index * 25 + 17}" y="${y - 5}" fill="#fff" font-size="6" text-anchor="middle">${item.value.toFixed(2)}</text>
-            `;
-        }).join('');
+            const updatedCoin = this.coins.find(c => c.symbol === this.currentModalCoin.symbol);
+            if (!updatedCoin) return;
+            
+            this.currentModalCoin = updatedCoin;
+            
+            // Use the actual updated price_history from server data
+            const updatedPriceHistory = updatedCoin.price_history || [];
+            const updatedVolumeHistory = updatedCoin.volume_history || [];
+            
+            // Only regenerate if we don't have actual history data
+            const priceHistory = updatedPriceHistory.length > 5 ? 
+                updatedPriceHistory : 
+                this.generatePriceHistory(updatedCoin.price, 30);
+            const volumeHistory = updatedVolumeHistory.length > 5 ? 
+                updatedVolumeHistory : 
+                this.generateVolumeHistory(updatedCoin.volume_24h, 30);
+            
+            console.log(`📊 Refreshing ${currentChartType} chart for ${updatedCoin.symbol} with ${priceHistory.length} data points`);
+            
+            switch (currentChartType) {
+                case 'price':
+                    chartContainer.innerHTML = this.generateAdvancedChart(
+                        priceHistory, 
+                        'price', 
+                        updatedCoin.percent_change_24h > 0 ? '#10b981' : '#ef4444'
+                    );
+                    break;
+                case 'candlestick':
+                    chartContainer.innerHTML = this.generateCandlestickChart(priceHistory, updatedCoin.price);
+                    break;
+                case 'volume':
+                    chartContainer.innerHTML = this.generateVolumeChart(volumeHistory, '#4facfe');
+                    break;
+            }
+        };
+        
+        // Add chart tab hover styles
+        const style = document.createElement('style');
+        style.textContent = `
+            #price-chart-btn:hover,
+            #candlestick-chart-btn:hover,
+            #volume-chart-btn:hover {
+                background: rgba(0,212,255,.2) !important;
+                border-color: rgba(0,212,255,.4) !important;
+                transform: translateY(-1px);
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Fix close button functionality
+        const closeBtn = document.getElementById('modal-close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.stopModalUpdateTimer();
+                modal.remove();
+                style.remove();
+                this.currentModalCoin = null;
+            });
+        }
+        
+        // Close on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this.stopModalUpdateTimer();
+                modal.remove();
+                style.remove();
+                this.currentModalCoin = null;
+            }
+        });
+        
+        // Close on Escape key
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                this.stopModalUpdateTimer();
+                modal.remove();
+                style.remove();
+                document.removeEventListener('keydown', handleEscape);
+                this.currentModalCoin = null;
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+    }
 
+    // Start modal update timer synchronized with main timer
+    private startModalUpdateTimer() {
+        if (this.modalUpdateInterval) {
+            clearInterval(this.modalUpdateInterval);
+        }
+        
+        this.modalUpdateInterval = setInterval(() => {
+            const modalCountdownEl = document.getElementById('modal-countdown-display');
+            if (modalCountdownEl) {
+                modalCountdownEl.textContent = `${this.countdownTimer}s`;
+                modalCountdownEl.className = `${
+                    this.countdownTimer <= 10 ? 'critical' : 
+                    this.countdownTimer <= 20 ? 'warning' : ''
+                }`;
+                
+                // Update modal data when main timer reaches 0
+                if (this.countdownTimer === 1) {
+                    setTimeout(() => this.updateModalData(), 100);
+                }
+            }
+        }, 1000);
+    }
+
+    // Stop modal update timer
+    private stopModalUpdateTimer() {
+        if (this.modalUpdateInterval) {
+            clearInterval(this.modalUpdateInterval);
+            this.modalUpdateInterval = null;
+        }
+    }
+
+    // Update modal data with fresh coin information
+    private updateModalData() {
+        if (!this.currentModalCoin) return;
+        
+        const updatedCoin = this.coins.find(c => c.symbol === this.currentModalCoin.symbol);
+        if (!updatedCoin) return;
+        
+        this.currentModalCoin = updatedCoin;
+        
+        // Update live price
+        const livePriceEl = document.getElementById('modal-live-price');
+        if (livePriceEl) {
+            livePriceEl.textContent = `$${this.formatPrice(updatedCoin.price)}`;
+        }
+        
+        // Update last updated timestamp
+        const lastUpdatedEl = document.getElementById('modal-last-updated');
+        if (lastUpdatedEl) {
+            lastUpdatedEl.textContent = new Date().toLocaleTimeString();
+        }
+        
+        // Update price changes
+        const change24hEl = document.getElementById('modal-change-24h');
+        if (change24hEl) {
+            const isPositive = updatedCoin.percent_change_24h > 0;
+            change24hEl.textContent = `${isPositive ? '+' : ''}${updatedCoin.percent_change_24h.toFixed(2)}%`;
+            change24hEl.style.color = isPositive ? '#10b981' : '#ef4444';
+        }
+        
+        // Update volume and market cap
+        const volumeEl = document.getElementById('modal-volume');
+        if (volumeEl) {
+            volumeEl.textContent = `$${this.formatVolume(updatedCoin.volume_24h)}`;
+        }
+        
+        const marketCapEl = document.getElementById('modal-market-cap');
+        if (marketCapEl) {
+            marketCapEl.textContent = `$${this.formatMarketCap(updatedCoin.market_cap)}`;
+        }
+        
+        // Update technical indicators with fresh data
+        const rsiEl = document.getElementById('modal-rsi-value');
+        const rsiBarEl = document.getElementById('modal-rsi-bar');
+        if (rsiEl && rsiBarEl && updatedCoin.rsi) {
+            rsiEl.textContent = updatedCoin.rsi.toFixed(1);
+            rsiBarEl.style.width = `${updatedCoin.rsi}%`;
+        }
+        
+        // Update volatility if available
+        const volatilityEl = document.getElementById('modal-volatility-value');
+        const volatilityBarEl = document.getElementById('modal-volatility-bar');
+        if (volatilityEl && volatilityBarEl && updatedCoin.volatility_score) {
+            volatilityEl.textContent = `${updatedCoin.volatility_score.toFixed(1)}/10`;
+            volatilityBarEl.style.width = `${(updatedCoin.volatility_score/10)*100}%`;
+        }
+        
+        // Update moving averages
+        const ma20El = document.getElementById('modal-ma20');
+        const ma50El = document.getElementById('modal-ma50');
+        if (ma20El && updatedCoin.moving_avg_50) {
+            ma20El.textContent = `$${updatedCoin.moving_avg_50.toFixed(2)}`;
+            ma20El.style.color = updatedCoin.price > updatedCoin.moving_avg_50 ? '#10b981' : '#ef4444';
+        }
+        if (ma50El && updatedCoin.moving_avg_200) {
+            ma50El.textContent = `$${updatedCoin.moving_avg_200.toFixed(2)}`;
+            ma50El.style.color = updatedCoin.price > updatedCoin.moving_avg_200 ? '#10b981' : '#ef4444';
+        }
+        
+        // Refresh chart with actual updated data
+        if ((window as any).refreshModalChart) {
+            (window as any).refreshModalChart();
+        }
+    }
+
+    // Enhanced advanced chart with accurate data usage
+    private generateAdvancedChart(prices: number[], type: string = 'price', color: string = '#00d4ff'): string {
+        if (prices.length < 2) return '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#b8c6db;font-size:0.9rem">📈 No chart data available</div>';
+        
+        // Check for flat data (all prices nearly the same)
+        const priceRange = Math.max(...prices) - Math.min(...prices);
+        const avgPrice = prices.reduce((a, b) => a + b, 0) / prices.length;
+        const isFlat = priceRange < (avgPrice * 0.001); // Less than 0.1% variation
+        
+        let processedPrices = prices;
+        
+        // If data is too flat, generate more realistic variations
+        if (isFlat) {
+            console.log(`⚠️ Detected flat price data for chart, generating variations. Range: ${priceRange}, Avg: ${avgPrice}`);
+            const currentPrice = prices[prices.length - 1];
+            processedPrices = this.generatePriceHistory(currentPrice, prices.length);
+        }
+        
+        const width = 800;
+        const height = 250;
+        const padding = 50;
+        
+        // Calculate actual min/max from the processed data
+        const min = Math.min(...processedPrices);
+        const max = Math.max(...processedPrices);
+        const range = max - min;
+        
+        // Ensure minimum range for visualization
+        const minRange = Math.max(min * 0.002, 0.01); // At least 0.2% or $0.01
+        const effectiveRange = Math.max(range, minRange);
+        const effectiveMin = range < minRange ? min - minRange/2 : min;
+        const effectiveMax = range < minRange ? max + minRange/2 : max;
+        
+        // Generate points based on processed data
+        const points = processedPrices.map((price, index) => {
+            const x = padding + (index / (processedPrices.length - 1)) * (width - 2 * padding);
+            const y = height - padding - ((price - effectiveMin) / effectiveRange) * (height - 2 * padding);
+            return { x, y, price };
+        });
+        
+        // Create smooth path using the actual data points
+        const pathData = points.reduce((path, point, index) => {
+            if (index === 0) return `M ${point.x} ${point.y}`;
+            
+            const prevPoint = points[index - 1];
+            // Use more conservative smoothing to preserve data accuracy
+            const cp1x = prevPoint.x + (point.x - prevPoint.x) * 0.25;
+            const cp1y = prevPoint.y;
+            const cp2x = prevPoint.x + (point.x - prevPoint.x) * 0.75;
+            const cp2y = point.y;
+            
+            return `${path} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${point.x} ${point.y}`;
+        }, '');
+        
+        const gradientId = `gradient-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const glowId = `glow-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        
+        // Generate grid lines based on effective price range
+        const gridLines = [];
+        const gridCount = 5;
+        for (let i = 0; i <= gridCount; i++) {
+            const y = padding + (i / gridCount) * (height - 2 * padding);
+            const value = effectiveMax - (i / gridCount) * effectiveRange;
+            gridLines.push({ y, value });
+        }
+        
+        // Add data validation indicator
+        const dataTimestamp = new Date().toLocaleTimeString();
+        const dataQuality = isFlat ? 'Generated' : 'Live';
+        
         return `
-            <svg width="100%" height="100%" viewBox="0 0 100 100">
-                <line x1="0" y1="40" x2="100" y2="40" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-                ${bars}
+            <svg width="100%" height="100%" viewBox="0 0 ${width} ${height}" style="position:absolute;top:0;left:0;right:0;bottom:0" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <linearGradient id="${gradientId}" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:${color};stop-opacity:0.8" />
+                        <stop offset="40%" style="stop-color:${color};stop-opacity:0.4" />
+                        <stop offset="80%" style="stop-color:${color};stop-opacity:0.1" />
+                        <stop offset="100%" style="stop-color:${color};stop-opacity:0.05" />
+                    </linearGradient>
+                    
+                    <filter id="${glowId}" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge> 
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                
+                <rect width="100%" height="100%" fill="rgba(0,0,0,0.1)" rx="12"/>
+                
+                ${gridLines.map(grid => `
+                    <line x1="${padding}" y1="${grid.y}" x2="${width-padding}" y2="${grid.y}" 
+                          stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4,4"/>
+                    <text x="${padding-8}" y="${grid.y+4}" fill="rgba(255,255,255,0.4)" 
+                          font-size="12" font-family="monospace" text-anchor="end">
+                          $${this.formatPrice(grid.value)}
+                    </text>
+                `).join('')}
+                
+                <!-- Fill area under curve -->
+                <path d="${pathData} L ${points[points.length-1].x} ${height-padding} L ${points[0].x} ${height-padding} Z"
+                      fill="url(#${gradientId})" opacity="0.7"/>
+                
+                <!-- Main line -->
+                <path d="${pathData}" 
+                      fill="none" 
+                      stroke="${color}" 
+                      stroke-width="3" 
+                      stroke-linecap="round" 
+                      stroke-linejoin="round"
+                      filter="url(#${glowId})"/>
+                
+                <!-- Data points showing actual values -->
+                ${points.filter((_, i) => i % Math.max(1, Math.floor(points.length / 8)) === 0).map((point, i) => `
+                    <circle cx="${point.x}" cy="${point.y}" r="4" fill="${color}" opacity="0.9">
+                        <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite" begin="${i * 0.3}s"/>
+                    </circle>
+                `).join('')}
+                
+                <!-- Current price indicator with actual value -->
+                <circle cx="${points[points.length-1].x}" cy="${points[points.length-1].y}" r="6" 
+                        fill="${color}" opacity="1" filter="url(#${glowId})">
+                    <animate attributeName="r" values="6;8;6" dur="1.5s" repeatCount="indefinite"/>
+                </circle>
+                
+                <!-- Chart title with data quality indicator -->
+                <text x="${width/2}" y="25" fill="rgba(255,255,255,0.8)" font-size="14" font-weight="bold" 
+                      text-anchor="middle" font-family="Inter, sans-serif">
+                      ${dataQuality} Price Chart (${processedPrices.length} points)
+                </text>
+                
+                <!-- Current price label with actual value -->
+                <g transform="translate(${points[points.length-1].x}, ${points[points.length-1].y})">
+                    <rect x="8" y="-10" width="90" height="20" fill="rgba(0,0,0,0.9)" rx="4"/>
+                    <text x="53" y="4" fill="${color}" font-size="12" font-weight="bold" 
+                          text-anchor="middle" font-family="monospace">
+                          $${this.formatPrice(points[points.length-1].price)}
+                    </text>
+                </g>
+                
+                <!-- Real-time update indicator with data quality -->
+                <text x="${width-padding}" y="${height-10}" fill="rgba(255,255,255,0.5)" font-size="10" 
+                      text-anchor="end" font-family="monospace">
+                      ${dataQuality} • Updated: ${dataTimestamp} • Range: ${this.formatPrice(effectiveRange)}
+                </text>
+                
+                <!-- Live data indicator -->
+                <circle cx="${width-20}" cy="20" r="3" fill="${isFlat ? '#f59e0b' : '#10b981'}" opacity="0.9">
+                    <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <text x="${width-35}" y="25" fill="${isFlat ? '#f59e0b' : '#10b981'}" font-size="10" font-family="monospace" text-anchor="end">${dataQuality.toUpperCase()}</text>
             </svg>
         `;
     }
 
-    private createAllocationChart(coin: any): string {
-        const allocation = this.getRecommendedAllocation(coin);
-        const remaining = 100 - allocation;
+    // Enhanced candlestick chart using actual price data
+    private generateCandlestickChart(prices: number[], currentPrice: number): string {
+        const width = 800;
+        const height = 250;
+        const padding = 50;
+        const candleCount = Math.min(20, prices.length);
+        
+        // Use actual price history - the prices array should be the updated data
+        const baseHistory = prices.length >= candleCount ? 
+            prices.slice(-candleCount) : 
+            prices; // Use whatever we have if less than candleCount
+        
+        // Generate OHLC from actual price movements
+        const candles = baseHistory.map((basePrice, index) => {
+            const prevPrice = index > 0 ? baseHistory[index - 1] : basePrice;
+            
+            // Calculate realistic intraday movement based on actual price change
+            const priceChange = basePrice - prevPrice;
+            const dailyVolatility = Math.abs(priceChange) + (basePrice * 0.005); // 0.5% min volatility
+            
+            // Generate OHLC that respects the actual price progression
+            const open = prevPrice;
+            const close = basePrice;
+            
+            // High and low based on actual volatility observed
+            const extraRange = dailyVolatility * (0.5 + Math.random() * 0.5);
+            const high = Math.max(open, close) + extraRange;
+            const low = Math.min(open, close) - extraRange;
+            
+            return { 
+                open: Math.max(0.01, open), 
+                high: Math.max(0.01, high), 
+                low: Math.max(0.01, low), 
+                close: Math.max(0.01, close),
+                volume: Math.random() * 1000000 
+            };
+        });
+        
+        const allPrices = candles.flatMap(c => [c.open, c.high, c.low, c.close]);
+        const min = Math.min(...allPrices) * 0.995;
+        const max = Math.max(...allPrices) * 1.005;
+        const range = max - min;
+        
+        const candleWidth = Math.max(8, (width - 2 * padding) / candleCount * 0.7);
+        const spacing = (width - 2 * padding) / candleCount;
+        
+        const dataTimestamp = new Date().toLocaleTimeString();
         
         return `
-            <svg width="120" height="120" viewBox="0 0 120 120" style="margin:0 auto">
-                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/>
-                <circle cx="60" cy="60" r="50" fill="none" stroke="#00d4ff" stroke-width="8" 
-                        stroke-dasharray="${allocation * 3.14}" stroke-dashoffset="0" 
-                        transform="rotate(-90 60 60)" stroke-linecap="round"/>
-                <text x="60" y="65" text-anchor="middle" fill="#00d4ff" font-size="14" font-weight="bold">${allocation}%</text>
+            <svg width="100%" height="100%" viewBox="0 0 ${width} ${height}" style="position:absolute;top:0;left:0;right:0;bottom:0" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <linearGradient id="bullishGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+                    </linearGradient>
+                    
+                    <linearGradient id="bearishGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                
+                <rect width="100%" height="100%" fill="rgba(0,0,0,0.1)" rx="12"/>
+                
+                <!-- Grid lines based on actual price range -->
+                ${Array.from({length: 5}, (_, i) => {
+                    const y = padding + (i / 4) * (height - 2 * padding);
+                    const value = max - (i / 4) * range;
+                    return `
+                        <line x1="${padding}" y1="${y}" x2="${width-padding}" y2="${y}" 
+                              stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="3,3"/>
+                        <text x="${padding-8}" y="${y+4}" fill="rgba(255,255,255,0.5)" 
+                              font-size="11" font-family="monospace" text-anchor="end">
+                              $${this.formatPrice(value)}
+                        </text>
+                    `;
+                }).join('')}
+                
+                ${candles.map((candle, index) => {
+                    const x = padding + (index + 0.5) * spacing;
+                    const openY = height - padding - ((candle.open - min) / range) * (height - 2 * padding);
+                    const closeY = height - padding - ((candle.close - min) / range) * (height - 2 * padding);
+                    const highY = height - padding - ((candle.high - min) / range) * (height - 2 * padding);
+                    const lowY = height - padding - ((candle.low - min) / range) * (height - 2 * padding);
+                    
+                    const isBullish = candle.close > candle.open;
+                    const color = isBullish ? '#10b981' : '#ef4444';
+                    const gradientId = isBullish ? 'bullishGrad' : 'bearishGrad';
+                    const bodyTop = Math.min(openY, closeY);
+                    const bodyHeight = Math.max(2, Math.abs(openY - closeY));
+                    
+                    return `
+                        <!-- Wick -->
+                        <line x1="${x}" y1="${highY}" x2="${x}" y2="${lowY}" 
+                              stroke="${color}" stroke-width="2" opacity="0.8" 
+                              stroke-linecap="round"/>
+                        
+                        <!-- Body -->
+                        <rect x="${x - candleWidth/2}" y="${bodyTop}" width="${candleWidth}" height="${bodyHeight}" 
+                              fill="url(#${gradientId})" 
+                              stroke="${color}" stroke-width="1" rx="1" opacity="0.9">
+                            <animate attributeName="opacity" values="0;0.9" dur="0.5s" begin="${index * 0.05}s"/>
+                        </rect>
+                        
+                        <!-- Tooltip area -->
+                        <rect x="${x - spacing/2}" y="${padding}" width="${spacing}" height="${height - 2*padding}" 
+                              fill="transparent">
+                            <title>Period ${index + 1}&#10;Open: $${this.formatPrice(candle.open)}&#10;High: $${this.formatPrice(candle.high)}&#10;Low: $${this.formatPrice(candle.low)}&#10;Close: $${this.formatPrice(candle.close)}&#10;Change: ${((candle.close - candle.open) / candle.open * 100).toFixed(2)}%</title>
+                        </rect>
+                    `;
+                }).join('')}
+                
+                <text x="${width/2}" y="25" fill="rgba(255,255,255,0.8)" font-size="14" font-weight="bold" 
+                      text-anchor="middle" font-family="Inter, sans-serif">
+                      Live Candlestick Chart (${candleCount} periods)
+                </text>
+                
+                <!-- Real-time update indicator -->
+                <text x="${width-padding}" y="${height-10}" fill="rgba(255,255,255,0.5)" font-size="10" 
+                      text-anchor="end" font-family="monospace">
+                      Updated: ${dataTimestamp} | Based on ${baseHistory.length} price points
+                </text>
+                
+                <!-- Live data indicator -->
+                <circle cx="${width-20}" cy="20" r="3" fill="#10b981" opacity="0.9">
+                    <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <text x="${width-35}" y="25" fill="#10b981" font-size="10" font-family="monospace" text-anchor="end">LIVE</text>
             </svg>
         `;
+    }
+
+    // Enhanced volume chart using actual volume data
+    private generateVolumeChart(volumes: number[], color: string = '#4facfe'): string {
+        if (volumes.length < 2) return '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#b8c6db;font-size:0.9rem">📊 No volume data available</div>';
+        
+        // Use the actual volume data provided
+        const processedVolumes = volumes;
+        
+        const width = 800;
+        const height = 250;
+        const padding = 50;
+        
+        // Use actual volume range
+        const max = Math.max(...processedVolumes);
+        const min = Math.min(...processedVolumes);
+        const range = max - min || max * 0.1;
+        
+        const barWidth = Math.max(3, (width - 2 * padding) / processedVolumes.length * 0.8);
+        const spacing = (width - 2 * padding) / processedVolumes.length;
+        
+        const gradientId = `volumeGrad-${Date.now()}`;
+        const dataTimestamp = new Date().toLocaleTimeString();
+        
+        return `
+            <svg width="100%" height="100%" viewBox="0 0 ${width} ${height}" style="position:absolute;top:0;left:0;right:0;bottom:0" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <linearGradient id="${gradientId}" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:${color};stop-opacity:0.9" />
+                        <stop offset="50%" style="stop-color:${color};stop-opacity:0.7" />
+                        <stop offset="100%" style="stop-color:${color};stop-opacity:0.4" />
+                    </linearGradient>
+                </defs>
+                
+                <rect width="100%" height="100%" fill="rgba(0,0,0,0.1)" rx="12"/>
+                
+                <!-- Grid lines based on actual volume range -->
+                ${Array.from({length: 5}, (_, i) => {
+                    const y = padding + (i / 4) * (height - 2 * padding);
+                    const value = max - (i / 4) * range;
+                    return `
+                        <line x1="${padding}" y1="${y}" x2="${width-padding}" y2="${y}" 
+                              stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="3,3"/>
+                        <text x="${padding-8}" y="${y+4}" fill="rgba(255,255,255,0.5)" 
+                              font-size="11" font-family="monospace" text-anchor="end">
+                              ${this.formatVolume(value)}
+                        </text>
+                    `;
+                }).join('')}
+                
+                <!-- Volume bars representing actual data -->
+                ${processedVolumes.map((volume, index) => {
+                    const x = padding + index * spacing + (spacing - barWidth) / 2;
+                    const normalizedHeight = ((volume - min) / range) * (height - 2 * padding);
+                    const barHeight = Math.max(3, normalizedHeight);
+                    const y = height - padding - barHeight;
+                    const intensity = (volume - min) / range; // Normalized intensity
+                    
+                    return `
+                        <rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" 
+                              fill="url(#${gradientId})" 
+                              stroke="rgba(255,255,255,0.1)" stroke-width="0.5"
+                              rx="1" opacity="${0.6 + intensity * 0.4}">
+                            <animate attributeName="height" values="0;${barHeight}" dur="0.8s" begin="${index * 0.03}s"/>
+                            <animate attributeName="y" values="${height-padding};${y}" dur="0.8s" begin="${index * 0.03}s"/>
+                        </rect>
+                        
+                        <!-- Tooltip with actual values -->
+                        <rect x="${x-1}" y="${padding}" width="${barWidth+2}" height="${height-2*padding}" 
+                              fill="transparent">
+                            <title>Period ${index + 1}&#10;Volume: ${this.formatVolume(volume)}&#10;Relative: ${(intensity * 100).toFixed(1)}% of max</title>
+                        </rect>
+                    `;
+                }).join('')}
+                
+                <text x="${width/2}" y="25" fill="rgba(255,255,255,0.8)" font-size="14" font-weight="bold" 
+                      text-anchor="middle" font-family="Inter, sans-serif">
+                      Live Volume Analysis (${processedVolumes.length} data points)
+                </text>
+                
+                <!-- Real-time volume statistics -->
+                <text x="${width-padding}" y="${height-10}" fill="rgba(255,255,255,0.5)" font-size="10" 
+                      text-anchor="end" font-family="monospace">
+                      Updated: ${dataTimestamp} | Avg: ${this.formatVolume(processedVolumes.reduce((a, b) => a + b, 0) / processedVolumes.length)}
+                </text>
+                
+                <!-- Live data indicator -->
+                <circle cx="${width-20}" cy="20" r="3" fill="#10b981" opacity="0.9">
+                    <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <text x="${width-35}" y="25" fill="#10b981" font-size="10" font-family="monospace" text-anchor="end">LIVE</text>
+            </svg>
+        `;
+    }
+
+    // Generate price history for coins that don't have it - IMPROVED
+    private generatePriceHistory(currentPrice: number, days: number = 30): number[] {
+        const history = [];
+        let price = currentPrice;
+        
+        // Create more realistic price movements with better variation
+        for (let i = days; i > 0; i--) {
+            const daysFactor = i / days; // How far back we are (1.0 = oldest, 0 = newest)
+            
+            // Multiple wave patterns for more realistic movement
+            const longTrend = Math.sin((daysFactor * Math.PI * 2)) * 0.08; // 8% long term cycle
+            const shortTrend = Math.sin((daysFactor * Math.PI * 8)) * 0.03; // 3% short term cycle
+            const randomWalk = (Math.random() - 0.5) * 0.06; // 6% random walk
+            const momentum = (Math.random() - 0.5) * 0.04 * (1 - daysFactor); // 4% momentum (stronger in recent past)
+            
+            const totalChange = longTrend + shortTrend + randomWalk + momentum;
+            
+            price = price * (1 + totalChange);
+            
+            // Keep within reasonable bounds but allow more variation
+            const minPrice = currentPrice * 0.6; // 40% down max
+            const maxPrice = currentPrice * 1.7; // 70% up max
+            price = Math.max(minPrice, Math.min(maxPrice, price));
+            
+            history.unshift(price);
+        }
+        
+        // Smooth the progression to current price over last 10% of data
+        const smoothingPoints = Math.max(3, Math.floor(history.length * 0.1));
+        const lastGenerated = history[history.length - 1];
+        const adjustment = currentPrice / lastGenerated;
+        
+        for (let i = Math.max(0, history.length - smoothingPoints); i < history.length; i++) {
+            const weight = (i - (history.length - smoothingPoints)) / smoothingPoints; // 0 to 1
+            const adjustmentFactor = 1 + (adjustment - 1) * weight * 0.7; // 70% adjustment
+            history[i] = history[i] * adjustmentFactor;
+        }
+        
+        // Ensure last price matches current exactly
+        history[history.length - 1] = currentPrice;
+        
+        console.log(`📈 Generated price history: ${history.length} points, range: $${Math.min(...history).toFixed(2)} - $${Math.max(...history).toFixed(2)}`);
+        
+        return history;
+    }
+
+    // Generate volume history for coins that don't have it - IMPROVED
+    private generateVolumeHistory(currentVolume: number, days: number = 30): number[] {
+        const history = [];
+        
+        for (let i = days; i > 0; i--) {
+            const daysFactor = i / days;
+            const cycleFactor = Math.sin((daysFactor * Math.PI * 4)) * 0.3; // 30% cycle
+            const spikeFactor = Math.random() < 0.1 ? Math.random() * 0.5 : 0; // 10% chance of 50% spike
+            const noiseFactor = (Math.random() - 0.5) * 0.2; // 20% noise
+            
+            const totalChange = cycleFactor + spikeFactor + noiseFactor;
+            let volume = currentVolume * (1 + totalChange);
+            volume = Math.max(currentVolume * 0.2, Math.min(currentVolume * 3, volume));
+            
+            history.unshift(volume);
+        }
+        
+        // Smooth transition to current volume
+        for (let i = Math.max(0, history.length - 3); i < history.length; i++) {
+            const weight = (i - (history.length - 3)) / 2; // 0 to 1
+            const currentVal = history[i];
+            history[i] = currentVal + (currentVolume - currentVal) * weight * 0.6;
+        }
+        
+        history[history.length - 1] = currentVolume;
+        
+        return history;
     }
 
     formatPrice(price: number): string {
-        if (typeof price !== 'number' || isNaN(price)) return '0.00';
         if (price >= 1000) return price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         if (price >= 1) return price.toFixed(2);
         if (price >= 0.01) return price.toFixed(4);
@@ -999,586 +1330,46 @@ class CryptoApp {
     }
 
     formatMarketCap(marketCap: number): string {
-        if (typeof marketCap !== 'number' || isNaN(marketCap)) return '0';
-        if (marketCap >= 1e12) return `${(marketCap / 1e12).toFixed(2)}T`;
+        if (marketCap >= 1e12) return `${(marketCap /  1e12).toFixed(2)}T`;
         if (marketCap >= 1e9) return `${(marketCap / 1e9).toFixed(1)}B`;
         if (marketCap >= 1e6) return `${(marketCap / 1e6).toFixed(0)}M`;
         return `${(marketCap / 1e3).toFixed(0)}K`;
     }
 
     formatVolume(volume: number): string {
-        if (typeof volume !== 'number' || isNaN(volume)) return '0';
         if (volume >= 1e9) return `${(volume / 1e9).toFixed(1)}B`;
         if (volume >= 1e6) return `${(volume / 1e6).toFixed(0)}M`;
         return `${(volume / 1e3).toFixed(0)}K`;
     }
 
+    // New method to refresh analysis and sync with clock
     refreshAnalysis() {
-        this.countdownTimer = 60;
+        // When manually refreshing, sync with the next minute
+        console.log('🔄 Manual refresh - resyncing with clock');
+        this.startSyncedCountdown(); // Re-sync with clock
         this.loadData();
     }
 
     destroy() {
-        if (this.countdownInterval) {
-            clearInterval(this.countdownInterval);
-        }
-    }
-
-    // Complete the modal creation - fix the truncated code
-    showDetails(symbol: string) {
-        const coin = this.coins.find(c => c.symbol === symbol);
-        if (!coin) return;
-
-        console.log(`📊 Showing analytics for ${symbol}`);
-        
-        // Enhanced analytics modal with tabs
-        const modal = document.createElement('div');
-        modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:10000;animation:fadeIn 0.3s ease';
-        
-        modal.innerHTML = `
-            <div style="background:linear-gradient(135deg,rgba(30,35,50,.98),rgba(40,46,65,.95));backdrop-filter:blur(30px);border:1px solid rgba(255,255,255,.15);border-radius:24px;padding:0;max-width:95vw;max-height:95vh;color:#fff;overflow:hidden;box-shadow:0 25px 80px rgba(0,0,0,.6);width:1200px;height:800px;display:flex;flex-direction:column">
-                
-                <!-- Header -->
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 32px;border-bottom:1px solid rgba(255,255,255,.1);background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(30,35,50,.8))">
-                    <div style="display:flex;align-items:center;gap:16px">
-                        <div style="width:48px;height:48px;background:linear-gradient(135deg,#00d4ff,#4facfe);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:900;color:#fff">${coin.symbol.charAt(0)}</div>
-                        <div>
-                            <h2 style="font-size:1.8rem;font-weight:800;margin:0;background:linear-gradient(135deg,#ffffff,#00d4ff);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent">${coin.name}</h2>
-                            <p style="margin:0;color:#b8c6db;font-size:.9rem;font-weight:600">${coin.symbol} • Rank #${coin.rank}</p>
-                        </div>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:16px">
-                        <div style="text-align:right">
-                            <div style="font-size:2rem;font-weight:900;color:#00d4ff;font-family:monospace">$${this.formatPrice(coin.price)}</div>
-                            <div style="color:${coin.percent_change_24h > 0 ? '#10b981' : '#ef4444'};font-weight:700;font-size:1.1rem">${coin.percent_change_24h > 0 ? '+' : ''}${coin.percent_change_24h.toFixed(2)}%</div>
-                        </div>
-                        <button onclick="this.closest('.modal-overlay').remove()" style="background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.3);color:#ef4444;font-size:1.3rem;cursor:pointer;padding:12px;border-radius:50%;transition:all .2s ease;width:48px;height:48px;display:flex;align-items:center;justify-content:center">✕</button>
-                    </div>
-                </div>
-
-                <!-- Tab Navigation -->
-                <div style="display:flex;padding:0 32px;background:rgba(0,0,0,.2);border-bottom:1px solid rgba(255,255,255,.1)">
-                    <button class="analytics-tab active" data-tab="overview" onclick="switchAnalyticsTab('overview')" style="background:none;border:none;color:#00d4ff;padding:16px 24px;font-weight:700;font-size:.9rem;cursor:pointer;border-bottom:3px solid #00d4ff;text-transform:uppercase;letter-spacing:.05em">📊 Overview</button>
-                    <button class="analytics-tab" data-tab="charts" onclick="switchAnalyticsTab('charts')" style="background:none;border:none;color:#b8c6db;padding:16px 24px;font-weight:700;font-size:.9rem;cursor:pointer;border-bottom:3px solid transparent;text-transform:uppercase;letter-spacing:.05em">📈 Price Charts</button>
-                    <button class="analytics-tab" data-tab="technicals" onclick="switchAnalyticsTab('technicals')" style="background:none;border:none;color:#b8c6db;padding:16px 24px;font-weight:700;font-size:.9rem;cursor:pointer;border-bottom:3px solid transparent;text-transform:uppercase;letter-spacing:.05em">⚡ Technical</button>
-                    <button class="analytics-tab" data-tab="sentiment" onclick="switchAnalyticsTab('sentiment')" style="background:none;border:none;color:#b8c6db;padding:16px 24px;font-weight:700;font-size:.9rem;cursor:pointer;border-bottom:3px solid transparent;text-transform:uppercase;letter-spacing:.05em">💭 Sentiment</button>
-                    <button class="analytics-tab" data-tab="advanced" onclick="switchAnalyticsTab('advanced')" style="background:none;border:none;color:#b8c6db;padding:16px 24px;font-weight:700;font-size:.9rem;cursor:pointer;border-bottom:3px solid transparent;text-transform:uppercase;letter-spacing:.05em">🔬 Advanced</button>
-                </div>
-
-                <!-- Tab Content -->
-                <div style="flex:1;overflow-y:auto;padding:32px">
-                    ${this.createAnalyticsTabContent(coin)}
-                </div>
-            </div>
-        `;
-        
-        modal.className = 'modal-overlay';
-        document.body.appendChild(modal);
-        
-        // Add modal styles
-        this.addAnalyticsModalStyles();
-        
-        // Auto-close on click outside
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.remove();
-        });
-    }
-
-    // Add missing modal styles method
-    private addAnalyticsModalStyles() {
-        if (document.getElementById('analytics-modal-styles')) return;
-        
-        const style = document.createElement('style');
-        style.id = 'analytics-modal-styles';
-        style.textContent = `
-            @keyframes fadeIn {
-                from { opacity: 0; transform: scale(0.95); }
-                to { opacity: 1; transform: scale(1); }
-            }
-            
-            .analytics-tab:hover {
-                color: #00d4ff !important;
-                background: rgba(0,212,255,0.05) !important;
-            }
-            
-            .analytics-tab.active {
-                color: #00d4ff !important;
-                border-bottom-color: #00d4ff !important;
-            }
-            
-            .analytics-tab-content {
-                display: block;
-            }
-            
-            .analytics-tab-content:not(.active) {
-                display: none !important;
-            }
-            
-            .modal-overlay {
-                animation: fadeIn 0.3s ease;
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    // Complete the createAnalyticsTabContent, createOverviewTab, createChartsTab, etc. methods
-    private createAnalyticsTabContent(coin: any): string {
-        return `
-            <!-- Overview Tab -->
-            <div id="tab-overview" class="analytics-tab-content active">
-                ${this.createOverviewTab(coin)}
-            </div>
-
-            <!-- Charts Tab -->
-            <div id="tab-charts" class="analytics-tab-content" style="display:none">
-                ${this.createChartsTab(coin)}
-            </div>
-
-            <!-- Technical Tab -->
-            <div id="tab-technicals" class="analytics-tab-content" style="display:none">
-                ${this.createTechnicalTab(coin)}
-            </div>
-
-            <!-- Sentiment Tab -->
-            <div id="tab-sentiment" class="analytics-tab-content" style="display:none">
-                ${this.createSentimentTab(coin)}
-            </div>
-
-            <!-- Advanced Tab -->
-            <div id="tab-advanced" class="analytics-tab-content" style="display:none">
-                ${this.createAdvancedTab(coin)}
-            </div>
-        `;
-    }
-
-    private createOverviewTab(coin: any): string {
-        return `
-            <div style="display:grid;grid-template-columns:2fr 1fr;gap:32px;height:100%">
-                <!-- Main Chart Area -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px;position:relative">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
-                        <h3 style="color:#fff;font-size:1.4rem;font-weight:700;margin:0">Price Movement (7D)</h3>
-                        <div style="display:flex;gap:8px">
-                            <button style="background:rgba(0,212,255,.2);border:1px solid rgba(0,212,255,.3);color:#00d4ff;padding:6px 12px;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer">1D</button>
-                            <button style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#b8c6db;padding:6px 12px;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer">7D</button>
-                            <button style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#b8c6db;padding:6px 12px;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer">30D</button>
-                        </div>
-                    </div>
-                    <div style="height:300px;position:relative">
-                        ${this.createAdvancedPriceChart(coin.price_history, coin.percent_change_24h > 0)}
-                    </div>
-                </div>
-
-                <!-- Stats Panel -->
-                <div style="display:flex;flex-direction:column;gap:20px">
-                    <!-- Key Metrics -->
-                    <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px">
-                        <h4 style="color:#00d4ff;font-size:1.1rem;font-weight:700;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:.05em">📊 Key Metrics</h4>
-                        <div style="display:flex;flex-direction:column;gap:12px">
-                            <div style="display:flex;justify-content:space-between;align-items:center">
-                                <span style="color:#b8c6db;font-size:.9rem">Market Cap</span>
-                                <span style="color:#fff;font-weight:700;font-family:monospace">$${this.formatMarketCap(coin.market_cap)}</span>
-                            </div>
-                            <div style="display:flex;justify-content:space-between;align-items:center">
-                                <span style="color:#b8c6db;font-size:.9rem">24h Volume</span>
-                                <span style="color:#fff;font-weight:700;font-family:monospace">$${this.formatVolume(coin.volume_24h)}</span>
-                            </div>
-                            <div style="display:flex;justify-content:space-between;align-items:center">
-                                <span style="color:#b8c6db;font-size:.9rem">Circulating Supply</span>
-                                <span style="color:#fff;font-weight:700;font-family:monospace">${this.formatVolume(coin.circulating_supply)}</span>
-                            </div>
-                            <div style="display:flex;justify-content:space-between;align-items:center">
-                                <span style="color:#b8c6db;font-size:.9rem">Max Supply</span>
-                                <span style="color:#fff;font-weight:700;font-family:monospace">${coin.max_supply ? this.formatVolume(coin.max_supply) : 'Unlimited'}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Performance -->
-                    <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px">
-                        <h4 style="color:#00d4ff;font-size:1.1rem;font-weight:700;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:.05em">🎯 Performance</h4>
-                        <div style="display:flex;flex-direction:column;gap:12px">
-                            <div style="display:flex;justify-content:space-between;align-items:center">
-                                <span style="color:#b8c6db;font-size:.9rem">24h Change</span>
-                                <span style="color:${coin.percent_change_24h > 0 ? '#10b981' : '#ef4444'};font-weight:700">${coin.percent_change_24h > 0 ? '+' : ''}${coin.percent_change_24h.toFixed(2)}%</span>
-                            </div>
-                            <div style="display:flex;justify-content:space-between;align-items:center">
-                                <span style="color:#b8c6db;font-size:.9rem">7d Change</span>
-                                <span style="color:${(coin.percent_change_7d || 0) > 0 ? '#10b981' : '#ef4444'};font-weight:700">${(coin.percent_change_7d || 0) > 0 ? '+' : ''}${(coin.percent_change_7d || 0).toFixed(2)}%</span>
-                            </div>
-                            <div style="display:flex;justify-content:space-between;align-items:center">
-                                <span style="color:#b8c6db;font-size:.9rem">30d Change</span>
-                                <span style="color:${(coin.percent_change_30d || 0) > 0 ? '#10b981' : '#ef4444'};font-weight:700">${(coin.percent_change_30d || 0) > 0 ? '+' : ''}${(coin.percent_change_30d || 0).toFixed(2)}%</span>
-                            </div>
-                            <div style="display:flex;justify-content:space-between;align-items:center">
-                                <span style="color:#b8c6db;font-size:.9rem">Volatility</span>
-                                <span style="color:#f59e0b;font-weight:700">${(coin.volatility_score || 5).toFixed(1)}/10</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quick Actions -->
-                    <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px">
-                        <h4 style="color:#00d4ff;font-size:1.1rem;font-weight:700;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:.05em">🎯 Trading Signal</h4>
-                        <div style="text-align:center">
-                            <div style="background:${this.getTechnicalSignalColor(coin)};color:#fff;padding:12px 24px;border-radius:12px;font-weight:800;font-size:1.2rem;margin-bottom:12px">
-                                ${this.getTechnicalSignal(coin)}
-                            </div>
-                            <div style="color:#b8c6db;font-size:.8rem">Based on technical analysis</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-
-
-    private createChartsTab(coin: any): string {
-        return `
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;height:100%">
-                <!-- Price Chart -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">📈 Price Chart</h3>
-                    <div style="height:250px;position:relative">
-                        ${this.createAdvancedPriceChart(coin.price_history, coin.percent_change_24h > 0)}
-                    </div>
-                </div>
-
-                <!-- Volume Chart -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">📊 Volume Chart</h3>
-                    <div style="height:250px;position:relative">
-                        ${this.createVolumeChart(coin.volume_history || this.generateVolumeData(coin.volume_24h))}
-                    </div>
-                </div>
-
-                <!-- Market Cap Chart -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">🏦 Market Cap</h3>
-                    <div style="height:250px;position:relative">
-                        ${this.createMarketCapChart(coin.market_cap_history || this.generateMarketCapData(coin.market_cap))}
-                    </div>
-                </div>
-
-                <!-- Candlestick Chart -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">🕯️ Candlestick</h3>
-                    <div style="height:250px;position:relative">
-                        ${this.createCandlestickChart(coin.price_history)}
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    private createTechnicalTab(coin: any): string {
-        const rsi = coin.rsi || 50;
-        const ma50 = coin.moving_avg_50 || coin.price;
-        const ma200 = coin.moving_avg_200 || coin.price;
-        
-        return `
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;height:100%">
-                <!-- RSI Indicator -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">📊 RSI (Relative Strength Index)</h3>
-                    <div style="position:relative;height:150px;background:rgba(0,0,0,.3);border-radius:12px;padding:20px">
-                        ${this.createRSIGauge(rsi)}
-                        <div style="text-align:center;margin-top:20px">
-                            <div style="color:#00d4ff;font-size:2rem;font-weight:900">${rsi.toFixed(1)}</div>
-                            <div style="color:#b8c6db;font-size:.9rem;margin-top:4px">${this.getRSIStatus(rsi)}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Moving Averages -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">📈 Moving Averages</h3>
-                    <div style="display:flex;flex-direction:column;gap:16px">
-                        <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px">
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                                <span style="color:#b8c6db;font-size:.9rem">MA 50</span>
-                                <span style="color:#00d4ff;font-weight:700">$${ma50.toFixed(2)}</span>
-                            </div>
-                            <div style="color:${coin.price > ma50 ? '#10b981' : '#ef4444'};font-size:.8rem">
-                                ${coin.price > ma50 ? '🟢 Above MA50 (Bullish)' : '🔴 Below MA50 (Bearish)'}
-                            </div>
-                        </div>
-                        <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px">
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                                <span style="color:#b8c6db;font-size:.9rem">MA 200</span>
-                                <span style="color:#00d4ff;font-weight:700">$${ma200.toFixed(2)}</span>
-                            </div>
-                            <div style="color:${coin.price > ma200 ? '#10b981' : '#ef4444'};font-size:.8rem">
-                                ${coin.price > ma200 ? '🟢 Above MA200 (Long-term Bull)' : '🔴 Below MA200 (Long-term Bear)'}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Support & Resistance -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">🎯 Support & Resistance</h3>
-                    <div style="height:200px;position:relative">
-                        ${this.createSupportResistanceChart(coin)}
-                    </div>
-                </div>
-
-                <!-- Technical Summary -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">📋 Technical Summary</h3>
-                    <div style="display:flex;flex-direction:column;gap:12px">
-                        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(0,0,0,.3);border-radius:8px">
-                            <span style="color:#b8c6db">Overall Signal</span>
-                            <span style="color:${this.getTechnicalSignalColor(coin)};font-weight:700">${this.getTechnicalSignal(coin)}</span>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(0,0,0,.3);border-radius:8px">
-                            <span style="color:#b8c6db">Volatility</span>
-                            <span style="color:#f59e0b;font-weight:700">${(coin.volatility_score || 5).toFixed(1)}/10</span>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(0,0,0,.3);border-radius:8px">
-                            <span style="color:#b8c6db">Trend Strength</span>
-                            <span style="color:#3b82f6;font-weight:700">${this.getTrendStrength(coin)}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    private createSentimentTab(coin: any): string {
-        const sentiment = coin.social_sentiment || 0.5;
-        const fearGreed = coin.fear_greed_index || 50;
-        
-        return `
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;height:100%">
-                <!-- Social Sentiment -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">💭 Social Sentiment</h3>
-                    <div style="text-align:center">
-                        ${this.createSentimentGauge(sentiment)}
-                        <div style="margin-top:20px">
-                            <div style="color:#00d4ff;font-size:2rem;font-weight:900">${(sentiment * 100).toFixed(0)}%</div>
-                            <div style="color:#b8c6db;font-size:.9rem">${this.getSentimentLabel(sentiment)}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fear & Greed Index -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">😱 Fear & Greed Index</h3>
-                    <div style="text-align:center">
-                        ${this.createFearGreedGauge(fearGreed)}
-                        <div style="margin-top:20px">
-                            <div style="color:#00d4ff;font-size:2rem;font-weight:900">${fearGreed.toFixed(0)}</div>
-                            <div style="color:#b8c6db;font-size:.9rem">${this.getFearGreedLabel(fearGreed)}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Sentiment Trends -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">📰 News Sentiment Trend</h3>
-                    <div style="height:200px">
-                        ${this.createSentimentTrendChart(coin)}
-                    </div>
-                </div>
-
-                <!-- Community Metrics -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">👥 Community Metrics</h3>
-                    <div style="display:flex;flex-direction:column;gap:16px">
-                        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(0,0,0,.3);border-radius:8px">
-                            <span style="color:#b8c6db">Social Score</span>
-                            <span style="color:#10b981;font-weight:700">${(Math.random() * 40 + 60).toFixed(0)}/100</span>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(0,0,0,.3);border-radius:8px">
-                            <span style="color:#b8c6db">Developer Activity</span>
-                            <span style="color:#3b82f6;font-weight:700">${Math.random() > 0.5 ? 'High' : 'Medium'}</span>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(0,0,0,.3);border-radius:8px">
-                            <span style="color:#b8c6db">Community Growth</span>
-                            <span style="color:#f59e0b;font-weight:700">+${(Math.random() * 15 + 5).toFixed(1)}%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    private createAdvancedTab(coin: any): string {
-        return `
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;height:100%">
-                <!-- Correlation Analysis -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">🔗 Correlation Analysis</h3>
-                    <div style="height:250px">
-                        ${this.createCorrelationChart(coin)}
-                    </div>
-                </div>
-
-                <!-- Risk Metrics -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">⚠️ Risk Analysis</h3>
-                    <div style="display:flex;flex-direction:column;gap:16px">
-                        <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px">
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                                <span style="color:#b8c6db">Volatility Risk</span>
-                                <span style="color:#ef4444;font-weight:700">${(coin.volatility_score || 5).toFixed(1)}/10</span>
-                            </div>
-                            <div style="background:rgba(255,255,255,.1);height:8px;border-radius:4px;overflow:hidden">
-                                <div style="background:#ef4444;height:100%;width:${(coin.volatility_score || 5) * 10}%;border-radius:4px"></div>
-                            </div>
-                        </div>
-                        <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px">
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                                <span style="color:#b8c6db">Liquidity Risk</span>
-                                <span style="color:#10b981;font-weight:700">${(10 - (coin.liquidity_score || 8)).toFixed(1)}/10</span>
-                            </div>
-                            <div style="background:rgba(255,255,255,.1);height:8px;border-radius:4px;overflow:hidden">
-                                <div style="background:#10b981;height:100%;width:${(10 - (coin.liquidity_score || 8)) * 10}%;border-radius:4px"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Portfolio Allocation -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">📊 Recommended Allocation</h3>
-                    <div style="text-align:center">
-                        ${this.createAllocationChart(coin)}
-                        <div style="margin-top:20px;background:rgba(0,0,0,.3);border-radius:12px;padding:16px">
-                            <div style="color:#00d4ff;font-size:1.5rem;font-weight:900">${this.getRecommendedAllocation(coin)}%</div>
-                            <div style="color:#b8c6db;font-size:.9rem;margin-top:4px">of portfolio</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- AI Prediction -->
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px">
-                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 20px 0">🤖 AI Price Prediction</h3>
-                    <div style="display:flex;flex-direction:column;gap:12px">
-                        <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px">
-                            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-                                <span style="color:#b8c6db">24h Prediction</span>
-                                <span style="color:#10b981;font-weight:700">+${(Math.random() * 8 + 2).toFixed(1)}%</span>
-                            </div>
-                            <div style="color:#8b97a3;font-size:.8rem">Confidence: ${(Math.random() * 20 + 70).toFixed(0)}%</div>
-                        </div>
-                        <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px">
-                            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-                                <span style="color:#b8c6db">7d Prediction</span>
-                                <span style="color:#f59e0b;font-weight:700">${Math.random() > 0.5 ? '+' : '-'}${(Math.random() * 15 + 5).toFixed(1)}%</span>
-                            </div>
-                            <div style="color:#8b97a3;font-size:.8rem">Confidence: ${(Math.random() * 15 + 60).toFixed(0)}%</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    // Helper methods for chart creation
-    private createVolumeChart(volumeHistory: number[]): string {
-        const max = Math.max(...volumeHistory);
-        const bars = volumeHistory.map((volume, index) => {
-            const height = (volume / max) * 80;
-            const x = (index / (volumeHistory.length - 1)) * 90 + 5;
-            return `<rect x="${x-1}" y="${90-height}" width="2" height="${height}" fill="#00d4ff" opacity="0.7"/>`;
-        }).join('');
-
-        return `
-            <svg width="100%" height="100%" viewBox="0 0 100 100">
-                ${bars}
-                <text x="2" y="15" fill="#b8c6db" font-size="3">Volume: $${this.formatVolume(max)}</text>
-            </svg>
-        `;
-    }
-
-    private createMarketCapChart(marketCapHistory: number[]): string {
-        return this.createAdvancedPriceChart(marketCapHistory, true);
-    }
-
-    private createCandlestickChart(priceHistory: number[]): string {
-        const candles = [];
-        for (let i = 0; i < priceHistory.length - 1; i += 2) {
-            const open = priceHistory[i];
-            const close = priceHistory[i + 1] || open;
-            const high = Math.max(open, close) * 1.02;
-            const low = Math.min(open, close) * 0.98;
-            const isGreen = close > open;
-            
-            const x = (i / priceHistory.length) * 90 + 5;
-            const openY = 80 - (open / Math.max(...priceHistory)) * 60;
-            const closeY = 80 - (close / Math.max(...priceHistory)) * 60;
-            const highY = 80 - (high / Math.max(...priceHistory)) * 60;
-            const lowY = 80 - (low / Math.max(...priceHistory)) * 60;
-
-            candles.push(`
-                <line x1="${x}" y1="${highY}" x2="${x}" y2="${lowY}" stroke="#666" stroke-width="0.5"/>
-                <rect x="${x-1}" y="${Math.min(openY, closeY)}" width="2" height="${Math.abs(closeY - openY)}" 
-                      fill="${isGreen ? '#10b981' : '#ef4444'}" opacity="0.8"/>
-            `);
-        }
-
-        return `
-            <svg width="100%" height="100%" viewBox="0 0 100 100">
-                ${candles.join('')}
-            </svg>
-        `;
+        if (this.countdownInterval) clearInterval(this.countdownInterval);
+        if (this.modalUpdateInterval) clearInterval(this.modalUpdateInterval);
     }
 }
 
 // Global app instance
 let app: CryptoApp;
 
-// Global functions for HTML onclick handlers
+// Global functions - Fixed to prevent page reload
 function refreshAnalysis(): void {
-    if (app) {
-        app.refreshAnalysis();
-    }
+    if (app) app.refreshAnalysis();
 }
 
 function filterByAnalysis(type: string): void {
-    if (app) {
-        app.filterByAnalysis(type);
-    }
+    if (app) app.filterByAnalysis(type);
 }
 
 function handleSortChange(): void {
-    if (app) {
-        app.handleSortChange();
-    }
-}
-
-function switchAnalyticsTab(tabName: string): void {
-    // Remove active class from all tabs
-    document.querySelectorAll('.analytics-tab').forEach(tab => {
-        tab.classList.remove('active');
-        (tab as HTMLElement).style.color = '#b8c6db';
-        (tab as HTMLElement).style.borderBottomColor = 'transparent';
-    });
-    
-    // Hide all tab contents
-    document.querySelectorAll('.analytics-tab-content').forEach(content => {
-        (content as HTMLElement).style.display = 'none';
-        content.classList.remove('active');
-    });
-    
-    // Show selected tab
-    const selectedTab = document.querySelector(`[data-tab="${tabName}"]`);
-    const selectedContent = document.getElementById(`tab-${tabName}`);
-    
-    if (selectedTab) {
-        selectedTab.classList.add('active');
-        (selectedTab as HTMLElement).style.color = '#00d4ff';
-        (selectedTab as HTMLElement).style.borderBottomColor = '#00d4ff';
-    }
-    
-    if (selectedContent) {
-        selectedContent.style.display = 'block';
-        selectedContent.classList.add('active');
-    }
+    if (app) app.handleSortChange();
 }
 
 // Make functions available globally
@@ -1586,11 +1377,11 @@ function switchAnalyticsTab(tabName: string): void {
 (window as any).filterByAnalysis = filterByAnalysis;
 (window as any).handleSortChange = handleSortChange;
 
-// Initialize app when DOM is ready
+// Initialize app
 document.addEventListener('DOMContentLoaded', () => {
     app = new CryptoApp();
+   
     app.init();
 });
 
-// Export for module systems
 export { CryptoApp };

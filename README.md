@@ -36,7 +36,7 @@ A modern, high-performance cryptocurrency tracking web application built with Ty
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/crypto-web-app.git
+   git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
    cd crypto-web-app
    ```
 
@@ -93,11 +93,10 @@ crypto-web-app/
 - **Market Cap Categories**: Large, mid, and small cap
 - **Custom Sorting**: By price, change, volume, market cap
 
-### Performance Optimizations
-- **Lazy Loading**: Progressive coin loading
-- **Efficient Rendering**: RequestAnimationFrame batching
-- **Memory Management**: Proper cleanup of event listeners
-- **Mobile Optimization**: Reduced initial load for mobile devices
+### Interactive Charts
+- **Price Charts**: Real-time price movements with technical analysis
+- **Candlestick Charts**: OHLC data visualization
+- **Volume Charts**: Trading volume analysis
 
 ## 📊 Data Sources
 
@@ -137,87 +136,35 @@ MAX_COINS_DISPLAY=20
 
 ## 🚀 Deployment
 
-### Heroku Deployment
-
-1. Install Heroku CLI
-2. Create Heroku app:
-   ```bash
-   heroku create your-crypto-app
-   ```
-3. Deploy:
-   ```bash
-   git push heroku main
-   ```
-
-### Vercel Deployment
-
-1. Install Vercel CLI:
-   ```bash
-   npm i -g vercel
-   ```
-2. Deploy:
-   ```bash
-   vercel
-   ```
-
-### Docker Deployment
-
-```dockerfile
-FROM node:16-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY . .
-RUN npm run build
-EXPOSE 3000
-CMD ["npm", "start"]
+### Vercel (Recommended)
+```bash
+npm run deploy-vercel
 ```
+
+### Netlify
+```bash
+npm run deploy-netlify
+```
+
+### GitHub Pages
+```bash
+npm run deploy-github-pages
+```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push to branch: `git push origin feature/amazing-feature`
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## 📈 Roadmap
-
-- [ ] Real API integration (CoinGecko/CoinMarketCap)
-- [ ] User portfolios and watchlists
-- [ ] Price alerts and notifications
-- [ ] Historical data analysis
-- [ ] Social sentiment analysis
-- [ ] Mobile app (React Native)
-- [ ] Advanced trading features
-- [ ] Multi-language support
-
-## 🐛 Known Issues
-
-- Chart rendering may lag on very low-end devices
-- Modal animations may stutter in Safari
-- Mobile keyboard may affect layout on some devices
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Design inspiration from modern fintech apps
-- Chart implementations based on HTML5 Canvas best practices
-- Performance optimizations inspired by React and Vue.js patterns
 
 ## 📞 Support
 
-If you have any questions or need help:
-
-- 📧 Email: your-email@example.com
-- 💬 Discord: YourUsername#1234
-- 🐦 Twitter: [@yourusername](https://twitter.com/yourusername)
-
----
-
-⭐ **Star this repository if you found it helpful!**
+If you have any questions or need help with setup, please open an issue on GitHub.
 
 **Made with ❤️ by [Your Name](https://github.com/YOUR_USERNAME)**

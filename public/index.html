@@ -3,168 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoTracker Pro - Live Cryptocurrency Dashboard</title>
-    <meta name="description" content="Professional cryptocurrency tracking dashboard with real-time prices, advanced analytics, and market insights">
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>₿</text></svg>">
+    <title>CryptoTracker Pro - Real-time Cryptocurrency Dashboard</title>
+    <meta name="description" content="Professional cryptocurrency tracking dashboard with real-time data and analytics">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>₿</text></svg>">
+    
     <style>
-        /* Critical CSS for immediate rendering */
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Inter',sans-serif;background:#0c0c0c;color:#fff;overflow-x:hidden}
-        .loading-initial{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0c0c0c}
-        .loading-spinner{width:50px;height:50px;border:4px solid rgba(0,212,255,.2);border-top:4px solid #00d4ff;border-radius:50%;animation:spin 1s linear infinite}
-        @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+        /* Enhanced Modal and Tab Styles */
+        .tab-content { display: none; }
+        .modal-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(0,212,255,.2);
+            padding-bottom: 12px;
+        }
+        .modal-tab {
+            background: rgba(0,0,0,.3);
+            color: #b8c6db;
+            border: 2px solid rgba(255,255,255,.1);
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: .9rem;
+            font-weight: 700;
+            transition: all .3s cubic-bezier(0.4,0,0.2,1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        .modal-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,212,255,.2), transparent);
+            transition: left .6s ease;
+        }
+        .modal-tab:hover::before {
+            left: 100%;
+        }
+        .modal-tab.active {
+            background: linear-gradient(135deg, #00d4ff, #4facfe);
+            color: #fff;
+            border-color: rgba(0,212,255,.6);
+            box-shadow: 0 4px 15px rgba(0,212,255,.4);
+            transform: translateY(-2px);
+        }
+        .modal-tab:hover:not(.active) {
+            background: rgba(0,212,255,.15);
+            color: #00d4ff;
+            border-color: rgba(0,212,255,.4);
+            transform: translateY(-1px);
+        }
+        .modal-chart {
+            width: 100%;
+            height: 250px;
+            background: rgba(0,0,0,.4);
+            border: 2px solid rgba(0,212,255,.2);
+            border-radius: 16px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,.3);
+        }
+        .modal-chart canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .85rem;
+            color: #b8c6db;
+            font-weight: 600;
+        }
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.3);
+        }
+        .technical-indicators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .indicator {
+            background: rgba(0,0,0,.3);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,.1);
+            transition: all .3s ease;
+        }
+        .indicator:hover {
+            background: rgba(0,0,0,.4);
+            border-color: rgba(0,212,255,.3);
+            transform: translateY(-2px);
+        }
+        .indicator-label {
+            color: #b8c6db;
+            font-size: .8rem;
+            margin-bottom: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .indicator-value {
+            color: #00d4ff;
+            font-weight: 900;
+            font-size: 1.1rem;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
-    <!-- Initial Loading Screen -->
-    <div id="initial-loading" class="loading-initial">
-        <div style="text-align:center">
-            <div class="loading-spinner"></div>
-            <p style="margin-top:16px;color:#b8c6db">Loading CryptoTracker Pro...</p>
-        </div>
-    </div>
-
-    <!-- Main Application Container -->
-    <div id="app" style="display:none">
-        <!-- Header -->
-        <header class="app-header">
-            <div class="header-content">
-                <div class="logo-section">
-                    <h1 class="app-title">
-                        <span class="crypto-icon">₿</span>
-                        CryptoTracker Pro
-                        <span class="version">v2.0</span>
-                    </h1>
-                    <p class="app-subtitle">Professional Cryptocurrency Analytics</p>
+    <!-- App Header -->
+    <header class="app-header">
+        <div class="header-content">
+            <div>
+                <h1 class="app-title">
+                    <span class="crypto-icon">₿</span>
+                    CryptoTracker Pro
+                    <span class="version">v2.0</span>
+                </h1>
+            </div>
+            
+            <div class="header-actions">
+                <div class="update-timer">
+                    Next Update: <span id="countdown-display" class="countdown-display">60s</span>
                 </div>
-                
-                <div class="header-actions">
-                    <button class="header-btn" onclick="refreshAnalysis()" title="Refresh Data">
-                        🔄 Refresh
-                    </button>
-                    <div class="update-timer">
-                        Next Update: <span id="countdown-display" class="countdown-display">60s</span>
-                    </div>
+                <button class="header-btn" onclick="refreshAnalysis()">🔄 Refresh</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+        <!-- Market Overview -->
+        <section class="market-overview">
+            <div class="overview-header">
+                <h2 class="overview-title">Market Overview</h2>
+                <div id="last-updated" class="last-updated">Loading...</div>
+            </div>
+            
+            <div class="market-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Market Cap</span>
+                    <span id="total-market-cap" class="stat-value">$0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Volume</span>
+                    <span id="total-volume" class="stat-value">$0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">BTC Dom</span>
+                    <span id="btc-dominance" class="stat-value">0%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Sentiment</span>
+                    <span id="market-sentiment" class="stat-value">0%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Coins</span>
+                    <span id="active-coins" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Trending</span>
+                    <span id="trending-up" class="stat-value">0</span>
                 </div>
             </div>
-        </header>
+        </section>
 
-        <!-- Main Content -->
-        <main class="app-main">
-            <!-- Market Overview -->
-            <section class="market-overview">
-                <div class="overview-header">
-                    <h2 class="overview-title">Market Overview</h2>
-                    <div id="last-updated" class="last-updated">Updated: --:--:--</div>
+        <!-- Market Analysis Controls -->
+        <section class="market-analysis-bar">
+            <div class="analysis-label">📊 Filters & Sorting</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+                <div class="analysis-buttons">
+                    <button class="analysis-btn active" data-filter="all" onclick="filterByAnalysis('all')">All</button>
+                    <button class="analysis-btn" data-filter="high_momentum" onclick="filterByAnalysis('high_momentum')">High Momentum</button>
+                    <button class="analysis-btn" data-filter="large_cap" onclick="filterByAnalysis('large_cap')">Large Cap</button>
+                    <button class="analysis-btn" data-filter="mid_cap" onclick="filterByAnalysis('mid_cap')">Mid Cap</button>
+                    <button class="analysis-btn" data-filter="small_cap" onclick="filterByAnalysis('small_cap')">Small Cap</button>
                 </div>
                 
-                <div class="market-stats">
-                    <div class="stat-item">
-                        <span class="stat-label">Total Market Cap</span>
-                        <span id="total-market-cap" class="stat-value">$0.00T</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">24h Volume</span>
-                        <span id="total-volume" class="stat-value">$0.00B</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">BTC Dominance</span>
-                        <span id="btc-dominance" class="stat-value">0%</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Market Sentiment</span>
-                        <span id="market-sentiment" class="stat-value">0%</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Active Coins</span>
-                        <span id="active-coins" class="stat-value">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Trending Up</span>
-                        <span id="trending-up" class="stat-value">0</span>
-                    </div>
-                </div>
-            </section>
+                <select id="sort-select" class="sort-select" onchange="handleSortChange()">
+                    <option value="rank">🏆 Sort by Rank</option>
+                    <option value="price">💰 Sort by Price</option>
+                    <option value="change">📈 Sort by Change</option>
+                    <option value="volume">📊 Sort by Volume</option>
+                    <option value="market_cap">🏛️ Sort by Market Cap</option>
+                </select>
+            </div>
+        </section>
 
-            <!-- Market Analysis Controls -->
-            <section class="market-analysis-bar">
-                <div class="analysis-group">
-                    <div class="analysis-label">📊 Market Analysis</div>
-                    <div class="analysis-buttons">
-                        <button class="analysis-btn active" data-filter="all" onclick="filterByAnalysis('all')">All Coins</button>
-                        <button class="analysis-btn" data-filter="high_momentum" onclick="filterByAnalysis('high_momentum')">High Momentum</button>
-                        <button class="analysis-btn" data-filter="oversold" onclick="filterByAnalysis('oversold')">Oversold</button>
-                        <button class="analysis-btn" data-filter="overbought" onclick="filterByAnalysis('overbought')">Overbought</button>
-                        <button class="analysis-btn" data-filter="large_cap" onclick="filterByAnalysis('large_cap')">Large Cap</button>
-                        <button class="analysis-btn" data-filter="mid_cap" onclick="filterByAnalysis('mid_cap')">Mid Cap</button>
-                        <button class="analysis-btn" data-filter="small_cap" onclick="filterByAnalysis('small_cap')">Small Cap</button>
-                    </div>
-                </div>
-                
-                <div class="analysis-group">
-                    <div class="analysis-label">🔄 Sort By</div>
-                    <div class="section-controls">
-                        <select id="sort-select" class="sort-select" onchange="handleSortChange()">
-                            <option value="rank">Market Cap Rank</option>
-                            <option value="price">Price (High to Low)</option>
-                            <option value="change">24h Change</option>
-                            <option value="volume">24h Volume</option>
-                            <option value="market_cap">Market Cap</option>
-                            <option value="name">Name (A-Z)</option>
-                        </select>
-                    </div>
-                </div>
-            </section>
+        <!-- Status/Loading Section -->
+        <div id="status" style="display:none"></div>
 
-            <!-- Cryptocurrency List -->
-            <section class="coin-list-section">
-                <div id="status" class="loading-state" style="display:none">
-                    <!-- Loading content will be injected here -->
-                </div>
-                
-                <div id="coin-list-container">
-                    <!-- Cryptocurrency cards will be rendered here -->
-                </div>
-            </section>
-        </main>
-    </div>
+        <!-- Coin List Container -->
+        <div id="coin-list-container"></div>
+    </main>
 
-    <!-- Application Bundle -->
-    <script src="/bundle.js"></script>
-    
-    <!-- Application Initialization -->
-    <script>
-        // Hide loading screen when DOM is ready
-        document.addEventListener('DOMContentLoaded', () => {
-            const loadingEl = document.getElementById('initial-loading');
-            const appEl = document.getElementById('app');
-            
-            if (loadingEl && appEl) {
-                // Show app after short delay for better UX
-                setTimeout(() => {
-                    loadingEl.style.display = 'none';
-                    appEl.style.display = 'block';
-                }, 500);
-            }
-        });
-
-        // Global error handling
-        window.addEventListener('error', (e) => {
-            console.error('Application Error:', e.error);
-            if (e.filename && e.filename.includes('bundle.js')) {
-                document.body.innerHTML = `
-                    <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0c0c0c;color:#fff;text-align:center;font-family:Inter,sans-serif">
-                        <div>
-                            <h1 style="color:#ef4444;margin-bottom:16px">⚠️ Application Error</h1>
-                            <p style="color:#b8c6db;margin-bottom:24px">Failed to load application bundle</p>
-                            <button onclick="location.reload()" style="background:#00d4ff;color:#fff;border:none;padding:12px 24px;border-radius:8px;cursor:pointer;font-weight:600">
-                                🔄 Refresh Page
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-        });
-    </script>
+    <!-- Load JavaScript -->
+    <script src="bundle.js"></script>
 </body>
 </html>

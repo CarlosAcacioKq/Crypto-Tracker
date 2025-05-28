@@ -42,6 +42,10 @@ interface CoinData {
     moving_avg_200?: number;
     support_level?: number;
     resistance_level?: number;
+    // Add base tracking properties
+    base_price?: number;
+    base_percent_change_24h?: number;
+    base_volume_24h?: number;
 }
 
 // Enhanced mock data with proper typing
@@ -369,67 +373,157 @@ const MOCK_DATA: CoinData[] = [
     }
 ];
 
+// Store base data to prevent accumulation
+let BASE_DATA: CoinData[] = [];
+
+// Initialize base data on first load
+function initializeBaseData() {
+    if (BASE_DATA.length === 0) {
+        BASE_DATA = MOCK_DATA.map(coin => ({
+            ...coin,
+            base_price: coin.price,
+            base_percent_change_24h: coin.percent_change_24h,
+            base_volume_24h: coin.volume_24h
+        }));
+    }
+}
+
 // API Routes with proper error handling
 app.get('/api/crypto-data', (req: express.Request, res: express.Response): void => {
-    console.log('📡 /api/crypto-data called at', new Date().toLocaleTimeString());
+    const now = new Date();
+    const timeString = now.toLocaleTimeString();
+    const secondsInMinute = now.getSeconds();
+    
+    // Initialize base data if needed
+    initializeBaseData();
+    
+    // Log if this is a clock-aligned request (within first 5 seconds of minute)
+    if (secondsInMinute <= 5) {
+        console.log(`📡 🕐 Clock-synced /api/crypto-data request at ${timeString} (${secondsInMinute}s past minute)`);
+    } else {
+        console.log(`📡 /api/crypto-data called at ${timeString}`);
+    }
     
     try {
-        // Add more realistic and dramatic variations to simulate live market data
-        const liveData: CoinData[] = MOCK_DATA.map((coin: CoinData) => {
-            const priceVariation = (Math.random() - 0.5) * 0.08; // Up to 8% price change for more visible updates
-            const changeVariation = (Math.random() - 0.5) * 3; // Up to 3% change variation
-            const volumeVariation = (Math.random() - 0.5) * 0.4; // Up to 40% volume change
+        // Add more realistic and controlled variations
+        const liveData: CoinData[] = MOCK_DATA.map((coin: CoinData, index: number) => {
+            // Use time-based seed for consistent but changing data
+            const timeSeed = Math.floor(now.getTime() / 60000); // Changes every minute
+            const randomSeed = ((coin.id * timeSeed) % 1000) / 1000; // Pseudo-random but consistent per minute
             
-            const newPrice = Math.max(0.01, coin.price * (1 + priceVariation)); // Ensure minimum price
-            const newVolume = Math.max(1000000, coin.volume_24h * (1 + volumeVariation)); // Ensure minimum volume
+            // Get base values to prevent accumulation
+            const baseCoin = BASE_DATA[index];
+            const basePrice = baseCoin?.base_price || coin.price;
+            const baseChange24h = baseCoin?.base_percent_change_24h || coin.percent_change_24h;
+            const baseVolume = baseCoin?.base_volume_24h || coin.volume_24h;
+            
+            // Create realistic variations from base values (not accumulated)
+            const priceVariation = (randomSeed - 0.5) * 0.04; // Max 4% variation from base
+            const changeVariation = (randomSeed - 0.5) * 2; // Max 2% variation from base change
+            const volumeVariation = (randomSeed - 0.5) * 0.3; // Max 30% variation from base volume
+            
+            // Calculate new values from base, not from previous values
+            const newPrice = Math.max(0.01, basePrice * (1 + priceVariation));
+            const newVolume = Math.max(1000000, baseVolume * (1 + volumeVariation));
             const newMarketCap = newPrice * coin.circulating_supply;
             
-            // Update price history by shifting and adding new price with more variation
-            const historicalVariation = (prices: number[]): number[] => {
-                return prices.map((price: number) => Math.max(0.01, price * (1 + (Math.random() - 0.5) * 0.03)));
-            };
+            // Calculate realistic 24h change (from base + small variation)
+            const new24hChange = Math.max(-50, Math.min(50, baseChange24h + changeVariation));
             
-            const updatedPriceHistory = [...coin.price_history.slice(1), newPrice];
-            const updatedVolumeHistory = coin.volume_history ? 
-                [...coin.volume_history.slice(1), newVolume] : 
-                historicalVariation(coin.price_history).map(() => newVolume * (0.7 + Math.random() * 0.6));
+            // IMPROVED: Create more varied price history with realistic price movements
+            let updatedPriceHistory: number[];
+            let updatedVolumeHistory: number[];
+            
+            if (coin.price_history && coin.price_history.length >= 7) {
+                // For existing price history, create more realistic updates
+                const currentHistory = [...coin.price_history];
+                
+                // Add some volatility to the historical data to prevent straight lines
+                const volatilityFactor = 0.02; // 2% max change per update
+                const trendFactor = (randomSeed - 0.5) * volatilityFactor;
+                
+                // Update the last few prices to create more movement
+                for (let i = Math.max(0, currentHistory.length - 3); i < currentHistory.length; i++) {
+                    const localVariation = (Math.sin(timeSeed * 0.1 + i) * 0.5 + (Math.random() - 0.5)) * volatilityFactor;
+                    currentHistory[i] = Math.max(0.01, currentHistory[i] * (1 + localVariation));
+                }
+                
+                // Shift and add new price
+                updatedPriceHistory = [...currentHistory.slice(1), newPrice];
+                
+                // Ensure the progression makes sense
+                const lastPrice = updatedPriceHistory[updatedPriceHistory.length - 2];
+                const maxChange = lastPrice * 0.05; // Max 5% change from previous
+                const adjustedNewPrice = Math.max(
+                    lastPrice - maxChange, 
+                    Math.min(lastPrice + maxChange, newPrice)
+                );
+                updatedPriceHistory[updatedPriceHistory.length - 1] = adjustedNewPrice;
+            } else {
+                // Generate fresh price history with proper variation
+                updatedPriceHistory = generateRealisticPriceHistory(newPrice, 30, timeSeed + index);
+            }
+            
+            // Similar approach for volume history
+            if (coin.volume_history && coin.volume_history.length >= 7) {
+                const currentVolumeHistory = [...coin.volume_history];
+                
+                // Add volume volatility
+                for (let i = Math.max(0, currentVolumeHistory.length - 3); i < currentVolumeHistory.length; i++) {
+                    const volumeVariation = (Math.random() - 0.5) * 0.3; // 30% max volume change
+                    currentVolumeHistory[i] = Math.max(1000000, currentVolumeHistory[i] * (1 + volumeVariation));
+                }
+                
+                updatedVolumeHistory = [...currentVolumeHistory.slice(1), newVolume];
+            } else {
+                updatedVolumeHistory = generateRealisticVolumeHistory(newVolume, 30, timeSeed + index);
+            }
+            
             const updatedMarketCapHistory = coin.market_cap_history ?
                 [...coin.market_cap_history.slice(1), newMarketCap] :
-                historicalVariation(coin.price_history).map(() => newMarketCap * (0.90 + Math.random() * 0.2));
+                updatedPriceHistory.map((price, i) => price * coin.circulating_supply);
             
-            // Update technical indicators with more dynamic changes
-            const newRSI = Math.max(10, Math.min(90, (coin.rsi || 50) + (Math.random() - 0.5) * 15));
-            const newMA50 = (coin.moving_avg_50 || coin.price) * (1 + priceVariation * 0.3);
-            const newMA200 = (coin.moving_avg_200 || coin.price) * (1 + priceVariation * 0.1);
+            // Update technical indicators with controlled variations
+            const baseRSI = baseCoin?.rsi || 50;
+            const newRSI = Math.max(10, Math.min(90, baseRSI + (randomSeed - 0.5) * 8)); // Max 8 point RSI change
+            
+            const baseMA50 = baseCoin?.moving_avg_50 || basePrice;
+            const baseMA200 = baseCoin?.moving_avg_200 || basePrice;
+            const newMA50 = baseMA50 * (1 + priceVariation * 0.2); // MA moves slower
+            const newMA200 = baseMA200 * (1 + priceVariation * 0.05); // MA200 moves even slower
             
             return {
                 ...coin,
-                price: newPrice,
-                percent_change_24h: Math.max(-99, Math.min(99, coin.percent_change_24h + changeVariation)),
-                percent_change_7d: Math.max(-99, Math.min(99, (coin.percent_change_7d || 0) + (Math.random() - 0.5) * 2)),
+                price: updatedPriceHistory[updatedPriceHistory.length - 1], // Use price from history
+                percent_change_24h: new24hChange,
+                percent_change_7d: Math.max(-80, Math.min(80, (coin.percent_change_7d || 0) + (randomSeed - 0.5) * 1)),
                 volume_24h: newVolume,
                 market_cap: newMarketCap,
                 price_history: updatedPriceHistory,
                 volume_history: updatedVolumeHistory,
                 market_cap_history: updatedMarketCapHistory,
-                // Enhanced technical indicators
                 rsi: newRSI,
                 moving_avg_50: newMA50,
                 moving_avg_200: newMA200,
-                volatility_score: Math.max(1, Math.min(10, (coin.volatility_score || 5) + (Math.random() - 0.5) * 1.5)),
-                social_sentiment: Math.max(0, Math.min(1, (coin.social_sentiment || 0.5) + (Math.random() - 0.5) * 0.15)),
-                fear_greed_index: Math.max(0, Math.min(100, (coin.fear_greed_index || 50) + (Math.random() - 0.5) * 10)),
-                correlation_btc: Math.max(-1, Math.min(1, (coin.correlation_btc || 0.5) + (Math.random() - 0.5) * 0.1)),
-                // Add real-time market indicators
-                support_level: newPrice * (0.85 + Math.random() * 0.1),
-                resistance_level: newPrice * (1.05 + Math.random() * 0.1)
+                volatility_score: Math.max(1, Math.min(10, (coin.volatility_score || 5) + (randomSeed - 0.5) * 0.5)),
+                social_sentiment: Math.max(0, Math.min(1, (coin.social_sentiment || 0.5) + (randomSeed - 0.5) * 0.05)),
+                fear_greed_index: Math.max(0, Math.min(100, (coin.fear_greed_index || 50) + (randomSeed - 0.5) * 3)),
+                correlation_btc: Math.max(-1, Math.min(1, (coin.correlation_btc || 0.5) + (randomSeed - 0.5) * 0.02)),
+                support_level: updatedPriceHistory[updatedPriceHistory.length - 1] * (0.92 + randomSeed * 0.03),
+                resistance_level: updatedPriceHistory[updatedPriceHistory.length - 1] * (1.05 + randomSeed * 0.03)
             };
         });
         
         // Update the mock data for next request to maintain continuity
         MOCK_DATA.forEach((coin, index) => {
             if (liveData[index]) {
-                Object.assign(coin, liveData[index]);
+                // Only update the current values, keep base values intact
+                Object.assign(coin, {
+                    ...liveData[index],
+                    base_price: BASE_DATA[index]?.base_price || coin.price,
+                    base_percent_change_24h: BASE_DATA[index]?.base_percent_change_24h || coin.percent_change_24h,
+                    base_volume_24h: BASE_DATA[index]?.base_volume_24h || coin.volume_24h
+                });
             }
         });
         
@@ -440,9 +534,239 @@ app.get('/api/crypto-data', (req: express.Request, res: express.Response): void 
         res.json({
             success: true,
             data: liveData,
-            timestamp: new Date().toISOString(),
+            timestamp: now.toISOString(),
+            clock_synced: secondsInMinute <= 5,
             total_coins: liveData.length,
-            update_interval: '60s',
+            update_interval: 'Every minute (clock-synced)',
+            market_indicators: {
+                total_market_cap: marketTotalCap,
+                average_change_24h: avgChange,
+                bullish_coins: liveData.filter(c => c.percent_change_24h > 0).length,
+                bearish_coins: liveData.filter(c => c.percent_change_24h < 0).length,
+                high_volume_coins: liveData.filter(c => c.volume_24h > 1e9).length
+            }
+        });
+    } catch (error) {
+        console.error('Error in /api/crypto-data:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Internal server error'
+        });
+    }
+});
+
+// Helper function to generate realistic price history with proper variation
+function generateRealisticPriceHistory(currentPrice: number, periods: number, seed: number): number[] {
+    const history: number[] = [];
+    let price = currentPrice;
+    
+    // Create a deterministic but varied price history
+    for (let i = periods; i >= 0; i--) {
+        const timeFactor = i / periods; // 1.0 to 0.0
+        const cycleFactor = Math.sin((seed + i) * 0.1) * 0.02; // 2% cycle
+        const noiseFactor = (Math.sin((seed * 7 + i * 3) * 0.3) * 0.5 + Math.sin((seed * 11 + i * 5) * 0.7) * 0.3) * 0.03; // 3% noise
+        const trendFactor = (timeFactor - 0.5) * 0.01; // 1% trend toward current
+        
+        const totalChange = cycleFactor + noiseFactor + trendFactor;
+        price = currentPrice * (1 + totalChange * (1 + timeFactor)); // Stronger variation in the past
+        price = Math.max(currentPrice * 0.5, Math.min(currentPrice * 1.8, price)); // Keep reasonable bounds
+        
+        history.unshift(price);
+    }
+    
+    // Smooth the transition to current price over last 5 periods
+    const targetPrice = currentPrice;
+    for (let i = Math.max(0, history.length - 5); i < history.length; i++) {
+        const weight = (i - (history.length - 5)) / 4; // 0 to 1
+        const currentVal = history[i];
+        history[i] = currentVal + (targetPrice - currentVal) * weight * 0.8; // 80% adjustment
+    }
+    
+    // Ensure last price is exactly the current price
+    history[history.length - 1] = currentPrice;
+    
+    return history;
+}
+
+// Helper function to generate realistic volume history
+function generateRealisticVolumeHistory(currentVolume: number, periods: number, seed: number): number[] {
+    const history: number[] = [];
+    
+    for (let i = periods; i >= 0; i--) {
+        const timeFactor = i / periods;
+        const cycleFactor = Math.sin((seed + i) * 0.15) * 0.3; // 30% cycle
+        const spikeFactor = Math.random() < 0.1 ? Math.random() * 0.5 : 0; // 10% chance of 50% spike
+        const noiseFactor = (Math.random() - 0.5) * 0.2; // 20% noise
+        
+        const totalChange = cycleFactor + spikeFactor + noiseFactor;
+        let volume = currentVolume * (1 + totalChange);
+        volume = Math.max(currentVolume * 0.2, Math.min(currentVolume * 3, volume));
+        
+        history.unshift(volume);
+    }
+    
+    // Smooth transition to current volume
+    for (let i = Math.max(0, history.length - 3); i < history.length; i++) {
+        const weight = (i - (history.length - 3)) / 2; // 0 to 1
+        const currentVal = history[i];
+        history[i] = currentVal + (currentVolume - currentVal) * weight * 0.6;
+    }
+    
+    history[history.length - 1] = currentVolume;
+    
+    return history;
+}
+
+// API Routes with proper error handling
+app.get('/api/crypto-data', (req: express.Request, res: express.Response): void => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString();
+    const secondsInMinute = now.getSeconds();
+    
+    // Initialize base data if needed
+    initializeBaseData();
+    
+    // Log if this is a clock-aligned request (within first 5 seconds of minute)
+    if (secondsInMinute <= 5) {
+        console.log(`📡 🕐 Clock-synced /api/crypto-data request at ${timeString} (${secondsInMinute}s past minute)`);
+    } else {
+        console.log(`📡 /api/crypto-data called at ${timeString}`);
+    }
+    
+    try {
+        // Add more realistic and controlled variations
+        const liveData: CoinData[] = MOCK_DATA.map((coin: CoinData, index: number) => {
+            // Use time-based seed for consistent but changing data
+            const timeSeed = Math.floor(now.getTime() / 60000); // Changes every minute
+            const randomSeed = ((coin.id * timeSeed) % 1000) / 1000; // Pseudo-random but consistent per minute
+            
+            // Get base values to prevent accumulation
+            const baseCoin = BASE_DATA[index];
+            const basePrice = baseCoin?.base_price || coin.price;
+            const baseChange24h = baseCoin?.base_percent_change_24h || coin.percent_change_24h;
+            const baseVolume = baseCoin?.base_volume_24h || coin.volume_24h;
+            
+            // Create realistic variations from base values (not accumulated)
+            const priceVariation = (randomSeed - 0.5) * 0.04; // Max 4% variation from base
+            const changeVariation = (randomSeed - 0.5) * 2; // Max 2% variation from base change
+            const volumeVariation = (randomSeed - 0.5) * 0.3; // Max 30% variation from base volume
+            
+            // Calculate new values from base, not from previous values
+            const newPrice = Math.max(0.01, basePrice * (1 + priceVariation));
+            const newVolume = Math.max(1000000, baseVolume * (1 + volumeVariation));
+            const newMarketCap = newPrice * coin.circulating_supply;
+            
+            // Calculate realistic 24h change (from base + small variation)
+            const new24hChange = Math.max(-50, Math.min(50, baseChange24h + changeVariation));
+            
+            // IMPROVED: Create more varied price history with realistic price movements
+            let updatedPriceHistory: number[];
+            let updatedVolumeHistory: number[];
+            
+            if (coin.price_history && coin.price_history.length >= 7) {
+                // For existing price history, create more realistic updates
+                const currentHistory = [...coin.price_history];
+                
+                // Add some volatility to the historical data to prevent straight lines
+                const volatilityFactor = 0.02; // 2% max change per update
+                const trendFactor = (randomSeed - 0.5) * volatilityFactor;
+                
+                // Update the last few prices to create more movement
+                for (let i = Math.max(0, currentHistory.length - 3); i < currentHistory.length; i++) {
+                    const localVariation = (Math.sin(timeSeed * 0.1 + i) * 0.5 + (Math.random() - 0.5)) * volatilityFactor;
+                    currentHistory[i] = Math.max(0.01, currentHistory[i] * (1 + localVariation));
+                }
+                
+                // Shift and add new price
+                updatedPriceHistory = [...currentHistory.slice(1), newPrice];
+                
+                // Ensure the progression makes sense
+                const lastPrice = updatedPriceHistory[updatedPriceHistory.length - 2];
+                const maxChange = lastPrice * 0.05; // Max 5% change from previous
+                const adjustedNewPrice = Math.max(
+                    lastPrice - maxChange, 
+                    Math.min(lastPrice + maxChange, newPrice)
+                );
+                updatedPriceHistory[updatedPriceHistory.length - 1] = adjustedNewPrice;
+            } else {
+                // Generate fresh price history with proper variation
+                updatedPriceHistory = generateRealisticPriceHistory(newPrice, 30, timeSeed + index);
+            }
+            
+            // Similar approach for volume history
+            if (coin.volume_history && coin.volume_history.length >= 7) {
+                const currentVolumeHistory = [...coin.volume_history];
+                
+                // Add volume volatility
+                for (let i = Math.max(0, currentVolumeHistory.length - 3); i < currentVolumeHistory.length; i++) {
+                    const volumeVariation = (Math.random() - 0.5) * 0.3; // 30% max volume change
+                    currentVolumeHistory[i] = Math.max(1000000, currentVolumeHistory[i] * (1 + volumeVariation));
+                }
+                
+                updatedVolumeHistory = [...currentVolumeHistory.slice(1), newVolume];
+            } else {
+                updatedVolumeHistory = generateRealisticVolumeHistory(newVolume, 30, timeSeed + index);
+            }
+            
+            const updatedMarketCapHistory = coin.market_cap_history ?
+                [...coin.market_cap_history.slice(1), newMarketCap] :
+                updatedPriceHistory.map((price, i) => price * coin.circulating_supply);
+            
+            // Update technical indicators with controlled variations
+            const baseRSI = baseCoin?.rsi || 50;
+            const newRSI = Math.max(10, Math.min(90, baseRSI + (randomSeed - 0.5) * 8)); // Max 8 point RSI change
+            
+            const baseMA50 = baseCoin?.moving_avg_50 || basePrice;
+            const baseMA200 = baseCoin?.moving_avg_200 || basePrice;
+            const newMA50 = baseMA50 * (1 + priceVariation * 0.2); // MA moves slower
+            const newMA200 = baseMA200 * (1 + priceVariation * 0.05); // MA200 moves even slower
+            
+            return {
+                ...coin,
+                price: updatedPriceHistory[updatedPriceHistory.length - 1], // Use price from history
+                percent_change_24h: new24hChange,
+                percent_change_7d: Math.max(-80, Math.min(80, (coin.percent_change_7d || 0) + (randomSeed - 0.5) * 1)),
+                volume_24h: newVolume,
+                market_cap: newMarketCap,
+                price_history: updatedPriceHistory,
+                volume_history: updatedVolumeHistory,
+                market_cap_history: updatedMarketCapHistory,
+                rsi: newRSI,
+                moving_avg_50: newMA50,
+                moving_avg_200: newMA200,
+                volatility_score: Math.max(1, Math.min(10, (coin.volatility_score || 5) + (randomSeed - 0.5) * 0.5)),
+                social_sentiment: Math.max(0, Math.min(1, (coin.social_sentiment || 0.5) + (randomSeed - 0.5) * 0.05)),
+                fear_greed_index: Math.max(0, Math.min(100, (coin.fear_greed_index || 50) + (randomSeed - 0.5) * 3)),
+                correlation_btc: Math.max(-1, Math.min(1, (coin.correlation_btc || 0.5) + (randomSeed - 0.5) * 0.02)),
+                support_level: updatedPriceHistory[updatedPriceHistory.length - 1] * (0.92 + randomSeed * 0.03),
+                resistance_level: updatedPriceHistory[updatedPriceHistory.length - 1] * (1.05 + randomSeed * 0.03)
+            };
+        });
+        
+        // Update the mock data for next request to maintain continuity
+        MOCK_DATA.forEach((coin, index) => {
+            if (liveData[index]) {
+                // Only update the current values, keep base values intact
+                Object.assign(coin, {
+                    ...liveData[index],
+                    base_price: BASE_DATA[index]?.base_price || coin.price,
+                    base_percent_change_24h: BASE_DATA[index]?.base_percent_change_24h || coin.percent_change_24h,
+                    base_volume_24h: BASE_DATA[index]?.base_volume_24h || coin.volume_24h
+                });
+            }
+        });
+        
+        // Add market-wide indicators
+        const marketTotalCap = liveData.reduce((sum, coin) => sum + coin.market_cap, 0);
+        const avgChange = liveData.reduce((sum, coin) => sum + coin.percent_change_24h, 0) / liveData.length;
+        
+        res.json({
+            success: true,
+            data: liveData,
+            timestamp: now.toISOString(),
+            clock_synced: secondsInMinute <= 5,
+            total_coins: liveData.length,
+            update_interval: 'Every minute (clock-synced)',
             market_indicators: {
                 total_market_cap: marketTotalCap,
                 average_change_24h: avgChange,

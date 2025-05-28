@@ -10,15 +10,29 @@ export class CoinList {
         const { coins, onCoinClick } = props;
         const fragment = document.createDocumentFragment();
         
-        coins.forEach((coin, index) => {
-            const cardElement = CoinCard.create({
-                coin,
-                index,
-                onClick: onCoinClick
-            });
-            fragment.appendChild(cardElement);
-        });
+        const listContainer = document.createElement('div');
+        listContainer.className = 'coin-list';
         
+        // Use requestAnimationFrame for better performance
+        const renderBatch = (startIndex: number, batchSize: number = 8) => {
+            const endIndex = Math.min(startIndex + batchSize, coins.length);
+            
+            for (let i = startIndex; i < endIndex; i++) {
+                const cardElement = CoinCard.create({
+                    coin: coins[i],
+                    index: i,
+                    onClick: onCoinClick
+                });
+                listContainer.appendChild(cardElement);
+            }
+            
+            if (endIndex < coins.length) {
+                requestAnimationFrame(() => renderBatch(endIndex, batchSize));
+            }
+        };
+        
+        renderBatch(0);
+        fragment.appendChild(listContainer);
         return fragment;
     }
 }
