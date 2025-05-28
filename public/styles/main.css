@@ -112,7 +112,7 @@ body {
 
 .update-timer {
     cursor: default;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: monospace;
     background: rgba(0,0,0,0.4);
 }
 
@@ -178,7 +178,7 @@ body {
 .last-updated {
     color: var(--text-secondary);
     font-size: 0.85rem;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: monospace;
 }
 
 .market-stats {
@@ -216,7 +216,7 @@ body {
     color: var(--accent-color);
     font-size: 1rem;
     font-weight: 800;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: monospace;
     text-shadow: 0 0 10px rgba(0,212,255,0.3);
 }
 
