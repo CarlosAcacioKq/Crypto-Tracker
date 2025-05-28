@@ -15,9 +15,8 @@
     "watch-server": "npx tsc --project tsconfig.server.json --watch",
     "serve": "nodemon dist/app.js",
     "clean": "node -e \"const fs=require('fs'); ['dist','public'].forEach(d => { try { fs.rmSync(d, {recursive:true, force:true}); } catch(e) {} });\"",
-    "vercel-build": "npm run clean && npm run build-client && npm run build-server && npm run copy-assets",
-    "test": "echo 'No tests specified'",
-    "prepare-deploy": "npm run vercel-build && echo 'Ready for deployment to any platform'"
+    "vercel-build": "npm run build",
+    "test": "echo 'No tests specified'"
   },
   "homepage": "https://crypto-tracker-pro.vercel.app",
   "repository": {
